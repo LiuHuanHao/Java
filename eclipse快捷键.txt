@@ -1,0 +1,46 @@
+package liu;
+
+import java.util.Date;
+import java.util.Scanner;
+
+/**
+ * 
+ * @author 刘焕濠
+ *  A : main方法 main+alt+/回车即可
+ *   B: 输出语句 syso+alt+/回车即可 
+ *   C:
+ *         帮助你补齐一些你记不住的东西 
+ *   格式化:ctr+shift+f
+ *   导入包:ctrl+shift+o
+ *   注释：ctrl+/,取消注释再来一次
+ *             多行注释:ctrl+shif+/,ctr+shift+\
+ *   代码上下移动:
+ *          选中代码alt+上下箭头
+ *   
+ */
+public class Demo {
+	public static void main(String[] args) {
+		System.out.println();
+		
+		Scanner sc=new Scanner(System.in);
+		Date d=new Date();
+		
+	}
+
+}
+
+	// 利用alt+shift+s再按c生成无参构造函数
+	public Student() {
+		super();
+		// 生成构造函数
+	}
+	// 利用alt+shift+s再按o可以生成有参函数
+
+	public Student(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+	//利用alt+shift+s再按R后按tab全选再按四次tab点击enter成功
+	//生成getter和setter
+	
