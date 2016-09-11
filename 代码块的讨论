@@ -1,0 +1,127 @@
+
+/**
+ *猜数字小游戏
+ *@author ASUSAuthor:刘焕濠
+ */
+import java.util.Scanner;
+public class ScannerDemo
+{
+	static{
+		System.out.println("运行函数静态代码块");
+	}
+	public static void main(String[] args) {
+		//程序产生一个随机数(被猜的)
+		/*int number=(int)(Math.random()*100)+1;
+		//Math.random()产生大于等于0和小于1数字
+		//给出多次猜的机会，猜中就结束
+		while(true)
+		{
+			//键盘录入必须在循环里面，否则会造成多次判断
+			//随机数必须放在循环外，这样可以保证所要猜的数字是固定的
+			//键盘录入(你猜的) 
+			Scanner sc=new Scanner(System.in);
+			System.out.println("你猜的数据为(1-100)");
+			int guessNumber=sc.nextInt();
+			//把你猜的和被猜的进行比较
+			if(guessNumber>number)
+				System.out.println("你猜的数据大了");
+			else if(guessNumber<number)
+				System.out.println("你猜的数据小了");
+			else
+			{
+				System.out.println("恭喜你猜中了");
+				break;
+			}
+			}*/
+		//在主类中运行时先运行主类静态代码块，然后执行main函数
+		//生成其他类类型时先只执行一次静态函数
+		//然后每生成一个对象就执行一次构造代码块
+		//最后再执行一次构造方法
+		/*System.out.println("我是main方法");
+		Student s1=new Student();
+		Student s2=new Student();*/
+		
+		/*
+		 * 静态内容是随着类的加载而加载
+		 * 静态代码内容会优先执行，子类初始化之前会进行父类的初始化
+		 */
+		Zi z=new Zi();
+		//先执行静态代码块父子，在执行父的其他代码块，在执行子的
+	}
+	
+}
+/*class Student
+{
+	static {
+		System.out.println("sutdent静态代码块");
+	}
+	{
+		System.out.println("student构造代码块");
+	}
+	public Student()
+	{
+		System.out.println("student构造方法");
+	}
+}*/
+
+class Fu
+{
+	static{
+		System.out.println("静态代码块Fu");
+	}
+	{
+		System.out.println("构造代码块fu");
+	}
+	public Fu()
+	{
+		System.out.println("构造方法fu");
+	}
+}
+
+class Zi extends Fu
+{
+	static 
+	{
+		System.out.println("静态代码块ZI");
+	}
+	{
+		System.out.println("构造代码块Zi");
+	}
+	public Zi()
+	{
+		System.out.println("构造方法ZI");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
