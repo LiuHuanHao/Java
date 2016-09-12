@@ -1,0 +1,177 @@
+/*
+ * A:父类中私有方法不能被重写，因为
+ * 		父类私有方法根本不能被继承
+ * B:子类重写父类方法时，访问权限不能更低，
+ * 		最好一致
+ * C:父类静态方法，子类必须也静态
+ * 基本类型的值是不能发生改变的
+ * 引用类型的地址值不能发生改变，但是
+ * 该对象的内存的值是可以改变的
+ * 
+ * final student ss=new Student();
+ * System.out.println(ss.age);
+ * ss.age=100;
+ * System.out.println(ss.age);  final对象中的成员变量
+ * 是可以改变的     ss=new Student() 这是错误的，因为
+ * final的对象不允许申请为新的对象
+ * 多态中成员访问特点:
+ * 	静态方法和类相关，算不上重写，所以访问还是看左边
+ * 多态提升了代码的扩展性，生成相应的的鼠，猪等等时
+ * 不需要特定的定义各种类型，只需要定义为动物类型即可
+ * 多态的弊端是不能使用子类的特有功能
+ * 向上转型:Fu f=new Zi();
+ * 向下转型:Zi z=(Zi)f;   //要求f必须是能够转换为Zi的
+ * 
+ *孔子代表孔子爹去代课
+ *class 孔子爹
+ *{
+ *	public int age=40;
+ *	public void teach()
+ *	{
+ *		System.out.println("讲解javaSE");
+ *	}
+ *}
+ *class 孔子 extends 孔子爹
+ *{
+ *		public int age=20;
+ *		public void teach()
+ *		{	
+ *				System.out.println("讲解论语");
+ *      }
+ *      public void playGame()
+ *      {
+ *      	System.out.println("英雄联盟");
+ *      }
+ *}
+ *向上转型
+ *		孔子爹   k爹=new 孔子();
+ *		System.out.println(k爹.age);   //40   一开始装作爹爹的年龄
+ *		k爹.teach();    //讲解论语，露馅
+ *		k爹.playGame();    //这是儿子才能做的    
+ *		讲完了。脱下爹的装备，还上自己的服装
+ *		孔子    k=(孔子)k爹;        卸下服装后还是孔子
+ *		成员变量编译时看左边，运行时也看左边！！！！！
+ *		方法编译时看左边，运行时看右边
+ *		
+ *		接口成员特点:
+ *			成员变量:只能是常量！！！！！ 并且是静态的
+ *					默认修饰符 public static final 
+ *					不能为私有类型，没有意义
+ *			构造方法:接口没有构造方法
+ *			成员方法:只能是抽象方法。默认修饰符
+ *				        为     public abstract  
+ *
+ */
+class X
+{
+	Y b=new Y();
+	X()
+	{
+		System.out.println("X");
+	}
+}
+class Y
+{
+	Y()
+	{
+		System.out.println("Y");
+	}
+}
+public class Z extends X
+{
+	Y y=new Y();
+	Z()
+	{
+		super();
+		System.out.println("Z");
+	}
+	public static void main(String[] args)
+	{
+		new Z();
+		
+	}
+}
+/*
+			虽然子类中的构造方法默认有一个super()
+			初始化的时候，不是按照那个顺序进行的
+			而是按照分层进行的，它仅仅表示要先初始化父类数据
+			再初始化子类数据
+*/
+//******************接口与抽象类作为形式参数*******************************
+//定义一个爱好的的接口
+/*interface Love
+{
+	public abstract void Love();
+}
+
+class LoveDemo
+{
+	public void method(Love L)
+	{
+		L.Love();
+	}
+}
+
+//定义具体实现接口
+class Teacher implements Love
+{
+	public void Love()
+	{
+		System.out.println("老师爱学生");
+	}
+}
+class TeacherTest
+{
+	public static void main(String[] args)
+	{
+		LoveDemo ld=new LoveDemo();
+		Love l=new Teacher();     //多态，创建老师类型的对象，Love作为变量类型
+		ld.method(l);
+	}
+}
+*/
+//抽象类作为形式参数
+//抽象类与接口是可以作为形式，只不过是需要建立具体的继承才能使用
+abstract class Person
+{
+	public abstract void study();
+}
+class PersonDemo
+{
+	public void method(Person p)
+	{
+		p.study();
+	}
+}
+
+//定义一个具体的学生类
+class Student extends Person
+{
+	public void study()
+	{
+		System.out.println("Good Good Study Day Day Up");
+	}
+}
+class PersonTest
+{
+	//由于抽象是没有对应的具体类，那么我们就要定义一个具体类
+	public static void main(String[] args) {
+		PersonDemo pd=new PersonDemo();
+		Person p=new Student();
+		pd.method(p);
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
