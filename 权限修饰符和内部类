@@ -64,16 +64,16 @@ class TeacherTest
 //四种权限修饰符
 /*
  			     本类                 同一个包下（子类和无关类）
- private    Y		                N
- 默认			  Y		                Y
-protected 	Y		                Y
-public  	  Y		                Y
+ private    			Y		                N
+ 默认		                Y		                Y
+protected 			Y		                Y
+public  		        Y		                Y
 
- 			    不同包下子类        不同包下无关类
- private    N				            N
- 默认		  	N		 		            N
-protected 	Y		 	          	  N
-public    	Y		 		            Y
+ 			    不同包下子类        	不同包下无关类
+ private			 N				  N
+ 默认		  		 N		                  N
+protected 		         Y		 	          N
+public    	                 Y		 		  Y
  
 private同一个类下可以进行访问，其他所有类都不可以进行访问
 默认形式为同一个包下可以进行访问
