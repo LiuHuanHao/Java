@@ -1,0 +1,206 @@
+
+//抽象类作为返回对象，返回的是该抽象类的子类对象
+abstract class Person
+{
+	public abstract void study();
+}
+class PersonDemo
+{
+	public Person getPerson()
+	{
+		return new Student();
+	}
+}
+
+class Student extends Person
+{
+	public void study()
+	{
+		System.out.println("Good Good Study Day Day Up");
+	}
+}
+
+public class PersonTest {
+	public static void main(String[] args)
+	{
+		/*PersonDemo pd=new PersonDemo();
+		Person p=pd.getPerson();
+		p.study();*/
+	}
+
+}
+//**************************************
+//接口返回的是该接口的实现类对象
+interface Love
+{
+	public abstract void Love();
+}
+class LoveDemo
+{
+	public Love getLove()
+	{
+		return new Teacher();
+	}
+}
+//定义具体类实现接口
+class Teacher implements Love
+{
+	public void Love()
+	{
+		System.out.println("老师爱学生");
+	}
+}
+
+class TeacherTest
+{
+	public static void main(String[] args)
+	{
+		LoveDemo ld=new LoveDemo();
+		Love l=ld.getLove();   //返回老师的类，定义为Love类型
+		l.Love();
+	}
+}
+
+//四种权限修饰符
+/*
+ 			     本类                 同一个包下（子类和无关类）
+ private    Y		                N
+ 默认			  Y		                Y
+protected 	Y		                Y
+public  	  Y		                Y
+
+ 			    不同包下子类        不同包下无关类
+ private    N				            N
+ 默认		  	N		 		            N
+protected 	Y		 	          	  N
+public    	Y		 		            Y
+ 
+private同一个类下可以进行访问，其他所有类都不可以进行访问
+默认形式为同一个包下可以进行访问
+protected为子类可以进行访问，同一个包下的其他类也可以进行访问！！！
+public为所有类型的类都可以进行访问 
+ */
+
+/*
+	A:内部类可以直接访问外部类的成员，包括私有
+	B:外部类要访问内部类的成员，必须创建对象
+	内部类的位置：
+		成员位置：在成员位置定义的类被称为成员内部类
+		局部位置：在局部位置定义的类被称为局部内部类（函数里面）
+*/
+
+/*class Outer
+{
+	private int num=10;
+	class Inner    //成员内部类
+	{
+		public void show()
+		{
+			System.out.println(num);  //可以直接使用私有成员num
+		}
+	}
+	public void method()
+	{
+		class en       //在函数里面则为局部内部类
+		{
+			
+		}
+		//show();   单独的show会显示找不到符号，需要new一个内部类的对象
+		Inner i=new Inner();     //在这里与成员内部类为同一级，不需要new outer
+		i.show();  
+	}
+}
+*/
+/*class InnerClassDemo3
+{
+	public static void main(String[] args)
+	{
+		//需求：我要访问Inner类的show方法
+		//Inner i=new Inner();   错误，与内部类不为同一级，无法引用
+		Outer.Inner oi=new Outer().new Inner();
+		//必须通过逐级索引才能使用内部类，定义的类型也要正确
+		oi.show();
+	}
+}*/
+/*
+ 	案例:我有一个人，人有身体，体内有心脏
+ */
+
+/*class Body
+{
+	private class Heart    //内部类修饰为private，保护内部安全
+	{
+		public void Operator()
+		{
+			System.out.println("心脏搭桥");
+		}
+	}
+	public void method()
+	{
+		if("你是医生")     //设置条件访问
+		{
+			Heart h=new Heart();
+			h.Operator();
+		}
+	}
+}
+
+Body.Heart bh=new Body().new Heart();
+//bh.Operator();   加上私有心脏就不能被人随便开刀了
+Body b=new Body();
+b.method();*/
+
+//成员内部类修饰符为static时为了方便访问数据，静态内部类访问的
+//外部类数据必须用静态修饰
+class Outer
+{
+	private int num=10;
+	private static int num2=200;
+	//内部类可以用静态修饰是因为其为外部类的成员
+	public static class Inner 
+	{
+		public void show()
+		{
+			System.out.println("num2");  //在这里不能使用num,因为其不为static类型
+		}
+		public static  void show2()
+		{
+			System.out.println(num2);
+		}
+	}
+}
+
+class InnerClassDemo
+{
+	public static void main(String[] args) {
+		//Outer.Inner oi=new Outer().new Inner(); static成员内部类不能这样new
+		//被静态修饰之后是不能被外部对象访问的
+		//成员内部类被静态修饰后的访问方式是:
+		Outer.Inner oi=new Outer.Inner();
+		oi.show();
+		oi.show2();
+		
+		//由于show2方法为静态，也可以直接使用类方法调用
+		Outer.Inner.show2();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
