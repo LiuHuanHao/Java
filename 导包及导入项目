@@ -1,0 +1,29 @@
+package pratice;
+
+import animal.Dog;
+import animal.animal;
+
+public class aa {
+	public static void main(String[] args) {
+		//抽象类不能被实例化
+		//animal a=new animal();
+		animal a=new Dog();
+		a.eat();
+		a.sleep();
+		Dog d=(Dog)a;
+		d.jump();
+		/*
+		//********eclipse制作帮助文档**************
+		右键--export-Java-Javadoc-Finish
+		制作jar包
+		右键--export-Java-jar-自己指定路径和一个名称--Finish
+		使用jar包
+		复制项目路径并添加至构建路径
+		导入项目
+		在项目区右键找到import
+		找到General，展开并找到 Existing into Workspace
+		点击next然后选择你要选择的项目名称
+		*/
+	}
+
+}
