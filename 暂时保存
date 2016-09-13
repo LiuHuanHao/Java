@@ -205,7 +205,7 @@ class OuterDemo
 		/*
 		 * Outer.method()可以看出method应该是Outer
 		 * 中的一个静态方法
-		 * Outer.method().show()可以看出metho
+		 * Outer.method().show()可以看出method
 		 * 返回值是一个对象，有由于接口Inter中有
 		 * show方法，所以method方法返回类型是一个接口
 		 */
