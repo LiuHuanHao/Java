@@ -1,0 +1,112 @@
+package haha;
+/*
+ * Object 类是累层次结构的根类，每个类都以其作为超类
+ * 每个类都直接或间接继承自Object类
+ *Object类的方法:
+ * 		public int hashCode()返回该对象的哈希码值
+ * 						返回的值与地址有关，但不是
+ * 						实际的地址符
+ * 		public final Class getClass(); 返回运行时类
+ * 		Class类的方法
+ * 			public String getName() 返回class的String名称
+ * 		public String toString()
+ * 		
+ */
+public class StudentTest {
+	public static void main(String[] args) {
+		Student s1=new Student();
+		//因为所有的对象都继承自Object，所以可以直接使用hashCode方法
+		System.out.println(s1.hashCode());
+		Student s2=new Student();
+		System.out.println(s2.hashCode());
+		Student s3=s1;
+		System.out.println(s3.hashCode());
+		//指向相同的对象时哈希码值相同
+		System.out.println("--------------------");
+		Student s=new Student();
+		Class c=s.getClass();   //注意在这里Class第一个字母大写
+		String str=c.getName();
+		System.out.println(str);
+		//链式编程
+		String str2=s.getClass().getName();
+		System.out.println(str2);//haha.Student 返回包名和类名
+		System.out.println("-----------------");
+		Student1 s4=new Student1();
+		System.out.println(s4.hashCode());
+		System.out.println(s4.getClass().getName());
+		System.out.println("-------------");
+		System.out.println(s4.toString());
+		//toString()返回的值等价于this.getClass()+'@'+
+		//Integer.toHexString(this.hashCode())
+		//haha.Student1@7852e922
+		//Interger类下的一个静态方法
+		//			public static String toHexString(int i)
+		//把一个整数转换为十六进制表示的字符串
+		System.out.println(s4.getClass().getName()+'@'+Integer.toHexString(s4.hashCode()));
+		System.out.println(s4);
+		//注意:直接输出对象的名称就是调用该对象的toString()方法
+	}
+
+}
+class Student
+{
+	
+}
+class Student1
+{
+	private String name;
+	private int age;
+	public Student1() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Student1(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	/*
+	public String toString() {
+		// TODO Auto-generated method stub
+		//return super.toString();
+		return "姓名 "+this.name+"年龄 "+this.age;
+	}
+	*/
+	//直接调用父类的toString没有任何意义，建议所有子类都重写该方法
+	//自动生成toString()方法是不错的选择
+	public String toString() {
+		return "Student1 [name=" + name + ", age=" + age + "]";
+	}
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
