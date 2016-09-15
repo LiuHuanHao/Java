@@ -1,0 +1,109 @@
+package haha;
+
+public class StudentTest {
+	public static void main(String[] args) {
+		/*
+		 * ==:
+		 * 		基本类型比较的是指是否相同
+		 * 		引用类型比较的是地址符是否相同
+		 */
+		Student s1=new Student("林青霞",27);
+		Student s2=new Student("林青霞",27);
+		System.out.println(s1==s2);//比较的是地址符是否相同，在这里为false
+		Student s3=s1;
+		System.out.println(s1==s3);  //对象相同时返回true
+		System.out.println("-----------------");
+		System.out.println(s1.equals(s2));  //对象不同，返回值为false
+		System.out.println(s1.equals(s3));  //返回值为true 
+		//当手动重写方法后，比较的则是参数的值是否相同
+		Student s4=new Student("风清扬",30);
+		System.out.println(s1.equals(s4));  //参数不同，返回false
+	}
+
+}
+
+class Student
+{
+	private String name;
+	private int age;
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Student(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	/*public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		//return super.equals(obj);
+		//这里要改进，根据这里比较的成员变量决定返回true还是false
+		//这里就是要比较name和age
+		//但是name是String类型，而String是引用类型
+		//所以这里不能用==比较，应该用equals比较
+		//String的equals方法重写自Object类，比较的是字符串的内容是否相同
+		//当两个对象为同一个对象时，可以进行优化，不需要进行向下转型，直接判断
+		if(this==obj)
+		{
+			System.out.println("此时对象相同，不需要进行向下转型");
+			return true;
+		}
+	
+		//为了提高程序的健壮性，我先判断一下obj是不是学生的对象，
+		//如果是向下转型，不是直接返回false
+		//这时判断对象是否是某个类的对象
+		//对象名 instanceof 类名
+		if(!(obj instanceof Student))
+			return false ;
+			
+		//Obj类没有name与age,所以需要进行向下转型
+		Student s=(Student)obj;
+		
+		if(this.name.equals(s.name)&&this.age==s.age)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		//也可以用如下方法进行优化
+		System.out.println("对象不同，需要进行向下转型");
+		return this.name.equals(s.name)&&this.age==s.age;
+	}*/
+	//默认自带方法
+	public boolean equals(Object obj) {
+		if (this == obj)   //当对象相同时返回true
+			return true;
+		if (obj == null)   
+			return false;
+		if (getClass() != obj.getClass()) //同一个类创建的对象Class相同
+			return false;
+		Student other = (Student) obj;    //当为同一个类创建的对象并且不为同一个对象时
+		if (age != other.age)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+}
+	
+	
+
