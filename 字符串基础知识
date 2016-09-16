@@ -1,0 +1,94 @@
+package haha;
+
+import java.util.Scanner;
+
+/*
+ * 		构造方法:
+ * 			public String()  空构造
+ * 			public String(byte[] bytes) 把字节数组转换成字符串
+ * 			public String(char[] value) 把字符数组专程字符串
+ * 			public (char[] value,int index,int count) 把字符数组的一部分专程字符串
+ * 
+ * 字符串一旦被赋值就不能被改变
+ */
+public class StudentTest {
+	public static void main(String[] args) {
+		//public String 空构造
+		/*String s1=new String();
+		System.out.println("s1:"+s1);   //toString方法被重写了
+		System.out.println("s1.length():"+s1.length());
+		System.out.println("--------------------");
+		
+		//public String(byte[] bytes)
+		byte[] bys={97,98,99,100,101};
+		//将阿斯卡码一个一个转成字符
+		String s2=new String(bys);
+		System.out.println("s2:"+s2);
+		System.out.println("s2.length:"+s2.length());
+		System.out.println("-----------------------");
+		//public (byte[] value,int index,int length)，
+		String s3=new String(bys,1,3);
+		System.out.println("s3:"+s3);
+		System.out.println("s3.length:"+s3.length());
+		System.out.println("-------------------");
+		//public String(char[] value)
+		char[] chs={'a','b','c','d','e','爱','林','亲'};
+		String s4=new String(chs);
+		System.out.println("s4:"+s4);
+		System.out.println("s4.length:"+s4.length());
+		System.out.println("----------------------");
+		//public (char[] value,int index,int count)
+		String s5=new String(chs,2,4);
+		System.out.println("s5:"+s5);
+		System.out.println("s5.length:"+s5.length());
+		//***********************************
+		//下面两个赋值后的字符串内容一样，但是有所差别
+		String s6=new String("abcde");
+		System.out.println("s6:"+s6);
+		String s7="abcde";
+		System.out.println("s7:"+s7);*/
+		//**********************************
+		//String s=new String("hello") 和
+		//String s="hello"的区别
+		/*String s1=new String("hello");
+		String s2="hello";
+		System.out.println(s1==s2);  //false
+		System.out.println(s1.equals(s2));  //true
+*/
+		//********************************
+		/*
+		 * 字符串如果是变量相加，先开空间，再拼接
+		 * 如果是常量相加，是先加，再在常量池找
+		 */
+		String s1="hello";
+		String s2="world";
+		String s3="helloworld";
+		System.out.println(s3==s1+s2); //变量相加先开空间，地址改变
+		System.out.println(s3.equals(s1+s2)); //String自带equals方法用于比较内容
+		System.out.println(s3=="hello"+"world");//常量相加，地址没变
+		System.out.println(s3.equals("hello"+"world"));
+	}
+
+}
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
