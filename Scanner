@@ -1,0 +1,79 @@
+package haha;
+
+import java.util.Scanner;
+
+/*
+System类下有一个静态的字段:
+			public static final InputStream in;   标准的输入流，对应着键盘的录入
+  InputStream is=System.in
+  public boolean hasNextXxx();判断是否是某种类型的元素
+  public Xxx nextXxx()
+  public String nextLine();获取一个String类型的值
+
+*/
+public class StudentTest {
+	public static void main(String[] args) throws CloneNotSupportedException {
+		Scanner sc=new Scanner(System.in);
+		/*int x=sc.nextInt();       //没有进行数据类型的检测，当类型不符时会报错
+		//InputMismatchException
+		System.out.println("输入的数据为"+x);*/
+		/*if(sc.hasNextInt())
+		{
+			int x=sc.nextInt();
+			System.out.println("输入的数据为"+x);
+		}
+		else
+		{
+			System.out.println("输入的数据不为int");
+		}*/
+		/*int a=sc.nextInt();
+		int b=sc.nextInt();
+		System.out.println("a:"+a+",b:"+b);
+		System.out.println("--------------");*/
+		
+		/*String s1=sc.nextLine();
+		String s2=sc.nextLine();
+		System.out.println("s1:"+s1+",s2:"+s2);
+		System.out.println("------");
+		
+		//先获取int值，再获取一个字符串
+		//由于获取整形数据后回车符被当成了字符串的输入，出错！！
+		/*int a1=sc.nextInt();
+		String s=sc.nextLine();
+		System.out.println("a1:"+a1+",s:"+s);
+		System.out.println("--------");*/
+		//解决方案:
+		//	A:先获取一个数值后，再创建一个新的键盘录入对象
+		//	B:把所有的数据都按照字符串获取，然后要什么就对应的进行转换
+		int a1=sc.nextInt();
+		Scanner sc2=new Scanner(System.in);    //再创建一个键盘录入对象
+		String s=sc2.nextLine();
+		System.out.println("a1:"+a1+",s:"+s);
+		System.out.println("--------");
+		
+		
+	}
+
+}
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
