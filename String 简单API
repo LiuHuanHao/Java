@@ -1,0 +1,128 @@
+package dferd;
+
+import java.util.Scanner;
+/*
+ * 	判断功能:
+ * 		boolean equals(Object obj)
+ * 		boolean equalsIngnoreCase(String str)
+ * 		boolean contains(String str) 判断大字符串是否包含小字符串
+ * 		boolean startsWith(String str)  判断是否以某个指定的字符串开头
+ * 		boolean endsWith(String str)  判定字符串是否以指定某个指定字符串结尾    
+ * 		boolean isEmpty();
+ * 
+ */
+
+public class qsq {
+	public static void main(String[] args) {
+			
+			/*String s1="helloworld";
+			String s2="helloworld";
+			String s3="HelloWorld";
+			//boolean equalsIngnoreCase(String str)
+			System.out.println(s1.equals(s3)); //false区分大小写
+			System.out.println(s1.equalsIgnoreCase(s3));//true区分大小写
+			//boolean contains(String str)
+			System.out.println(s1.contains("hello"));  //true有包含
+			System.out.println(s1.contains("hw"));   //没包含false
+			//boolean startsWith(String str) 
+			System.out.println("----------------");
+			System.out.println(s1.startsWith("h"));
+			System.out.println(s1.startsWith("hello"));
+			System.out.println(s1.startsWith("world"));  //不以world为开始，显示false
+			System.out.println("---------------");
+			String s4="";
+			String s5=null;
+			System.out.println(s4.isEmpty());//内容为空所以返回true 
+			System.out.println(s5.isEmpty());*///报错Exception in thread
+			//没有对象不能调用方法，空指针异常
+		/*
+		 * 	模拟登录,给三次机会，并提示还有几次
+		 * 	分析:
+		 * 		A:定义用户名，已存在的
+		 * 		B:键盘录入用户名和密码
+		 * 		C:比较用户名和密码
+		 * 			如果相同则登录成功
+		 * 		D:给三次机会用循环改进，最好能用for循环
+		 */
+		String userName="admin";
+		String passWord="admin";
+		for(int x=0;x<3;x++)
+		{
+		
+		//键盘录入用户名和密码
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入用户名");
+		String name=sc.nextLine();
+		System.out.println("请输入密码:");
+		String pwd=sc.nextLine();
+		if(name.equals(userName)&&(pwd.equals(passWord)))
+		{
+			System.out.println("登陆成功");
+			//登陆成功就应该退出
+			//break; 登录成功猜数字游戏
+			GuessNumberGame.start();//有调用可见该方法为静态函数
+		}
+		else
+		{
+			//如果是最后一次应该换一种提示
+			if((2-x)==0)
+			{
+				System.out.println("账号被锁定");
+			}
+			else
+			System.out.println("登录失败,你还有"+(2-x)+"此机会");
+		}
+		}
+	}
+
+}
+
+
+class GuessNumberGame
+{
+	private GuessNumberGame()  //设为私有函数，禁止被new
+	{
+		
+	}
+	public static void start()
+	{
+		//产生随机数字
+		int number=(int)(Math.random()*100)+1;
+		while(true)
+		{
+			//键盘录入
+			Scanner sc=new Scanner(System.in);
+			System.out.println("请输入你要猜的数据(1-100):");
+			int guessNumber=sc.nextInt();
+			//判断
+			if(guessNumber>number)
+				System.out.println("你猜的数据大了");
+			else if(guessNumber<number)
+				System.out.println("你猜的数据小了");
+			else
+			{
+				System.out.println("恭喜你，猜中了");
+				break;
+			}
+			}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
