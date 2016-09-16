@@ -1,7 +1,7 @@
 package haha;
 /*
  * protected void finalize();用于垃圾回收
- * protected Objected clone();
+ * protected Objecte clone();
  * 创建并返回此对象的一个副本
  * Cloneable此类实现Cloneable接口，这是标记接口
  * 告诉我们可以实现这个对象的复制
