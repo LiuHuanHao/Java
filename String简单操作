@@ -1,0 +1,126 @@
+package haha;
+
+import java.util.Scanner;
+/*
+ * String类的获取功能
+ * int length()
+ * char charAt(int index);  获取指定索引位置的字符
+ * int indexOf(int ch)   返回指定字符在此字符串中第一次出现的索引
+ * 用上面的参数类型传入'a'和97都是可以的
+ * int indexOf(int ch,int fromIndex) 返回指定字符在指定位置后第一次出现的索引
+ * int indexOf(String str,int fromIndex) 返回字符串在指定后的第一次索引
+ * String substring(int start)  从指定位置开始截取字符串，默认到结尾
+ * String substring(int start,int end);从指定位置开始到指定位置结束截取字符串
+ * 
+ */
+
+public class StudentTest {
+	public static void main(String[] args) {
+			
+			String s="helloworld";
+			/*//char charAt(int index);
+			System.out.println(s.charAt(7));
+			//int indexOf(int ch)
+			System.out.println(s.indexOf('l'));
+			System.out.println(s.indexOf("owo"));
+			//int indexOf(int ch,int fromIndex) 
+			System.out.println(s.indexOf('l',4));
+			System.out.println(s.indexOf('k',4));  //-1
+			System.out.println(s.indexOf('l',40)); //-1
+			//当找不到或不存在时返回-1
+			
+			//String substring(int start)
+			System.out.println(s.substring(5));
+			//包含start这个索引
+			System.out.println(s.substring(0));
+			System.out.println("-----------------");
+			System.out.println(s.substring(1,5));
+			//没有包含第二个参数的索引
+			System.out.println(s.substring(0,s.length()));
+			System.out.println("-------------------");
+			for(int x=0;x<s.length();x++)
+			{
+				//char ch=s.charAt(x);
+				//System.out.print(ch);
+				System.out.print(s.charAt(x));
+			}*/
+		/*
+		 * 需求:统计一个字符串中大写字符，小写字符，数字字符出现的次数
+		 * 举例:
+		 * 		"Hello123World"
+		 * 结果:
+		 * 		大写字符:2个
+		 * 		小写字符:8个
+		 * 	            数字字符:3个
+		 * 分析：
+		 * 		A：定义三个统计变量
+		 * 			bigCount=0;
+		 * 			smallCount=0;
+		 * 			numberCount=0;
+		 * 		B:遍历字符串，得到每个字符
+		 * 			length()和charAt()
+		 * 		C:判断该字符到底属于哪个类型
+		 * 			大:bingCount++;
+		 * 			小:smallCount++;
+		 * 			数字:numberCount++;
+		 * 			可以根据ASII码表分析类型
+		 * 			0   48
+		 * 			A   65
+		 * 			a   97
+		 * 			if(ch>='0'&&ch<='9')
+		 * 				numberCount++;
+		 * 			if(ch>='a'&&ch<='z')
+		 * 				smallCount++;
+		 * 			if(ch>='A'&&ch<='Z')
+		 * 				bigCount++;
+		 * 		D:输出结果
+		 * 
+		 */
+			int bigCount=0;
+			int smallCount=0;
+			int numberCount=0;
+			String s4="Hello123World";
+			for(int x=0;x<s4.length();x++)
+			{
+				char ch=s4.charAt(x);
+				if(ch>='a'&&ch<='z')
+				{
+					smallCount++;
+				}
+				else if(ch>='A'&&ch<='Z')
+				{
+					bigCount++;
+				}
+				else if(ch>='0'&&ch<='9')
+				{
+					numberCount++;
+				}
+			}
+			System.out.println("大写字母有:"+bigCount+"个,小写字母有:"
+					+smallCount+"个,数字有:"+numberCount+"个");
+			
+	}
+
+}
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
