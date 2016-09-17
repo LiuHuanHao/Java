@@ -1,0 +1,122 @@
+package haha;
+
+import java.util.Scanner;
+/*
+ * 字符串反转
+ * 举例: 键盘录入"abc"
+ * 输出结果"cba"
+ * 分析:
+ * A:键盘录入一个字符串
+ * B:定义一个新字符串
+ * C：遍历字符串，得到每一个字符
+ * 		a:length()和charAt()
+ * 
+ * 		b:字符串数组
+ * D:用新字符串把每一个字符拼接起来
+ * E:输出新串
+ */
+
+public class StudentTest {
+	public static void main(String[] args) {
+		/*Scanner sc=new Scanner(System.in);
+		System.out.println("请输入一个字符串:");
+		String line=sc.nextLine();*/
+		/*//定义一个新的字符串
+		String result="";
+		//把字符串转成字符数组
+		char[] chs=line.toCharArray();
+		for(int i=chs.length-1;i>=0;i--)
+		{
+			result+=chs[i];
+		}
+		System.out.println("倒着输出的结果为:"+result);*/
+		/*String s=Reverse(line);
+		System.out.println("倒着输出的结果为:"+s);*/
+		//*******************************
+		/*
+		 * 需求:统计这个字符串中有几个"java"
+		 * 举例：
+		 * 		在字符串"woaijavawozhendehenaijavawozhendetebieaijava"
+		 * 结果:		java出现了5次
+		 * 思路:
+		 * A:定义一个统计变量，初始化值为0
+		 * B:先获取一次"java"在大串第一次出现的索引
+		 * 如果索引值是-1，则说明不存在，返回统计变量
+		 * 如果索引值不为-1，则说明存在，统计变量++
+		 * C:把刚才的索引加上小串的长度作为起始位置截取原始大串，得到一个新的字符串
+		 * 并把该字符串重新赋值给大串
+		 * D:回到B即可
+		 * 
+		 */
+		String maxString="woaijavawozhendehenaijavawozhendetebieaijava";
+		String minString="java";
+		//写功能实现
+		
+		
+		int count=getCount(maxString,minString);
+		System.out.println("小串在大串中出现的次数为:"+count);
+		
+	}
+	
+	/*
+	 * 两个明确:
+	 * 	返回值类型:int 
+	 * 	参数列表:各个字符串
+	 * 
+	 */
+	public static int getCount(String maxString,String minString)
+	{
+		int count=0;
+		//int index=maxString.indexOf(minString);
+		/*while(index!=-1)
+		{
+			count++;
+			int startIndex=index+minString.length();
+			maxString=maxString.substring(startIndex);
+			//也可以一步到位
+			maxString=maxString.substring(index+minString.length());
+			index=maxString.indexOf(minString);
+		}
+		*/
+		int index;
+		//可以对上面的代码进行如下优化
+		while((index=maxString.indexOf(minString))!=-1){  //同时进行了赋值与判断
+			count++;
+			maxString=maxString.substring(index+minString.length());  //改变大串，重新遍历
+		}
+		return count;
+	}
+	
+	
+	
+	public static String Reverse(String s)
+	{
+		String result="";
+		char[] chs=s.toCharArray();
+		for(int i=chs.length-1;i>=0;i--)
+		{
+			result+=chs[i];
+		}
+		return result;
+	}
+
+}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
