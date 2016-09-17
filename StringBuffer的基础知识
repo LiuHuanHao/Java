@@ -1,0 +1,91 @@
+package haha;
+
+import java.util.Scanner;
+/*
+ * StringBuffer的构造函数：
+ * public StringBuffer();   无参构造函数
+ * public StringBuffer(int capacity);  制定容量的字符串缓冲区对象
+ * public StringBuffer(String str)  指定字符串内容的字符串缓冲区对象
+ * 
+ * stringBuffer的方法:
+ * public int capacity();   返回当前容量
+ * public int length();    返回长度
+ */
+/*
+ * stringBuffer的添加功能
+ * public stringBuffer append(String str)  //可以把任意类型添加到字符串缓冲区里面
+ * public StringBuffer insert(int offset,String str);
+ * 在指定位置offset把任意类型的数据插入到缓冲区里面
+ * 
+ * StringBuffer的删除功能
+ * public StringBuffer deleteCharAt(int index);
+ * 删除指定位置的一个字符
+ * public StringBuffer delete(int start,int end)
+ * 
+ */
+public class StudentTest {
+	public static void main(String[] args) {
+		/*
+			StringBuffer sb=new StringBuffer();
+			System.out.println("sb:"+sb);
+			System.out.println("sb.capacity:"+sb.capacity());//初始容量为16
+			System.out.println("sb.length:"+sb.length());
+			System.out.println("----------------");
+			StringBuffer sb2=new StringBuffer(50);
+			System.out.println("sb2:"+sb2);
+			System.out.println("sb2.capacity:"+sb2.capacity());  //容量为50
+			System.out.println("length:"+sb2.length());
+			System.out.println("-----------------");
+			StringBuffer sb3=new StringBuffer("hello");
+			System.out.println("sb3:"+sb3);  //返回字符串内容
+			System.out.println("sb3.capacity:"+sb3.capacity());
+			//返回的长度为字符串长度加上原始容量16
+			System.out.println("sb3.length:"+sb3.length());*/
+		//************************************************************
+		//StringBuffer sb=new StringBuffer();
+		/*StringBuffer sb2=sb.append("hello");  //放的还是同一个缓冲区，没有新建对象
+		System.out.println("sb:"+sb);
+		System.out.println("sb2:"+sb2);
+		System.out.println(sb==sb2);  */ //即使在其中一个添加对象，两者还是为同一个对象
+		
+		/*sb.append("hello");
+		sb.append(true);
+		sb.append(12);
+		sb.append(34.56);*/  //可以添加任何变量类型
+		/*sb.append("hello").append(true).append("sb");
+		System.out.println("sb:"+sb);
+		//追加数据后对象并没有改变
+		//*******************************
+		sb.insert(5,"world");
+		System.out.println("sb:"+sb);*/
+		StringBuffer sb=new StringBuffer();
+		sb.append("hello").append("world").append("java");
+		//sb.deleteCharAt(1);  //我要删除下标为1的e
+		System.out.println(sb);
+		//需求：我要删除world字符串
+		sb.delete(5,10); //包左不包右！！！！
+		System.out.println("sb:"+sb);
+		//需求：我要删除所有的数据
+		sb.delete(0,sb.length());  //删除从零到元素的长度的元素(包左不包右)就相当于删除了所有的数据
+		System.out.println("最后的sb:"+sb);
+	}
+}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
