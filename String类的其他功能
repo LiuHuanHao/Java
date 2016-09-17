@@ -1,0 +1,128 @@
+package haha;
+
+import java.util.Scanner;
+/*
+ * String类的其他功能
+ * String replace(char old,char new)
+ * String replace(String old,String new)
+ * 去除字符串两空格
+ * String trim()
+ * 按字典顺序比较两个字符串
+ * int compareTo(String str)
+ * int compareToIgnoreCase(String str)
+ */
+
+public class StudentTest {
+	public static void main(String[] args) {
+		/*String s1="helloworld";
+		// String replace(char old,char new)
+		String s2=s1.replace('l','k');
+		System.out.println(s2);  //把字符串中所有的'l'换成'k'
+		String s3=s1.replace("owo","ak47");
+		System.out.println(s3);   //把字符串中"owo"换成"ak47"
+		
+		String s4=" hello world";
+		String s5=s4.trim();
+		System.out.println(s4);
+		System.out.println(s5);    //去除字符串两端的空格
+		System.out.println("-----------------");
+		
+		String s6="hello";
+		String s7="hello";
+		String s8="abc";
+		String s9="xyz";
+		String a="hell";
+		System.out.println(s6.compareTo(s7));   //字符串相同时返回0
+		System.out.println(s6.compareTo(s8));   //字符串不同时从开始不同的两个字母相减
+		System.out.println(s6.compareTo(s9));	//当字符小的减去大的则为负的
+		System.out.println(s6.compareTo(a));*/	//当小的字符串与原来的字符串前面相同，结果则为
+		//两者字符串长度相减
+		/*
+		 private final char value[];
+		   字符串会自动转换为一个字符数组
+		value[]为字符串一个成员变量(字符数组)
+		public int compareTo(String anotherString) {
+        int len1 = value.length; 
+        //this.value.length--s1.toCharArray().length
+        int len2 = anotherString.value.length;
+        //s2.value.length--s2.toCharArray().length
+        int lim = Math.min(len1, len2);
+        char v1[] = value;
+        //char v1[]={'h','e','l','l','o'};
+         //char v2[]={'h','e','l'};
+        char v2[] = anotherString.value;
+
+        int k = 0;
+        while (k < lim) {
+            char c1 = v1[k];
+            char c2 = v2[k];
+            if (c1 != c2) {     //取出某个字符比较是否相同，不是则相减
+                return c1 - c2;
+            }
+            k++;
+        }
+        return len1 - len2;  //当所有的对比都符合时提取两个字符串的长度差
+    }
+	
+		*/
+	/*
+	 * 需求:把数组中的数据按照指定的格式拼接成一个字符串
+	 * 举例:
+	 * 		int[] arr={1,2,3};
+	 * 输出结果；
+	 * 		"[1,2,3]"
+	 * 分析:
+	 * 		A:定义一个字符串对象，只不过内容不能为空
+	 * 		B:先把字符串拼接一个"["
+	 * 		C:遍历int数组，的到每一个元素
+	 * 		D:先判断该元素是否为最后一个
+	 * 		  是就直接拼接元素和"]",不是就拼接元素和逗号以及空格
+	 * 		F:输出拼接后的字符串
+	 */	
+		//前提是数组已经存在
+		int[] arr={1,2,3,4,5,6,7,8,9};
+		String s="";
+		s+="[";
+		//遍历int数组，得到每一个元素
+		for(int x=0;x<arr.length;x++)
+		{        
+			//先判断元素是否为为最后一个元素
+			if(x==arr.length-1)
+			{
+				s+=arr[x];
+				s+="]";
+			}
+			else
+			{
+				//拼接元素和逗号以及空格
+				s+=arr[x];  //加上int元素后一起变为了字符串
+				s+=", ";
+			}
+		}
+		//输出拼接后的字符串
+		System.out.println(s);
+	}
+
+}
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
