@@ -1,0 +1,126 @@
+package haha;
+
+import java.util.Scanner;
+
+import javafx.collections.ListChangeListener.Change;
+/*
+ * 1、String,StringBuffer,StringBuilder的区别
+ * A:String是内容不可变的，而后两个都是内容可变的
+ * B:StringBuffer是同步的，效率低，StringBuilder不同步，数据不安全，效率高
+ * 2、StringBuffer和数组的区别
+ * 二者都是容器，但是Buffer数据是字符串数据
+ * 而数组可以放置多种数据，但必须是同一种数据类型
+ * String作为形式参数传递效果和基本类型一样，不会改变值!!!!!!!
+ */
+
+public class StudentTest {
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入数据:");
+		String s=sc.nextLine();
+		/*String s1=MyReverse(s);
+		System.out.println(s1);
+		String s2=MyReverse2(s);
+		System.out.println(s2);*/
+		//**************************
+		/*
+		 * 判断一个字符串是否为对称字符串
+		 * 第一个和最后一个比较，第二个和倒数二个进行比较..........
+		 */
+		//boolean b=isSame(s);
+		//System.out.println(b);
+		boolean b=isSame2(s);
+		//System.out.println(b);
+		//*********************
+		String s1="hello";
+		String s2="world";
+		change(s1,s2); //字符串传入后参数不变
+		System.out.println("尝试改变后:S1->"+s1+",S2->"+s2);
+		StringBuffer sb1=new StringBuffer("hello");
+		StringBuffer sb2=new StringBuffer("world");
+		change(sb1,sb2);
+		System.out.println("buffre改变后:S1->"+sb1+",S2->"+sb2);
+	}
+	
+	public  static void change(String s1, String s2) {
+		s1=s2; //字符串是特殊的引用类型，其传递的参数是常量
+		s2=s1+s2;
+	}
+
+	public  static void change(StringBuffer sb1, StringBuffer sb2) {
+		sb1=sb2;  //直接赋值不会改变参数原本的值
+		sb2.append(sb1);   //运用函数可以改变参数原来的值                                                                                                                                                                                                   
+	}
+
+	//用字符串缓冲区的反转功能
+	public static boolean isSame2(String s)
+	{
+		return new StringBuffer(s).reverse().toString().equals(s);
+		//需要new
+	}
+	
+	
+	
+	//一个一个比较
+	public static boolean isSame(String s)
+	{
+		boolean flag=true;//可以作为第二种方法
+		//把字符串转成字符数组
+		char[] chs=s.toCharArray();
+		for(int start=0,end=chs.length-1;start<=end;start++,end--)
+			//for里面有两个变量
+		{
+			if(chs[start]!=chs[end])
+			{
+				return false;
+				//flag=false;
+				//break;
+			}
+		}
+		return true;
+		//return flag;
+	}
+	
+	//用String做拼接
+	public static String MyReverse(String s)
+	{
+		String result="";
+		char[] chs=s.toCharArray();
+		for(int x=chs.length-1;x>=0;x--)
+		{
+			result+=chs[x];
+		}
+		return result;
+	}
+	//第二种方法用Buffer
+	public static String MyReverse2(String s)
+	{
+			//第一种方法
+			/*StringBuffer sb=new StringBuffer();
+			sb.append(s);*/
+			StringBuffer sb=new StringBuffer(s);
+			sb.reverse();
+			return sb.toString();
+			//简易版做法，一步完成
+			//return new StringBuffer(s).reverse().toString();
+	}
+}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
