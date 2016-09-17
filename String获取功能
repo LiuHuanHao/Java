@@ -51,7 +51,7 @@ public class StudentTest {
 		 * 结果:
 		 * 		大写字符:2个
 		 * 		小写字符:8个
-		 * 	            数字字符:3个
+		 * 	        数字字符:3个
 		 * 分析：
 		 * 		A：定义三个统计变量
 		 * 			bigCount=0;
