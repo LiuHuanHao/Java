@@ -1,0 +1,122 @@
+package haha;
+
+import java.util.Scanner;
+/*
+ * StringBuffer的替换功能
+ * public StringBuffer replace(int start,int end,String str)
+ * 从开始到end用str替换
+ * StringBuffer的反转功能
+ * public StringBuffer reverse()
+ * StringBuffer的截取功能  截取后返回的String类型的数据，StringBuffer没有改变！！！
+ * public String substring(int start)
+ * public String substring(int start,int end)
+ */
+public class StudentTest {
+	public static void main(String[] args) {
+		
+		//StringBuffer sb=new StringBuffer();
+		//sb.append("hello").append("world").append("java");
+		/*System.out.println("sb:"+sb);
+		//public StringBuffer replace(int start,int end,String str)
+		//需求：我要把world数据替换为"节日快乐"
+		sb.replace(5,10,"节日快乐");
+		System.out.println("sb:"+sb);*/
+		/*System.out.println("sb:"+sb);
+		System.out.println("sb:"+sb.reverse());*/
+		/*String s=sb.substring(5);
+		System.out.println(s);
+		System.out.println(sb);  //StringBuffer的内容不变
+		System.out.println("--------------");
+		String ss=sb.substring(5,10);
+		//提取出5到10之间的字符串
+		System.out.println("ss:"+ss);
+		System.out.println("sb:"+sb);*/
+		//***********************************
+		//字符串转换为StringBuffer
+		String s="hello";
+		//StringBuffer sb="hello"; //不能把字符串的值直接复制给StringBuffer
+		//方式一:
+		StringBuffer sb=new StringBuffer(s);  //把一个字符串转换成Buffer类型
+		//方式2
+		/*StringBuffer sb2=new StringBuffer(); //需要创建Buffer才能被append
+		sb2.append(s);
+		System.out.println(sb);
+		System.out.println(sb2);*/
+		//**********************************
+		//StringBuffer转换为字符串
+		/*StringBuffer buffer=new StringBuffer("java");
+		//方式1：通过构造方法
+		String str=new String(buffer);
+		//方式二: 通过toString()方法,任何引用类型调用toString都能转换为字符串类型
+		String str2=buffer.toString();
+		System.out.println("str:"+str);
+		System.out.println("str2:"+str2);*/
+		//*************************************************
+		//数组拼接成一个字符串
+		int[] arr={44,33,55,11,22};
+		//定义功能，方式一用String做拼接
+		String s3=arrayToString(arr);	
+		//第一种方法每一次拼接都会留下一些缓存，造成浪费
+		System.out.println(s3);
+		//方式二：用StringBuffer做拼接的方式
+		String s4=arrayToString2(arr);
+		System.out.println("第二种方法后:"+s4);
+		//第二种方式只开辟了一次内存空间，效率提高
+	}
+	public static String arrayToString(int[] arr)
+	{
+		String s="";
+		s+="[";
+		for(int x=0;x<arr.length;x++)
+		{
+			if(x==arr.length-1)
+			{
+				s+=arr[x];
+			}
+			else
+			{
+				s+=arr[x];
+				s+=", ";
+			}
+		}
+		s+="]";
+		return s;
+	}
+	public static String  arrayToString2(int[] arr)
+	{
+		StringBuffer sb=new StringBuffer();
+		sb.append("[");
+		for(int x=0;x<arr.length;x++)
+		{
+			if(x==arr.length-1)
+			{
+				sb.append(arr[x]);
+			}
+			else
+			{
+				sb.append(arr[x]).append(", ");
+			}
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
