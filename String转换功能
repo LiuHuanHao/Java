@@ -1,0 +1,106 @@
+package haha;
+
+import java.util.Scanner;
+/*
+ * String的转换功能:
+ * 		byte[] getBytes();把字符串转换为字节数组
+ * 		char[] toCharArray(); 把字符串转化为字符数组
+ * 		static String valueOf(char[] chs)  把字符数组转化为字符串
+ * 		static String valueOf(int i)   把int类型的数据转化为字符串
+ * 		String toLowerCase()   把字符串转换为小写
+ * 		String toUpperCase();  把字符串转换为大写
+ * 		String concat(String str)  把字符串拼接
+ * 		
+ */
+
+public class StudentTest {
+	public static void main(String[] args) {
+		
+			/*String s="javaSE";
+			//byte[] getBytes();
+			byte[] bys=s.getBytes();
+			for(int x=0;x<bys.length;x++)
+			{
+				//字符串求长度  String s.length()
+				//字符数组的长度 char[] c.length;
+				System.out.println(bys[x]);
+			}
+			System.out.println("-----------------");
+			//char[] toCharArray();
+			char[] chs=s.toCharArray();
+			for(int x=0;x<chs.length;x++)
+			{
+				System.out.println(chs[x]);
+			}
+			System.out.println("-----------------");
+			//static String valueOf(char[] chs)  String静态方法
+			String ss=String.valueOf(chs);
+			System.out.println(ss);
+			System.out.println("------------");
+			//static String valueOf(int i) 
+			int i=100;
+			String sss=String.valueOf(i);
+			System.out.println(sss);
+			System.out.println("-------------");
+			//String toLowerCase()
+			System.out.println(s.toLowerCase());
+			System.out.println("--------------");
+			//String toUpperCase();
+			System.out.println(s.toUpperCase());
+			System.out.println("-------------");
+			//String concat(String str)
+			String s1="hello";
+			String s2="world";
+			String s3=s1+s2;
+			System.out.println(s3);
+			System.out.println(s1.concat(s2));*/
+		/*
+		 * 需求:把一个字符串转化成大写,其余为小写
+		 * 举例:   
+		 * 		helloWORLD
+		 * 结果:
+		 * 		Helloworld
+		 * 分析:
+		 * 		A:先获取第一个字符
+		 * 		B:获取除了第一个字符以外的字符
+		 * 		C:把A转化成大写
+		 * 		D:把B转化成小写
+		 * 		E:把c拼接D
+		 */
+		String s="helloWORLD";
+		String s1=s.substring(0,1);
+		String s2=s.substring(1);
+		String s3=s1.toUpperCase();
+		String s4=s2.toLowerCase();
+		String s5=s3.concat(s4);
+		System.out.println(s5);
+		System.out.println("--------------");
+		//优化代码
+		String result=s.substring(0,1).toUpperCase().
+				concat(s.substring(1).toLowerCase());
+		System.out.println(result);
+	}
+
+}
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
