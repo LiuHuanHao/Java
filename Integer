@@ -1,0 +1,91 @@
+import java.util.Arrays;
+/*
+ *Integer类型的构造方法 
+ * public Integer(int value)
+ * public Integer(String s)
+ */
+public class uju7j {
+		public static void main(String[] args) {
+			 /* int i=100;
+			  Integer ii=new Integer(i);
+			  System.out.println("ii:"+ii);//重写了toString
+			  
+			  String s="100";
+			  String s1="abc";
+			  //Integer iii1=new Integer(s1);转换的字符串必须是数字类型的
+			  Integer iii=new Integer(s);
+			  System.out.println("iii:"+iii);*/
+			//**************************************** 
+			//int----String转换
+			/*int number =100;
+			String s1=""+number;
+			System.out.println(s1);
+			String s2=String.valueOf(number);
+			System.out.println(s2);
+			Integer i=new Integer(number);
+			String s3=i.toString();
+			System.out.println(s3);
+			String s4=Integer.toString(number);
+			System.out.println(s4); 
+			//******************************0
+			//String ---int转换
+			//方式一
+			System.out.println("----------------");
+			String s="100";
+			Integer ii=new Integer(s); //先转换为Integer类型
+			int x=ii.intValue();     		//再由Integer转换为int类型
+			//方式二
+			int y=Integer.parseInt(s);   //直接调用Integer.parseInt()
+			System.out.println("y:"+y);
+			//十进制到其他进制的转换，第二个参数是表示要变为几进制
+			System.out.println(Integer.toString(100,10));
+			System.out.println(Integer.toString(100,2));
+			//一百转换为二进制
+			System.out.println(Integer.toString(100,8));
+			//一百转换为八进制
+			System.out.println("---------------");
+			System.out.println(Integer.parseInt("100",2));
+			//二进制转换为十进制
+			System.out.println(Integer.parseInt("100",8));
+			//八进制转换为十进制
+			//进制的范围是二进制到36进制，因为
+			//0-9,a-z加起来为36
+			//Integer.parseInt("123",2);//错误，因为二进制只有
+			//0和1,没有其他数字
+			Integer ii1=100; //基本数据类型在这里是可以直接赋值的，看反编译代码
+			ii1+=200;
+			System.out.println("ii1:"+ii1);
+			//上面代码的反编译代码
+			Integer ii1=Integer.valueOf(100);
+			ii1=Integer.valueOf(ii1.intValue()+200);
+			*///System.out.println(new StringBuilder("ii:").append(ii1).toString());
+			
+			 Integer iii=null; //NullPointerException
+			//当iii为null时函数就无法调用，就会出错
+			//iii+=100;
+			Integer i1=new Integer(127);
+			Integer i2=new Integer(127);
+			System.out.println(i1==i2);  //false
+			System.out.println(i1.equals(i2));//true
+			System.out.println("------------------");
+			
+			Integer i3=128;
+			Integer i4=128;
+			System.out.println(i3==i4);  //false
+			System.out.println(i3.equals(i4)); //true
+			System.out.println("----------------");
+			Integer i5=127;
+			Integer i6=127;
+			System.out.println(i5==i6);  //true在同一个缓冲池里面
+			System.out.println(i5.equals(i6));//true
+			System.out.println("------------");
+			/*通过查看源码，我们知道-128到127之间的数据，做了一个数据缓冲池
+			 * 如果是该范围每次并不创建新的空间
+			 * Integer ii=Integer.valueOf(127)  127以前的不用new
+			 */
+		}
+		
+}
+
+
+
