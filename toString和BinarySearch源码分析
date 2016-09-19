@@ -1,0 +1,98 @@
+import java.util.Arrays;
+/*
+ * Arrays针对数组进行操作的工具
+ * public static String toString(int[] a)
+ * public static void sort(int[] a)  //内部为快速排序算法
+ * public static int binarySearch(int[] a,int key)
+ * 
+ */
+
+public class uju7j {
+		public static void main(String[] args) {
+			/*System.out.println("你好");
+			int[] arr={12,34,44};
+			System.out.println("排序前:"+Arrays.toString(arr));
+			Arrays.sort(arr);
+			System.out.println("排序后:"+Arrays.toString(arr));
+			System.out.println(Arrays.binarySearch(arr,44));*/
+			//******************************************
+			System.out.println(Integer.toBinaryString(100)); //十进制转换为2进制
+			System.out.println(Integer.toOctalString(100));//十进制转换为8进制
+			System.out.println(Integer.toHexString(100));   //十进制转换为16进制
+			System.out.println(Integer.MAX_VALUE);  //2^31-1
+			System.out.println(Integer.MIN_VALUE);  //-2^31
+			/*
+			 * byte Byte
+			 * int Integer
+			 * char Character
+			 * boolean Boolean
+			 */
+		}
+		//源码分析
+		public static String toString(int[] a)
+		{
+			if(a==null)
+			{
+				return "null";  //对象不存在时返回"null"
+			}
+			int iMax=a.length-1;  //最大长度下标
+			if(iMax==-1)
+			{
+				return "[]"; //说明数组存在，但是没有元素，iMax=0
+			}
+			StringBuilder b=new StringBuilder();  //创建字符串缓冲区
+			b.append("[");
+			for(int i=0;;i++)
+			{
+				b.append(a[i]);
+				if(i==iMax)
+				{
+					return b.append(']').toString();   //最后还需要将Buffer类型转换为String类型
+				}
+				b.append(", ");
+			}
+		}
+		public static int binarySearch(int[] a,int key)  //折半查找法源码分析
+		{
+			return binarySearch1(a,0,a.length,key);
+		}
+		private static int binarySearch1(int[] a,int fromIndex,int toIndex,
+		int key)
+		{
+			int low=fromIndex;
+			int high=toIndex-1;   //存放最后一个数据的下标
+			while(low<=high)   //当low大于high退出
+			{
+				int mid=(low+high)>>>1;  //无符号右移，相当于/2
+				int midVal=a[mid];
+				if(midVal<key)     //当中值小于要比较的数字时，low上移
+				{
+					low=mid+1;
+				}
+				else if(midVal>key)
+				{
+					high=mid-1;
+				}
+				else
+					return mid;
+			}
+			return -(low+1);     //返回负数表示没有找到要查找的数字
+		}
+		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
