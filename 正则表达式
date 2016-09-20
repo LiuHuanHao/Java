@@ -1,0 +1,143 @@
+import java.util.Arrays;
+import java.util.Scanner;  
+/*
+ * A:字符
+ * 		\\反斜线字符
+ * B:字符类
+ * [abc]是a或b或c
+ * [^abc]任何字符，除了abc！！！
+ * [a-zA-Z]两头字母在内的范围
+ * [0-9]数字字符的其中一个 
+ * 
+ * C:预定义字符类
+ * 点.字符表示任何字符,要表示点自己需要加反斜杠 \.
+ * \d 数字0-9
+ * \w 单词字符[a-zA-Z_0-9]  注意还有下划线
+ * 
+ * D:边界匹配器   
+ * ^行的开头
+ * $行的结尾
+ * \b单词边界:就是不是单词字符的地方
+ * 		举例；hello world?  在这里空格和?就是单词边界
+ * 
+ * E:数量词
+ * X? 一次或一次也没有
+ * X*  零次或多次
+ * X+  一次或多次
+ * x{n}   恰好n次
+ * x{n,}  n次或以上
+ * x{n,m}  n次与m次之间
+ */
+
+public class uju7j {
+		public static void main(String[] args) {
+			 /*Scanner sc=new Scanner(System.in);
+			 System.out.println("请输入你要输入的QQ号码:");
+			 String qq=sc.nextLine();
+			 System.out.println("请输入你要输入的手机号号码:");
+			 String phone=sc.nextLine();
+			 //*******************************
+			 //String类的public boolean matches(String regex)
+			 String regex="1[38]\\d{9}";
+			 //手机号码的要求格式为:1开头3或8为第二个后面为9个数字
+			 boolean flag=phone.matches(regex);
+			 System.out.println(flag);*/
+			/* Scanner sc=new Scanner(System.in);
+			 System.out.println("请输入邮箱:");
+			 String email=sc.nextLine();*/
+			 //定义邮箱规则
+			 //String regex="[a-ZA-Z_o-9]+@[a-zA-Z_0-9]{2,6}(\\.[a-zA-Z_0-9]{2,3})+";
+			 //后面的小括号是为后缀有.com.cn的情况
+			 //上面的表达式也可以这样表示
+			 /*String regex="\\w+@\\w{2,6}(\\.\\w{2,3})+";
+			 boolean flag=email.matches(regex);
+			 System.out.println("邮件是否正确:"+flag);*/
+			 //System.out.println("checkQQ:"+checkQQ(qq));
+			 /*
+			  * 正则表达式的分割功能:
+			  * String类 public String[] split(String regex)
+			  * 给定的正则表达式匹配拆分此字符串
+			  */
+			 //定义一个年龄搜索范围，限定在此范围内查找
+			/* String ages="18-24";
+			 String regex="-";
+			 String[] strArray=ages.split(regex);*/
+			 //分割为两个字符串
+			 /*for(int x=0;x<strArray.length;x++)
+			 {
+				 System.out.println(strArray[x]);
+			 }*/
+			 //字符串转换为int
+			 /*int startAge=Integer.parseInt(strArray[0]);
+			 int endAge=Integer.parseInt(strArray[1]);
+			 Scanner sc=new Scanner(System.in);
+			 System.out.println("请输入你的年龄:");
+			 int age=sc.nextInt();  //以整形方式输入
+			 if(age>=startAge&&age<=endAge)
+			 {
+				 System.out.println("你就是我想要找的");
+			 }
+			 else
+			 {
+				 System.out.println("不符合我的要求");
+			 }*/
+			 //****************************
+			 //分割功能练习
+			 /*String s1="aa,bb,cc";
+			 String[] str1Array=s1.split(",");
+			 for(int x=0;x<str1Array.length;x++)
+			 {
+				 System.out.println(str1Array[x]);
+			 }
+			 System.out.println("--------------------");
+			 
+			 String s2="aa.bb.cc";
+			 String[] str2Array=s2.split("\\.");   //注意在这里需要加双斜杠!!!
+			 for(int x=0;x<str2Array.length;x++)
+			 {
+				 System.out.println(str2Array[x]);
+			 }
+			 System.out.println("-------------------");
+			 
+			 String s3="aa  bb				cc			gfj";
+			 //在这里当有一个或多个空格时可以用空格加+号来表示，但是对制表符没有用
+			 //需要进行如下改进
+			 String[] str3Array=s3.split("[ +\t+]");
+			 for(int x=0;x<str3Array.length;x++)
+			 {
+				 System.out.println(str3Array[x]);
+			 }
+			 System.out.println("----------------");*/
+			 /*
+			  * 将字符串"91 27 46 38 50"
+			  * 转换为有序的字符串，用空格隔开
+			  */
+			 String s="91 27 46 38 50";
+			 String[] strArray=s.split(" ");
+			 int[] arr=new int[strArray.length];
+			 for(int x=0;x<arr.length;x++)
+			 {
+				 arr[x]=Integer.parseInt(strArray[x]);
+			 }
+			 //对int数组进行排序
+			 Arrays.sort(arr);
+			 StringBuilder sb=new StringBuilder();
+			 for(int x=0;x<arr.length;x++)
+			 {
+				 sb.append(arr[x]).append(" ");
+			 }
+			 //最后不需要空格，并且需要将缓冲池转换为字符串
+			 String result=sb.toString().trim();
+			 System.out.println("result:"+result);
+		}
+		
+		public static boolean checkQQ(String qq)
+		{
+			String regex="[1-9][0-9]{4,14}";
+			
+			boolean flag=qq.matches(regex);
+			return flag;
+		}
+}
+
+
