@@ -1,0 +1,92 @@
+import java.util.Random;
+
+/*
+ * Math:用于数学运算的类
+ * 成员变量:
+ * public static final double PI  数学符号π
+ * public static final double E   对数e
+ * 成员方法:
+ * public static int abs(int a); 取绝对值
+ * public static double ceil(double a); 向上取整
+ * public static double floor(double a);  向下取整
+ * public static int max(int a,int b);   最大值 还有min
+ * public static double pow(double a,double b)     a的b次幂
+ * public static double random(); 随机数[0.0,1.0)  1.0后面为括号，没有取1
+ * public static int round(float a);  四舍五入
+ * public static double aqrt(double a);  正平方根
+ */
+public class uju7j {
+		public static void main(String[] args) {
+			/* System.out.println("PI:"+Math.PI);
+			 System.out.println("E:"+Math.E);
+			 System.out.println(Math.abs(-10));//取绝对值
+			 System.out.println(Math.ceil(12.34)); //向上取整为13
+			 System.out.println(Math.floor(12.99)); //向下取整为12
+			 System.out.println(Math.max(12,23));
+			 //也可以用于取三个数据中的最大值
+			 System.out.println(Math.max(Math.max(12,23),18));
+			 //获取四个中的最大值
+			 System.out.println(Math.max(Math.max(12,78),Math.max(25,67)));
+			 System.out.println(Math.pow(2,3)); //返回double类型8.0
+			 System.out.println(Math.random()); // [0.0,1.0)
+			 //获取1-100之间的随机数
+			 System.out.println((int)(Math.random()*100)+1);
+			 System.out.println(Math.round(2.5));  //四舍五入
+			 //四舍五入原理是元素加0.5再进行取整
+			 System.out.println(Math.sqrt(4)); */ //返回double整数2.0，没有-2.0
+			/*
+			 * 需求:设计一个方法，可以实现任意范围内的随机数
+			 */
+			/*Scanner sc=new Scanner(System.in);
+			System.out.println("请输入开始数:");
+			int start=sc.nextInt();
+			System.out.println("请输入结束数:");
+			int end=sc.nextInt();
+			for(int x=0;x<100;x++)  //进行多次循环查看结果
+			{
+				int num=getRandom(start,end);
+				System.out.println(num);
+			}*/
+			/*
+			 * 产生随机数的类  Random
+			 * 构造函数
+			 * public Random();没有给种子，用的是默认种子，是当前
+			 * 时间的毫秒值
+			 * public Random(long seed);  给出指定的种子
+			 * 成员方法
+			 * public int nextInt(); 返回的是int范围内的随机数
+			 * public int nextInt(int n);
+			 * 返回的是[0,n)范围内的随机数
+			 */
+			Random r=new Random(111);
+			//Random r=new Random();
+			//给定种子后每次得到的随机数是相同的
+			for(int x=0;x<10;x++)
+			{
+				//int num=r.nextInt();  //int范围内的随机数
+				//int num=r.nextInt(100);  //[0,99]
+				int num=r.nextInt(100)+1;  //[1,100]
+				//注意上面代码的起始数字是1
+				System.out.println(num);
+			}
+			
+		}
+		
+		
+		
+		public static int getRandom(int start,int end)
+		{
+			//int number=(int)(Math.random()*100)+1;
+			//int number=(int)(Math.random()*end)+start;
+			//上面的代码是实现不了的，因为加上start的数后这个数会比end还打
+			int number=(int)(Math.random()*(end-start+1))+start;  //括号加一是为了补足最后一个数字
+			return number;
+		}
+}
+
+
+
+
+
+
+
