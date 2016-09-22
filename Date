@@ -1,0 +1,133 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+/*
+ * Date:表示特定时间，精确到毫秒
+ * 构造方法:
+ * Date():根据当前的默认值创建日期对象
+ * Date(long date):根据当前的毫秒数创建日期对象
+ */
+ 
+public class heihei {
+	public static void main(String[] args) throws ParseException {	
+		/* Date d=new Date(); //不传参数默认是当前日期的毫秒值
+		 long time=1000*60*60; //在这里的毫秒数相当于一小时 
+		 System.out.println(d);
+		 Date d2=new Date(time);
+		 System.out.println(d2);
+		 //在这里时间是Thu Jan 01 09:00:00 CST 1970
+		 //虽然给的毫秒值是一小时，但是时间 显示9：00，因为我们在东八区
+		 long time2=System.currentTimeMillis(); 
+		 Date d3=new Date(time2);  //传入当前时间毫秒数与当前时间相同
+		 System.out.println(d3);*/
+		/*Date d=new Date();
+		long time=d.getTime();
+		System.out.println(time);  //获取当前时间的毫秒数
+		System.out.println(System.currentTimeMillis());
+		//和上面代码的功能相同
+		System.out.println(d);
+		d.setTime(1000);   //设置时间的毫秒数
+		System.out.println(d);*/
+		//********************************
+		/*
+		 * Date-----String(格式化)
+		 * public final String format(Date date)
+		 * String----Date(解析)
+		 * DateFormat:可以进行日期和字符串的格式化和解析
+		 * 但是由于是抽象类，所以使用具体子类SimpleDateFormat!!!!
+		 * SimpleDateDateFormat的构造方法
+		 * SimpleDateFormat();默认的模式
+		 * SimpleDateFormat(String pattern);	给定的模式
+		 * 年  y  月  M  日d 时H 分m 秒s
+		 */
+		//Date--String
+		/*Date d=new Date();
+		//创建格式对象,默认格式
+		SimpleDateFormat sdf=new SimpleDateFormat();
+		String s=sdf.format(d);   //调用SimpleDateFormat的format方法转换为String
+		System.out.println(s);
+		//给定的模式
+		SimpleDateFormat sdf2=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+		s=sdf2.format(d);
+		System.out.println(s);
+		//**********************
+		//String----Date
+		String str="2008-08-08 12:12:12";
+		//再把一个字符串解析为日期的时候，注意格式必须和给定的字符串匹配!!!
+		SimpleDateFormat sdf3=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date dd=sdf3.parse(str);   //利用SimpleDateFormat的parse方法转换为date
+		System.out.println(dd);*/
+		//**********************************
+		//日期工具类的应用
+		/*Date d=new Date();
+		String s=DateUtil.dateToString(d, "yyyy年MM月dd日 HH:mm:ss");
+		System.out.println(s);
+		String s2=DateUtil.dateToString(d, "yyyy年MM月dd日");
+		System.out.println(s2);
+		
+		String str="2014-10-14";
+		Date dd=DateUtil.stringToDate(str, "yyyy-MM-dd");
+		System.out.println(dd);*/
+		//********************************
+		/*
+		 * 算一下你来到这个世界几天了
+		 * 分析:
+		 * A:键盘录入你的出生年月日
+		 * B:把该字符串转换为日期
+		 * C:通过该日期的到一个毫秒值
+		 * D:获取当前时间的毫秒值
+		 * E:用D-E得到一个毫秒值
+		 * F:把E的毫秒值转换为年  /1000/60/60/24
+		 */
+		//键盘录入年月日
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入你的出生年月日(yyyy-MM-dd):");
+		String line=sc.nextLine();
+		//把字符串转换成一个日期
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Date d=sdf.parse(line);  //设计模式将字符串转成日期Date
+		//通过该日期得到一个毫秒值
+		long myTime=d.getTime();   //获取你生日的毫秒值
+		//获得当前时间的毫秒值
+		long nowTime=System.currentTimeMillis();
+		//用D-C得到你经历过的毫秒值
+		long time=nowTime-myTime;
+		//把E的毫秒值转换为天
+		long day=time/1000/60/60/24;
+		System.out.println("你来到这个世界:"+day+"天");
+	}
+}
+/**
+ * 这是日期和字符串的工具类
+ */
+	class DateUtil
+	{
+		/**
+		 * 这个方法就是把日期转成一个字符串
+		 * @param d  被转换的日期对象
+		 * @param format  传递过来的要转换的格式
+		 * @return    转换后的字符串
+		 */
+		public static String dateToString(Date d,String format)
+		{
+			SimpleDateFormat sdf=new SimpleDateFormat(format);
+			return sdf.format(d);
+		}
+		/**
+		 * 这个方法的作用就是把一个字符串解析成一个日期对象
+		 * @param s 
+		 * 		被解析的字符串
+		 * @param format
+		 * 		传递过来要被转换的格式
+		 * @return   解析后的日期对象
+		 * @throws ParseException
+		 */
+		public static Date stringToDate(String s,String format) throws ParseException
+		{
+			return new SimpleDateFormat(format).parse(s);
+		}
+	}
+
+
