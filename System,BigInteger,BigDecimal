@@ -1,0 +1,105 @@
+import java.math.BigDecimal;
+import java.math.BigInteger;
+/*
+ * System方法
+ * public static void exit(int status) //终止当前正在运行的程序，0表示正常结束
+ * public static void currentTimeMillis()
+ * 返回毫秒为单位的当前时间，从1970年开始计算
+ */
+
+public class uju7j {
+		public static void main(String[] args) {
+			
+			/*System.out.println("刘焕濠是帅哥");
+			System.exit(0);  //正常运行，阻止了骂我的运行
+			System.out.println("刘焕濠是傻逼");*/
+			/*long start=System.currentTimeMillis();
+			//通过比较开始时间的毫秒数和结束时的毫秒数，来计算
+			//运行的时间
+			for(int x=0;x<10000;x++)
+			{
+				System.out.println("刘焕濠是一个帅哥");  
+			}
+			long end=System.currentTimeMillis();
+			System.out.println("共耗时:"+(end-start)+"毫秒");*/
+			/*int[] arr={11,22,33,44,55};
+			int[] arr2={6,7,8,9,10};*/
+			//public static void arraycopy(arr,1,arr2,2,2);
+			//第一个参数是源数组，第二个参数是开始复制的位置
+			//第三个参数是要复制到哪里，第四个参数复制开始的位置
+			//第五个参数复制的长度
+			/*System.arraycopy(arr,1,arr2,2,3);
+			System.out.println(Arrays.toString(arr));
+			System.out.println(Arrays.toString(arr2));*/
+			//*************************************
+			//Integer ii=new Integer(Integer.MAX_VALUE);
+			//MAX_VALUE是整形最大值，Integer装不了
+			//通过大整数来创建对象
+//			BigInteger bi=new BigInteger("2147483648");
+//			System.out.println("bi:"+bi);
+			/*Integer的一些操作
+			 * public BigInteger add(BigInteger val)
+			 * public BigInteger substract(BigInteger val)减
+			 * public BigInteger multiply(BigInteger val)
+			 * public BigInteger divide(BigInteger val)
+			 * public BigInteger[] divideAndRamainder(BigInteger val)
+			 * 返回除数和余数,是一个存放两个值的数组
+			 */
+//			BigInteger bi1=new BigInteger("100");
+//			BigInteger bi2=new BigInteger("50");
+//			System.out.println(bi1.add(bi2));
+//			System.out.println(bi1.subtract(bi2));
+//			System.out.println(bi1.multiply(bi2));
+//			System.out.println(bi1.divide(bi2));
+//			BigInteger[] bis=bi1.divideAndRemainder(bi2);
+//			System.out.println(bis[0]);  //第一个是除数
+//			System.out.println(bis[1]);//第二数是余数
+			//*******************************************
+			//float和double有有效数字位，在运算的时候容易丢失精度
+			//于是java提供BigDecimal
+//			System.out.println(0.09+0.01);  //0.099999999999999
+//			System.out.println(1.0-0.32);   //0.679999999999999
+			//构造方法:public BigDecimal(String val)  double为参数有不可预知性
+			BigDecimal bd1=new BigDecimal("0.09");
+			BigDecimal bd2=new BigDecimal("0.01");
+			System.out.println(bd1.add(bd2)); //再也不会出现数据丢失的情况
+			BigDecimal bd3=new BigDecimal("1.301");
+			BigDecimal bd4=new BigDecimal("100");
+			System.out.println(bd3.divide(bd4));
+			System.out.println(bd3.divide(bd4,8,BigDecimal.ROUND_DOWN));
+			//上面函数的第一个参数是要除的数，第二个是要保留的有效数字，第三个舍去方式
+		}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
