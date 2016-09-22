@@ -1,0 +1,77 @@
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Scanner;
+
+
+public class heihei {
+	public static void main(String[] args) throws ParseException {	
+				
+			Calendar rightNow=Calendar.getInstance();
+			//Calendar为虚拟类，上面的代码是为了创建子类对象
+			/* 与下面的代码原理相同
+			 * abstract class Person
+			 * {
+			 * 		public static Person getPerson()
+			 * 			{
+			 * 				return new Student();
+			 * 			}
+			 * }
+			 * class Student extends Person
+			 * {
+			 * 
+			 * }
+			 */
+			/*int year=rightNow.get(Calendar.YEAR);
+			int dontKnow=rightNow.get(Calendar.DAY_OF_YEAR);
+			int month=rightNow.get(Calendar.MONTH);
+			int date=rightNow.get(Calendar.DATE);
+			System.out.println(year+"年"+month+"月"+date+"日"+"一年的第"+dontKnow+"天");*/
+			/*
+			 * public static add(int field,int mount)
+			 * public final void set(int year,int month,int date)
+			 */
+			/*Calendar c=Calendar.getInstance();
+			int year=c.get(Calendar.YEAR);
+			int month=c.get(Calendar.MONTH);
+			int date=c.get(Calendar.DATE);
+			System.out.println(year+"年"+(month+1)+"月"+date+"日");
+			//月份从零开始，需要加零
+			//5年后的十天前
+			c.add(Calendar.YEAR,5);   //将年份加5
+			c.add(Calendar.DATE,-10);
+			year=c.get(Calendar.YEAR);
+			month=c.get(Calendar.MONTH);
+			date=c.get(Calendar.DATE);
+			System.out.println(year+"年"+(month+1)+"月"+date+"日");
+			c.set(2011,11,11);
+			year=c.get(Calendar.YEAR);
+			month=c.get(Calendar.MONTH);
+			date=c.get(Calendar.DATE);
+			System.out.println(year+"年"+month+"月"+date+"日");*/
+			/*测试任意年的二月份的月数
+			 * 分析:
+			 * A:键盘录入任意年份
+			 * B:设置日历对象的年月日
+			 * 		年是键盘输入的数据
+			 * 月是2，相当于三月份，因为月份是从0开始计算的
+			 * C：把3月一号往前推一天就是二月的最后一天
+			 * D:获取这一天输出即可
+			 */
+			Scanner sc=new Scanner(System.in);
+			System.out.println("请输入年份:");
+			int year=sc.nextInt();
+			//设置日历对象的年月日
+			Calendar c=Calendar.getInstance();
+			c.set(year,2,1);   //其实就是一年的3月1号
+			//时间往前推一天就是2月的最后一天
+			c.add(Calendar.DATE,-1);   //减一后月份自动减回2月
+			System.out.println(c.get(Calendar.DATE));
+			System.out.println(c.get(Calendar.MONTH));
+		  }
+	}
+
+
+
+
+
+
