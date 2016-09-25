@@ -1,0 +1,124 @@
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+/*
+ * 需求:ArrayList去除集合中字符串的重复值
+ * 要求:不能创建新的集合，就在以前的集合上做
+ */
+
+public class heihei {
+	public static void main(String[] args) throws ParseException {
+			
+			
+		/*ArrayList array=new ArrayList();
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		array.add("java");
+		array.add("hello");
+		array.add("world");
+		array.add("world");
+		array.add("hello");
+		array.add("java");
+		for(int x=0;x<array.size()-1;x++)
+		{
+			for(int y=x+1;y<array.size();y++)
+			{
+				if(array.get(x).equals(array.get(y)))
+				{
+					array.remove(y);
+					//当元素被remove之后总长度变短，索引变大，索引值继续上升时会
+					//忽略元素，长度减少后索引值也应该相应的减一
+					y--;  //这样才能保证所有的元素都被除完
+				}
+			}
+		}
+		Iterator it=array.iterator();
+		while(it.hasNext())
+		{
+			String s=(String)it.next();
+			System.out.println(s);
+		}*/
+		/*
+		 * contains方法底层依赖的是equals方法
+		 * 而学生类中没有equals方法，这个时候默认的就是Object的equals方法
+		 * Object的equals默认比较的是地址值，所以new的东西在这里都被认为是不同的
+		 * 按照我们的需求，要比较成员变量的值，就得进行方法重写
+		 */
+		ArrayList array=new ArrayList();
+		Student s1=new Student(7,"林青霞");
+		Student s2=new Student(27,"林青霞");
+		Student s3=new Student(27,"林青霞");
+		array.add(s1);
+		array.add(s2);
+		array.add(s3);
+		ArrayList newArray=new ArrayList();
+		Iterator it=array.iterator();
+		while(it.hasNext())
+		{
+			Student s=(Student)it.next();
+			if(!newArray.contains(s))   //没有重写equals方法时是不会判断变量是否相同的
+			{
+				newArray.add(s);
+				//重写后便能主动辨别成员变量是否相同
+			}
+		}
+		for(int x=0;x<newArray.size();x++)
+		{
+			Student s=(Student)newArray.get(x);
+			System.out.println(s.getName()+"------"+s.getAge());
+		}
+	}	
+}
+
+
+	class Student
+	{
+		private int age;
+		private String name;
+		public Student() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		public int getAge() {
+			return age;
+		}
+		public void setAge(int age) {
+			this.age = age;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public Student(int age, String name) {
+			super();
+			this.age = age;
+			this.name = name;
+		}
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Student other = (Student) obj;
+			if (age != other.age)
+				return false;
+			if (name == null) {
+				if (other.name != null)
+					return false;
+			} else if (!name.equals(other.name))
+				return false;
+			return true;
+		}
+		
+	}
+
+
