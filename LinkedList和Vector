@@ -1,0 +1,104 @@
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+/*
+ * Vector的特有功能
+ * 1:添加功能
+ * public void addElement(Object obj)    -----add()
+ * 2.获取功能
+ * public Object elementAt(int index)	-------get()
+ * public Enumeration elements()		----Iterator iterator()
+ * boolean hasMoreElements()      -----hasNext()
+ * Object nextElement()          ------next()
+ * 
+ * JDK升级的原因
+ * A:安全
+ * B:效率
+ * C:简化书写
+ */
+
+public class heihei {
+	public static void main(String[] args) throws ParseException {
+			
+			/*//创建对象
+			Vector v=new Vector();
+			v.addElement("hello");
+			v.addElement("world");
+			v.addElement("java");
+			for(int x=0;x<v.size();x++)
+			{
+				String s=(String)v.elementAt(x);
+				System.out.println(s);
+			}
+			System.out.println("---------------");
+			Enumeration en=v.elements();
+			//Enumeration是接口，返回的实现类的对象
+			while(en.hasMoreElements())
+			{
+				String s=(String)en.nextElement();
+				System.out.println(s); 
+			}*/
+		/*
+		 * LinkedList特有的功能
+		 * A:添加功能
+		 * public void addFirst(Object e)
+		 * public void addLast(Object e)
+		 * B:获取功能
+		 * public Object getFirst()
+		 * publi Object getLast()
+		 * C:删除功能
+		 * public Object removeFirst()
+		 * public Object removeLast()
+		 */
+		/*LinkedList link=new LinkedList();
+		link.add("hello");
+		link.add("world");
+		link.addLast("android");  //只是暂时在后面，当后面继续add元素时其他会被放在前面，变成了倒数第二
+		link.add("java");
+		link.addFirst("javaee");  //可以实现先进后出
+		System.out.println(link);
+		System.out.println(link.removeFirst());
+		System.out.println(link);
+		System.out.println(link.removeLast());
+		System.out.println(link);*/
+		//**********************************
+		/*ArrayList去除集合字符中字符串的重复值
+		 * 分析:
+		 * A:创建集合对象
+		 * B:添加多个字符串对象(包含内容相同)
+		 * C:创建新集合
+		 * D:遍历旧集合，获取得到每一个集合
+		 * E:拿到这个元素到新集合中去找，看有没有，有不搭理它
+		 */
+		ArrayList array=new ArrayList();
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		//创建另一个新集合
+		ArrayList newArray=new ArrayList();
+		//遍历旧集合
+		Iterator it=array.iterator();
+		while(it.hasNext())
+		{
+			String s=(String)it.next();
+			if(!newArray.contains(s))  //当没有在新集合内则添加进去
+			{
+				newArray.add(s);
+			}
+		}
+		for(int x=0;x<newArray.size();x++)
+		{
+			String s=(String)newArray.get(x);        //继承于list,可以使用List的功能
+			System.out.println(s);
+		}
+	}	
+}
+
+
