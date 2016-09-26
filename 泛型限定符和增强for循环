@@ -1,0 +1,118 @@
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+
+/*
+ * 泛型高级
+ * ?:任意类型，可是Object以及任意的子类
+ * ? extends E:向下限定，E及其子类
+ * ? super E:向上限定，E及其父类
+ */
+
+public class heihei {
+	public static void main(String[] args) throws ParseException {
+		
+		//泛型如果明确写的时候，前后必须一致
+		/*Collection<Object> c1=new ArrayList<Object>();
+		//Collection<Object> c2=new ArrayList<Animal>();
+		//出错，泛型明确写时前后必须一致
+		
+		//?表示任意类型都是可以的
+		Collection<?> c4=new ArrayList<Animal>();
+		Collection<?> c5=new ArrayList<Object>();
+		
+		// ? extends E:向下限定，E及其子类
+		//Collection<? extends Animal> c4=new ArrayList<Object>();
+		//上面的代码是错误的，因为此通用符只能向下限定，不能向上Object
+		Collection<? extends Animal> c3=new ArrayList<Animal>();
+		Collection<? extends Animal> c6=new ArrayList<Dog>();
+		
+		// ? super E:向上限定，E及其父类
+		Collection<? super Animal> c7=new ArrayList<Object>();
+		Collection<? super Animal> c8=new ArrayList<Animal>();*/
+		//Collection<? super Animal> c9=new ArrayList<Dog>();
+		//上面的代码是错误的，因为不能进行向下限定，只能允许Animal及
+		//以上的类才能用
+		//************************************
+		//增强for循环是for循环的一种
+		/*int[] arr={1,2,3,4,5};
+		for(int x=0;x<arr.length;x++)
+		{
+			System.out.println(arr[x]);
+		}
+		System.out.println("----------------");
+		for(int x:arr)
+		{
+			System.out.println(x);
+		}
+		System.out.println("------------------");
+		String[] strArray={"林青霞","风清扬","东方不败","留意"};
+		for(String s:strArray)
+		{
+			System.out.println(s);
+		}
+		System.out.println("--------------");*/
+		//***************************************
+		//定义一个集合
+		/*ArrayList<String> array=new ArrayList<String>();
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		//增强for
+		for(String s:array)
+		{
+			System.out.println(s);
+		}
+		System.out.println("--------------");
+		List<String> list=null; //list为null不能调用增强for循环
+		if(list!=null)
+		{
+		for(String s:list)
+		{
+			System.out.println(s);
+		}
+		}
+		//增强for其实是用来代替迭代器的
+		for(String s:array)
+		{
+			if("world".equals(s))
+			{
+				array.add("javaee");
+				//修改集合时会对迭代器产生影响
+			}
+		}
+		System.out.println("array:"+array);*/
+		//三种遍历方式
+		ArrayList<String> array=new ArrayList<String>();
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		Iterator<String> it=array.iterator();
+		while(it.hasNext())
+		{
+			String s=it.next();
+			System.out.println(s);
+		}
+		System.out.println("----------------");
+		for(int x=0;x<array.size();x++)
+		{
+			String s=array.get(x);
+			System.out.println(s);
+		}
+		System.out.println("----------------");
+		for(String s:array)
+		{
+			System.out.println(s);
+		}
+	}
+
+}
+	
+	class Animal
+		{}
+	class Dog extends Animal
+	{}
+	class Cat extends Animal
+	{}
+
