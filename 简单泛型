@@ -1,0 +1,110 @@
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+
+public class heihei {
+	public static void main(String[] args) throws ParseException {
+		
+		/*ObjectTool ot=new ObjectTool();
+		ot.setObject(new Integer(27));
+		Integer i=(Integer)ot.getObject();
+		System.out.println("年龄是:"+i);
+		ot.setObject(new String("刘焕濠"));
+		String s=(String)ot.getObject();
+		System.out.println("姓名是"+s);
+		System.out.println("--------------");
+		
+		ot.setObject(new Integer(30));
+		//ClassCastException
+		//当录入的是Integer类型时而不小心转换为String时就会发生错误
+		//于是便引入了泛型
+		String s2=(String)ot.getObject();
+		System.out.println(s2);*/
+		//**********************************
+		/*ObjectTool<String> ot=new ObjectTool<String>();
+		//ot.setObj(new Integer(10));  //由于设置为String类型，所以在这里Integer编译不过去
+		ot.setObj("刘焕濠");
+		String s=ot.getObj();   //不需要再进行转型
+		System.out.println("姓名是:"+s);
+		ObjectTool<Integer> ot2=new ObjectTool<Integer>();
+		//ot2.setObj("I Love You"); //在这里是Integer，所以String类型编译不过去
+		ot2.setObj(new Integer(27));
+		Integer i=ot2.getObj();
+		System.out.println(i);*/
+		
+		/*//定义泛型方法后，所有类型的都可以了,类型自动在方法里面转换
+		ObjectTool ot=new ObjectTool();
+		ot.show("hello");
+		ot.show(100);
+		ot.show(true);*/
+		//***********************************
+    //泛型接口
+		/*Inter<String> s=new InterImpl();
+		s.show("hello");*/
+		//Integer<Integer> i=new Integer<Integer>()  实现类定义为String时
+		//将不能使用Integer类型
+		//调用不知道类型的子类后可以引用任何类型的子类
+		Inter<String> s=new InterImpl<String>();
+		s.show("hello");
+		Inter<Integer> i=new InterImpl<Integer>();
+		i.show(100);
+	}
+}
+	/*class ObjectTool
+	{
+		private Object obj;
+		public Object getObject()
+		{
+			return obj;
+		}
+		public void setObject(Object obj)
+		{
+			this.obj=obj;
+		}
+	}*/
+	//泛型定义在类里面
+	/*class ObjectTool<T>
+	{
+		private T obj;
+		public T getObj()
+		{
+			return obj;
+		}
+		public void setObj(T obj)
+		{
+			this.obj=obj;
+		}
+	}*/
+	//泛型方法
+	/*class ObjectTool
+	{
+		public <T> void show(T t)
+		{
+			System.out.println(t);
+		}
+	}*/
+	interface Inter<T>
+	{
+		public abstract void show(T t);
+	}
+	//定义string类型
+	/*class InterImpl implements Inter<String>
+	{
+		@Override
+		public void show(String t)
+		{
+			System.out.println(t);
+		}
+	}*/
+	//定义不知道类型
+	class InterImpl<T> implements Inter<T>
+	{
+		@Override
+		public void show(T t)
+		{
+			System.out.println(t);
+		}
+	}
+
