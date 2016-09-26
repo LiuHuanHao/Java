@@ -1,0 +1,101 @@
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+/*
+ * 请用LinkedList模拟栈数据结构的集合
+ */
+
+public class heihei {
+	public static void main(String[] args) throws ParseException {
+
+		// 创建集合
+		/*MyStack ms = new MyStack();
+		ms.add("hello");
+		ms.add("world");
+		ms.add("java");
+		while(!ms.isEmpty())
+		{
+			System.out.println(ms.get());    //最后ms的元素都被删除了
+		}*/
+		//********************************
+		/*
+		 * 泛型格式:<数据类型>此处的数据类型只能是引用类型
+		 * 好处:
+		 * A:把运行时期的问题提前到了编译期间
+		 * B:避免了强制类型的转换
+		 * C:优化了程序设计，解决了黄色警戒线
+		 */
+		/*ArrayList array=new ArrayList();
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		array.add(10);  //JDK5以后的自动装箱，自动转换为Integer类型
+		//等价于array.add(Integer.valueOf(10))
+		Iterator it=array.iterator();
+		while(it.hasNext())
+		{
+			String s=(String)it.next();
+			//报错ClassCastException
+			//因为上面的Integer也被转换为String类型，类类型转换出错
+			System.out.println(s);
+		}*/
+	    //**********************************
+	/*	ArrayList<String> array=new ArrayList();
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		//array.add(10);  //泛型后不是String类型会编译报错
+		//等价于array.add(Integer.valueOf(10))
+		Iterator<String> it=array.iterator();
+		while(it.hasNext())
+		{
+			String s=(String)it.next();
+			System.out.println(s);
+		}*/
+		//**********************************
+		/*
+		 * 泛型在哪些地方使用?
+		 * 如果后面有<E>就说要使用泛型，一般来说在集合中使用
+		 */
+		ArrayList<String>  array=new ArrayList<String>();
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		Iterator<String> it=array.iterator();
+		while(it.hasNext())
+		{
+			String s=it.next(); //不需要向下转型了
+			System.out.println(s);
+		}
+		System.out.println("-------------------");
+		for(int x=0;x<array.size();x++)
+		{
+			String s=array.get(x);
+			System.out.println(s);
+		}
+	}
+
+}
+
+class MyStack {
+	private LinkedList link;
+	
+	public MyStack()
+	{
+		link=new LinkedList();   //需要寫一個構造函數來新建對象
+	}
+
+	public void add(Object obj) {
+		link.addFirst(obj);
+	}
+
+	public Object get() {
+		return link.removeFirst(); // 删除第一个元素并返回删除的元素
+	}
+
+	public boolean isEmpty() {
+		return link.isEmpty();
+	}
+}
