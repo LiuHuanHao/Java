@@ -1,0 +1,148 @@
+import java.util.ArrayList;
+import java.util.Random;
+public class heihei {
+	public static void main(String[] args) {
+		
+		/*System.out.println(Math.abs(-100));
+		System.out.println(Math.pow(2,3));
+		System.out.println(Math.max(20,30));
+		//没有静态导包时方法没有加Math并不能调用
+		System.out.println(java.lang.Math.abs(-100));
+		System.out.println(pow(2,3));
+		System.out.println(max(20,30));*/
+		//********************************
+		/*
+		 * 可变参数:定义方法的时候不知道该定义多少个参数，比如有多个参数的相加
+		 * 这里的变量其实是一个数组，当有多个参数时，可变参数必须是最后一个
+		 */
+		/* int result=sum(10,23,23,45,43,67);
+		 int result2=sum(12,33,211,55);  //定义可变参数后可以添加任意数量的参数
+		 System.out.println(result);
+		 System.out.println(result2);*/
+		//*******************************
+	/*	String[] strArray={"hello","world","java"};
+		List<String> list=Arrays.asList(strArray);*/
+		//将集合转成数组
+		/*List<String> list=Arrays.asList("helo","world","java");
+		//UnsupportedOperationException
+		//list.add("javaee");
+		//list.remove(1);
+		//出错，虽然数组转成集合，但是长度不能改变，本质还是数组
+		list.set(1,"javaee");
+		for(String s:list)
+		{
+			System.out.println(s);
+		}*/
+		//**************集合嵌套存储*************************
+		/*
+		 * 每个班级有学生，表示为ArrayList<Student>
+		 * 但是又有其他的班级，表示为
+		 * ArrayList<ArrayList<Student>>
+		 */
+		//创建大集合，集合之中的集合
+		/*ArrayList<ArrayList<Student>>  bigArrayList=new ArrayList<ArrayList<Student>>();
+		//创建第一个班级集合 
+		ArrayList<Student> firstArrayList=new ArrayList<Student>();
+		Student s1=new Student(30,"唐僧");
+		Student s2=new Student(10,"孙悟空");
+		Student s3=new Student(27,"沙僧");
+		firstArrayList.add(s1);
+		firstArrayList.add(s2);
+		firstArrayList.add(s3);
+		//把第一个班级存储到学生系统中
+		bigArrayList.add(firstArrayList);
+		ArrayList<Student> secondArrayList=new ArrayList<Student>();
+		Student s4=new Student(23,"刘焕濠");
+		Student s5=new Student(29,"哈哈");
+		secondArrayList.add(s4);
+		secondArrayList.add(s5);
+		bigArrayList.add(secondArrayList);
+		//遍历集合
+		for(ArrayList<Student> array:bigArrayList)
+		{
+			for(Student s:array)
+			{
+				System.out.println(s.getName()+"---------"+s.getAge());
+			}
+		}*/
+		
+		/*
+		 * 获取10个1-20之间的随机数，要求不能重复
+		 * 
+		 * 用数组实现。但是的长度是固定的，长度不好确定
+		 * 分析:
+		 * A:创建随机数对象
+		 * B:创建一个存储随机数的集合
+		 * C:定义一个统计变量，从零开始
+		 * D:判断统计遍历是否小于0
+		 * 		是：先产生一个随机数，判断是否在集合中存在，不存在就添加，统计变量加1
+		 * 		否:不搭理它
+		 * E:遍历集合
+		 */
+		//创建随机数的对象
+		Random r=new Random();
+		//创建一个存储随机数的集合
+		ArrayList<Integer> array=new ArrayList<Integer>();  //泛型类型不能为int
+		//定义一个统计变量，从0开始
+		int count=0;
+		while(count<10)
+		{
+			//先产生一个随机数
+			int number=r.nextInt(20)+1;   //nextInt(20)表示产生一个20以内的随机数
+			//判断集合是否存在该数
+			if(!array.contains(number))
+			{
+				array.add(number);
+				count++;
+			}
+		}
+		for(Integer i:array)
+		{
+			System.out.println(i);
+		}
+	}
+	//当出现两个相同的函数时就需要对其进行特殊的导包指引，很麻烦
+	public static void abs()
+	{
+		
+	}
+	public static int sum(int... a)   //这里是三个点
+	{
+		int s=0;
+		for(int x:a)    //可以看成是数组，所以用增强for循环遍历相加
+		{
+			s+=x;
+		}
+		return s;
+	}
+
+}
+
+	class Student
+	{
+		private int Age;
+		private String Name;
+		public Student() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		public Student(int age, String name) {
+			super();
+			Age = age;
+			Name = name;
+		}
+		public int getAge() {
+			return Age;
+		}
+		public void setAge(int age) {
+			Age = age;
+		}
+		public String getName() {
+			return Name;
+		}
+		public void setName(String name) {
+			Name = name;
+		}
+	}
+
+
