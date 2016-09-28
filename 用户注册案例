@@ -1,0 +1,223 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
+
+/*
+ * 键盘录入多个对象，以0结束，要求在控制台输出这多个数据的最大者
+ * 分析:
+ * A:创建键盘录入对象
+ * B:键盘录入多个数据，我们不知道多少，所以用集合存储
+ * C:以0结束，只要键盘了录入的数据为0，我们就不继续录入数据了
+ * D:把集合转成数组
+ * E:对数组进行排序
+ * F:获取该数组的最大索引值 
+ */
+
+public class haha{
+	public static void main(String[] args) {
+		
+		//创建键盘录入对象
+		/*Scanner sc=new Scanner(System.in);
+		//因为不知道要录入多少，所以用集合存储
+		ArrayList<Integer> array=new ArrayList<Integer>();
+		//以0结束，只要是零就结束录入 
+		while(true)
+		{
+			System.out.println("请输入数据:");
+			int number=sc.nextInt();
+			if(number!=0)
+			{ 
+				array.add(number);
+			}
+			else
+			{
+				break;
+			}
+		}
+		//把集合转成数组
+		//public <T> T[] toArray(T[] a)
+		Integer[] i=new Integer[array.size()];
+		//Integer[] ii=array.toArray(i);  //两个地址相同说明是同一个对象，不需要再声明
+		array.toArray(i);   //转换的数组直接存储在了i上
+		//Array提供了对集合的排序
+		//Arrays可以用来对数组进行排序
+		Arrays.sort(i);
+		System.out.println("数组是:"+arrayToString(i)+"最大值是:"+i[i.length-1]);
+		*/
+		//************************************
+		//用户注册案例的实现
+		//欢迎界面，给出选择项
+		/*
+		 * A:多个对象共享同一个成员变量时用静态 
+		 */
+		while(true)
+		{
+		System.out.println("-------------欢迎光临-----------");
+		System.out.println("1.登录");
+		System.out.println("2.注册");
+		System.out.println("3.退出");
+		System.out.println("请输入你的系统");
+		//键盘录入选择，根据选择做不同操作
+		Scanner sc=new Scanner(System.in);
+		
+		//为了后面方便录入信息，所有录入的数据用字符接收
+		String choiceString=sc.nextLine();
+		UserDo ud=new UserDoImple();
+		
+		switch(choiceString)
+		{
+		    case  "1":
+		    	//登录界面，请输入用户名和密码
+		    	System.out.println("------登录界面--------");
+		    	System.out.println("请输入用户名:");
+		    	String userName=sc.nextLine();
+		    	System.out.println("请输入密码:");
+		    	String password=sc.nextLine();
+		    	
+		    	boolean flag=ud.isLogin(userName, password);
+		    	if(flag)
+		    	{
+		    		System.out.println("登录成功");
+		    		System.exit(0);  //登录成功，正常结束
+		    	}
+		    	else
+		    	{
+		    		System.out.println("用户名或密码有误，登录失败");
+		    	}
+		    	break;
+		    case "2":
+		    	//注册页面
+		    	
+		    	System.out.println("请输入用户名:");
+		    	String newUserName=sc.nextLine();
+		    	System.out.println("请输入密码:");
+		    	String newPassWord=sc.nextLine();
+		    	//把用户名和密码封装到一个对象中
+		    	User user=new User();
+		    	user.setUserName(newUserName);
+		    	user.setPassword(newPassWord);
+		    	//调用注册功能
+		    	ud.regist(user);
+		    	System.out.println("注册成功");
+		    	break;
+		    case "3":
+		    default:
+		    	System.out.println("谢谢使用，欢迎下次再来");
+		    	System.exit(0);   //强制退出
+		    	break;
+ 		}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	//toString源码分析
+	/*public String toString()
+	{
+		Iterator<E> it=this.iterator();
+		if(!it.hasNext())
+		{
+			return "[]";
+		}
+		StringBuilder sb=new StringBuilder();
+		sb.append("[");
+		for(;;)
+		{
+			E e=it.next();
+			sb.append(e==this?"(this Collection)":e);
+			if(!it.hasNext())
+				return sb.append(']').toString();
+			sb.append(", ");
+		}
+	}*/
+	
+	
+	/*public static String arrayToString(Integer[] i)
+	{
+		StringBuilder sb=new StringBuilder();
+		String str="[";
+		sb.append(str);
+		for(int x=0;x<i.length;x++)
+		{
+			if(x==i.length-1)
+			{
+				sb.append(i[x]);
+			}
+			else
+			{
+				sb.append(i[x]).append(", ");
+			}
+		}
+		sb.append("]");
+		return sb.toString();
+	}*/
+
+}
+
+
+	class User
+	{
+		private String userName;
+		private String password;
+		public User() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		public User(String userName, String password) {
+			super();
+			this.userName = userName;
+			this.password = password;
+		}
+		public String getUserName() {
+			return userName;
+		}
+		public void setUserName(String userName) {
+			this.userName = userName;
+		}
+		public String getPassword() {
+			return password;
+		}
+		public void setPassword(String password) {
+			this.password = password;
+		}
+		
+		
+	}
+  
+	interface UserDo
+	{
+		public abstract boolean isLogin(String userName,String passWord);
+		public abstract void regist(User user);
+	}
+  
+	class UserDoImple implements UserDo {
+
+
+		private static ArrayList<User> array=new ArrayList<User>();
+		//多个对象共用一个时必须加static!!!!
+		@Override
+		public void regist(User user)
+		{
+			array.add(user);
+		}
+		@Override
+		public boolean isLogin(String userName, String password) {
+			boolean flag=false;
+			for(User u:array)
+			{
+				if(u.getUserName().equals(userName)
+						&&u.getPassword().equals(password))
+				{
+					flag=true;
+					break;
+				}
+			}
+			return flag;
+		}
+	
+}
+
+
