@@ -78,7 +78,24 @@ public class haha{
 		    	if(flag)
 		    	{
 		    		System.out.println("登录成功");
-		    		System.exit(0);  //登录成功，正常结束
+		    		//System.exit(0);  //登录成功，正常结束
+		    		System.out.println("你玩吗?y/n");
+		    		while(true)
+		    		{
+		    			String resultString=sc.nextLine();
+		    			if(resultString.equalsIgnoreCase("Y"))
+		    			{
+		    				GuessNumber.start();
+		    				System.out.println("你还玩吗?y/n");
+		    			}
+		    			else
+		    			{
+		    				break;  
+		    			}
+		    			
+		    		}
+		    		System.out.println("谢谢使用，欢迎下次再来");
+		    		System.exit(0);
 		    	}
 		    	else
 		    	{
@@ -186,13 +203,43 @@ public class haha{
 		
 		
 	}
-  
+	
+	class GuessNumber
+	{
+		private GuessNumber()  //不允许new
+		{
+			
+		}
+		public static void start()  //定义静态，不需要new就可以调用
+		{
+			//产生一个随机数
+			int number=(int)(Math.random()*100+1);
+			while(true)
+			{
+			Scanner sc=new Scanner(System.in);
+			System.out.println("请输入数据(1-100)");
+			int guessNumber=sc.nextInt();
+			if(guessNumber>number)
+			{
+				System.out.println("你猜的数据大了");
+			}
+			else if(guessNumber<number)
+			{
+				System.out.println("你猜的数据小了");
+			}
+			else
+			{
+				System.out.println("恭喜，猜中了");
+				break;
+			}
+			}
+		}
+	}
 	interface UserDo
 	{
 		public abstract boolean isLogin(String userName,String passWord);
 		public abstract void regist(User user);
 	}
-  
 	class UserDoImple implements UserDo {
 
 
@@ -201,7 +248,7 @@ public class haha{
 		@Override
 		public void regist(User user)
 		{
-			array.add(user);
+			array.add(user); 
 		}
 		@Override
 		public boolean isLogin(String userName, String password) {
@@ -219,5 +266,4 @@ public class haha{
 		}
 	
 }
-
 
