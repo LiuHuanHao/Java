@@ -1,0 +1,156 @@
+import java.util.Comparator;
+import java.util.TreeSet;
+
+/*
+ * Collection
+ * |---List：有序，可重复
+ * |---Set:无序，唯一
+ * 如果两个对象的成员变量都相同，则为同一个元素
+ * 我们知道HashSet的底层依赖的是hashCode()和equals()方法
+ * 因为在学生类中没有重写，所以默认使用Object类
+ * 这个时候哈希值是不会相同的，就执行了添加操作
+ * 
+ * LinkedHashSet:底层是由哈希表和链表组成的
+ * 哈希表保证元素的唯一性，链表保证元素有序
+ */
+
+public class haha{
+	public static void main(String[] args) {
+			
+		/*//创建集合对象
+		HashSet<Student> hs=new HashSet<Student>();
+		Student s1=new Student(28,"刘焕濠");
+		Student s2=new Student(23,"科比");
+		Student s3=new Student(28,"刘焕濠");
+		hs.add(s1);
+		hs.add(s2);
+		hs.add(s3);
+		for(Student s:hs)
+		{
+			System.out.println(s.getName()+"-----"+s.getAge());
+		}*/
+		//*******************************************
+		/*LinkedHashSet<String> hs=new LinkedHashSet<String>();
+		hs.add("hello");
+		hs.add("world");
+		hs.add("java");
+		hs.add("java");
+		for(String a:hs)
+		{
+			System.out.println(a);
+		}*/
+		//**********************************
+		/*
+		 * TreeSet能够对元素按照某种规则进行排序
+		 * 排序有两种方式:自然排序和比较器排序
+		 * TreeSet的特点是排序和唯一
+		 */
+		/*TreeSet<Integer> ts=new TreeSet<Integer>();
+		ts.add(20);  //自动装箱
+		ts.add(18);
+		ts.add(21);
+		ts.add(20);   //重复的元素会被去除
+		for(Integer i:ts)
+		{
+			System.out.println(i);
+		}*/
+		//自然排序
+		//TreeSet<Student> ts=new TreeSet<Student>();
+		//比较器排序
+		TreeSet<Student> ts=new TreeSet<Student>(new MyComparator());
+
+		Student s1=new Student(23,"L");
+		Student s2=new Student(24,"M");
+		Student s3=new Student(23,"L");
+		Student s4=new Student(24,"L");
+		ts.add(s1);
+		ts.add(s2);
+		ts.add(s3);
+		ts.add(s4);
+		for(Student s:ts)
+		{
+			System.out.println(s.getName()+"------"+s.getAge());
+		}
+	}
+	
+}
+
+//自定义比较器
+ class MyComparator implements Comparator<Student>
+{
+	@Override
+	public int compare(Student s1,Student s2)
+	{
+		int num=s1.getName().length()-s2.getName().length();
+		int num2=num==0?s1.getName().compareTo(s2.getName()):num;
+		int num3=num2==0?s1.getAge()-s2.getAge():num2;
+		return num3;
+	}
+}
+	//自定义的对象必须手动重写比较函数，实现Comparable接口
+	class Student /*implements Comparable<Student>*/
+	{
+		private int Age;
+		private String Name;
+		public Student() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		public Student(int age, String name) {
+			super();
+			Age = age;
+			Name = name;
+		}
+		public int getAge() {
+			return Age;
+		}
+		public void setAge(int age) {
+			Age = age;
+		}
+		public String getName() {
+			return Name;
+		}
+		public void setName(String name) {
+			Name = name;
+		}
+		//重写hashCode
+		@Override
+		public int hashCode() {
+			//因为成员变量影响了哈希值所以我们把成员值相加就可以了
+			return this.Name.hashCode()+this.Age*15;
+			//减少了比较的次数，提高了效率
+		}
+		public boolean equals(Object obj)
+		{
+			System.out.println(this+"---"+obj);
+			if(this==obj)
+			{
+				return true;
+			}
+			if(!(obj instanceof Student))
+			{
+				return false;
+			}
+			Student s=(Student)obj;
+			return this.Name.equals(s.Name)&&
+					this.Age==s.Age;
+		}
+		@Override
+		public String toString() {
+			return "Student[name="+Name+", age="+Age+"]";
+		}
+		//年龄优先比较，年龄比较后比较姓名
+		//当进行比较器排序时将比较器另外写在一个类上
+		/*@Override
+		public int compareTo(Student s) {
+			//return 1;   为整数时后加入的默认为大数
+			//return -1;    //为负数默认加入的为小的数
+			int num=this.Age-s.Age;
+			int num2=num==0?this.Name.compareTo(s.Name):num;
+			return num2;
+		}*/
+		
+	}
+	
+	
+
