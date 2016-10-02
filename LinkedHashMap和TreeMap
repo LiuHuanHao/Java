@@ -1,0 +1,135 @@
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeMap;
+
+/*LinkedHashMap:是Map接口的哈希表和链表的实现，具有可预知的迭代顺序
+ * 由哈希表保证键的唯一性
+ * 由链表保证键盘的有序(存储和去除顺序的一致)!!!!
+ */
+
+
+public class haha {
+	public static void main(String[] args) {
+			
+			/*LinkedHashMap<String,String> hm=new LinkedHashMap<String,String>();
+			hm.put("1213", "hello");
+			hm.put("211231","world");.
+			hm.put("213", "java");
+			Set<String> set=hm.keySet();
+			for(String key:set)
+			{
+				String value=hm.get(key);
+				System.out.println(key+"-----"+value);
+			}*/
+		/*
+		 * TreeMap是基于红黑树的Map接口的实现
+		 * HashMap<String,String>  可以实现排序！！！！
+		 */
+		/*TreeMap<String,String> tm=new TreeMap<String,String>();
+		tm.put("hello","刘焕濠");
+		tm.put("java", "王瑜");
+		tm.put("aaaa","我喜欢王瑜");
+		Set<String> set=tm.keySet();
+		for(String key:set)
+		{
+			String value=tm.get(key);
+			System.out.println(key+"----"+value);
+		}*/
+		//**********************************
+		/*TreeMap<Student,String>
+		 * 键:Student    键为自定义对象
+		 * 值:String
+		 */
+		//TreeMap可以进行排序，在添加自定义对象时必须手动填写比较器不然会报错
+		/*TreeMap<Student,String> tm=new TreeMap<Student,String>(
+				
+				new Comparator<Student>()
+				{
+					@Override
+					public int compare(Student s1,Student s2)
+					{
+						int num=s2.getAge()-s1.getAge();
+						int num2=num==0?s1.getName().compareTo(s2.getName()):num;
+						return num2;
+						//当全部成员变量相同时为0，不会添加进集合中
+					}
+				}
+				
+				
+				);
+		Student s1=new Student(120,"哈哈");
+		Student s2=new Student(120,"哈哈");
+		Student s3=new Student(11,"刘焕濠");
+		Student s4=new Student(23,"周杰伦");
+		tm.put(s1, "宋朝");
+		tm.put(s2,"元朝");
+		tm.put(s3, "明朝");
+		tm.put(s4, "汉朝");
+		Set<Student> set=tm.keySet();
+		for(Student key:set)
+		{
+			String value=tm.get(key);
+			System.out.println(key.getName()+"-----"
+					+key.getAge()+"---"+value);
+		}*/
+		//**********************************
+		//统计字符串中每个字符出现次数的案例   
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入一个字符串:");
+		String line=sc.nextLine();
+		//定义一个TreeMap集合
+		TreeMap<Character,Integer> tm=new TreeMap<Character,Integer>();
+		char[] chs=line.toCharArray();
+		for(char ch:chs)
+		{
+			Integer i=tm.get(ch);      //按键查找值，找不到时返回null
+			if(i==null)
+			{
+				tm.put(ch,1);
+			}
+			else
+			{
+				i++;
+				tm.put(ch,i);     //改变键值对的值，相当于次数
+			}
+		}
+		//定义字符串缓冲区
+		StringBuilder sb=new StringBuilder();
+		//遍历集合，得到键和值，按照要求进行拼接
+		//由于是TreeMap，所以还有排序的功能     
+		Set<Character> set=tm.keySet();
+		for(Character key:set)
+		{
+			Integer value=tm.get(key);
+			sb.append(key).append("(").append(value).append(")");
+		}
+		String result=sb.toString();
+		System.out.println(result);
+		}
+	}
+     class Student
+     {
+    	 private int age;
+    	 private String name;
+		public int getAge() {
+			return age;
+		}
+		public void setAge(int age) {
+			this.age = age;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public Student(int age, String name) {
+			super();
+			this.age = age;
+			this.name = name;
+		}
+		public Student() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+     }
