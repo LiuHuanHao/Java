@@ -1,0 +1,132 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+/*键为Integer值为String的遍历
+ * HashMap<Integer,String>
+ * 键:Integer
+ * 值:String
+ */
+
+
+public class haha {
+	public static void main(String[] args) {
+			
+		/*HashMap<Integer,String> hm=new HashMap<Integer,String>();
+		//创建元素并添加元素
+		Integer i=new Integer(27);
+		String s="林青霞";
+		hm.put(i,s);
+		hm.put(22,"刘焕濠");
+		hm.put(24,"科比");
+		//0开头是八进制的写法，不能超过8，否则会报错!!!
+		//hm.put(008, "哈哈");  编译无法通过
+		Set<Integer> set=hm.keySet();
+		for(Integer key:set)
+		{
+			String value=hm.get(key);
+			System.out.println(key+"------"+value);
+		}
+		//下面这种方式仅仅是集合元素的字符串表示
+		System.out.println(hm);*/
+		//**********************************
+		/*
+		 * HashMap<String,Student>
+		 * 键:String学号   值:Student  学生对象
+		 */
+		/*HashMap<String,Student> hm=new HashMap<String,Student>();
+		//创建学生对象
+		Student s1=new Student(23,"周星驰");
+		Student s2=new Student(34,"刘焕濠");
+		Student s3=new Student(45,"王瑜");
+		hm.put("1234", s1);
+		hm.put("1235", s2);
+		hm.put("345", s3);
+		Set<String> set=hm.keySet();
+		for(String key:set)
+		{
+			Student value=hm.get(key);   //接收Student类型的数据
+			//System.out.println(key+"-------"+value); 
+			//由于自定义对象名，没有重写toString方法，所以打印出来的是地址值！！
+			System.out.println(key+"----"+value.getName()+"____"
+			+value.getAge());
+		}*/
+		//**********************************
+		//HashMap<Student,String>    键为自定义对象
+		//键为Student,值为String,要求如果来年各个成员变量值相同则为同一个对象
+		HashMap<Student,String> hm=new HashMap<Student,String>();
+		Student s1=new Student(23,"周星驰");
+		Student s4=new Student(23,"周星驰");
+		Student s2=new Student(34,"刘焕濠");
+		Student s3=new Student(45,"王瑜");
+		hm.put(s1, "1234");
+		hm.put(s2, "1235");
+		hm.put(s3, "345");
+		hm.put(s4, "1234");
+		Set<Student> set=hm.keySet();
+		for(Student key:set)
+		{
+			String value=hm.get(key);
+			//因为Student为自定义对象，没有重写hashCode和equals时不会去除相同的元素!!!!!!!
+			System.out.println(key.getName()+"------"
+					+key.getAge()+"----"+value);
+		}
+	}
+}
+
+	class Student
+	{
+		private int age;
+		private String name;
+		public Student() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		public Student(int age, String name) {
+			super();
+			this.age = age;
+			this.name = name;
+		}
+		public int getAge() {
+			return age;
+		}
+		public void setAge(int age) {
+			this.age = age;
+		}
+		public String getName() {
+			return name;
+		}
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + age;
+			result = prime * result + ((name == null) ? 0 : name.hashCode());
+			return result;
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Student other = (Student) obj;
+			if (age != other.age)
+				return false;
+			if (name == null) {
+				if (other.name != null)
+					return false;
+			} else if (!name.equals(other.name))
+				return false;
+			return true;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		
+	}
+
+
+
