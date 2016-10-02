@@ -1,0 +1,100 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+
+/*
+ * Map集合的特点
+ * 将键映射到对象，一个映射不能包含重复的键，每个最多只能映射一个值
+ * Map集合和Collection集合的区别
+ * Map集合存储元素时成对出现的,Map集合的键是唯一的，值是值是可以重复的，视为夫妻
+ * Collection集合存储是单独出现的,Collection的儿子是唯一的
+ */
+
+/*
+ * Map集合的功能概述
+ * 1.添加功能
+ * 	V put(K key,V value):添加元素，这个其实还有另外一个功能
+ * 2.删除功能
+ * 	void clear():删除所有的键值对的元素
+ * 	V remove(Object key):根据键删除键值对元素，并把值返回
+ * 3.判断功能
+ * boolean containsKey(Object key):判断集合包含指定的键
+ * boolena containsValue(Object value):判断集合是否包含指定的值
+ * boolean isEmpty():判断集合是否为空
+ * 4.获取功能
+ * Set<Map.Entry<K,V>> entrySet():获取键值对集合，包含key和value
+ * V get(Object key):根据键获取值
+ * Set<K> keySet():获取集合中所有键的集合
+ * Collection<V> values():获取集合中所有值的集合
+ * 5.长度功能
+ * int size():返回集合中键值对的个数
+ */
+
+public class haha {
+	public static void main(String[] args) {
+
+		/*Map<String,String> map=new HashMap<String,String>();
+		//添加元素
+		System.out.println(map.put("文章","马伊俐"));
+		//如果键是第一次存储，就直接存储元素，返回null
+		System.out.println(map.put("文章", "姚笛"));
+		//如果不是第一次存在就用值把以前的值替换返回以前的值
+		map.put("周杰伦", "昆凌");
+		map.put("刘恺威", "杨幂");
+		map.put("文章", "姚笛");*/
+		/*System.out.println(map.remove("周杰伦"));
+		//删除后返回键值对的值，没有删除的元素时返回null
+		System.out.println(map.containsKey("文章"));
+		System.out.println(map.isEmpty());
+		System.out.println(map.size());
+		System.out.println(map);*/
+		//********************************************
+		//根据键获取值
+		/*System.out.println(map.get("周杰伦"));//搜索不到键就返回null
+		//获取集合中所有键的集合,用set收集
+		Set<String> set=map.keySet();   //返回的是一个没有重复值的集合
+		for(String key:set)
+		{
+			System.out.println(key);
+		}  
+		System.out.println("----------------");
+		//获取集合中所有值得集合,用Collection收集  
+		Collection<String> con=map.values();
+		for(String value:con)
+		{
+			System.out.println(value);
+		}*/
+		//________Map集合的遍历______________
+		//获取所有     
+		/*Map<String,String> map=new HashMap<String,String>();
+		map.put("杨过", "小龙女");
+		map.put("杨康", "黄蓉");
+		map.put("刘焕濠", "王瑜");
+		Set<String> set=map.keySet();     //这是一个集合
+		for(String key:set)
+		{
+			String value=map.get(key);
+			System.out.println(key+"-----------"+value);
+		}*/
+		//********************************
+		//第二种遍历方法    通过查找键值对对象找到key和value
+		Map<String,String> map=new HashMap<String,String>();
+		map.put("杨过", "小龙女");
+		map.put("郭靖", "黄蓉");
+		map.put("刘焕濠", "王瑜");
+		//获取所有键值对对象的集合Map.Entry<String,String>
+		Set<Map.Entry<String,String>> set=map.entrySet();
+		for(Map.Entry<String,String> me:set)
+		{
+			//根据键值对对象获取键和值
+			String key=me.getKey();
+			String value=me.getValue();
+			System.out.println(key+"----------"+value);
+		}
+	}
+}
+
+
+
+
