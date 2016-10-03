@@ -1,0 +1,95 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+
+
+public class haha {
+	public static void main(String[] args) {
+			
+			/********HashMap集合嵌套********************/
+		//创建集合对象
+		/*HashMap<String,HashMap<String,Integer>> czbkMap=new HashMap<String,HashMap<String,Integer>>();
+		//创建基础班集合对象
+		HashMap<String,Integer> jcMap=new HashMap<String,Integer>();
+		jcMap.put("刘焕濠",20);
+		jcMap.put("王瑜", 19);
+		czbkMap.put("jc",jcMap);   //集合里面嵌套着集合
+		//创建就业班集合
+		HashMap<String,Integer> jyMap=new HashMap<String,Integer>();
+		//添加元素
+		jyMap.put("五月天", 12);
+		jyMap.put("阿信", 23);
+		czbkMap.put("jy",jyMap);
+		//遍历集合     这命名我给零分！！！！！
+		Set<String> czbkMapSet=czbkMap.keySet();
+		for(String czbkMapKey:czbkMapSet)
+		{
+			System.out.println(czbkMapKey);
+			HashMap<String,Integer> czbkMapValue=czbkMap.get(czbkMapKey);
+			Set<String> czbkMapValueSet=czbkMapValue.keySet();    //找出嵌套集合里面的key集合
+			for(String czbkMapValueKey:czbkMapValueSet)
+			{
+				Integer czbkMapValueValue=czbkMapValue.get(czbkMapValueKey);
+				System.out.println("\t"+czbkMapValueKey+"----"+czbkMapValueValue);
+			}
+		}*/
+		/*****************HashMap集合嵌套ArrayList集合*******/
+		//创建集合对象
+		/*HashMap<String,ArrayList<String>>  hm=new HashMap<String,ArrayList<String>>();
+		//创建元素集合
+		ArrayList<String> array1=new ArrayList<String>();
+		array1.add("吕布");
+		array1.add("周瑜");
+		hm.put("三国演义",array1);
+		//创建元素集合
+		ArrayList<String> array2=new ArrayList<String>();
+		array2.add("令狐冲");
+		array2.add("凌平之");
+		hm.put("笑傲江湖", array2);
+		ArrayList<String> array3=new ArrayList<String>();
+		array3.add("郭峰");
+		array3.add("杨过");
+		hm.put("神雕侠侣",array3);
+		//遍历集合
+		Set<String> set=hm.keySet();
+		for(String key:set)   //遍历键
+		{
+			System.out.println(key);
+			ArrayList<String> value=hm.get(key);
+			for(String s:value)
+			{
+				System.out.println("\t"+s); 
+			}
+		}*/
+		//********ArrayList集合嵌套HashMap集合****************
+		ArrayList<HashMap<String,String>>  array=new ArrayList<HashMap<String,String>>();
+		//创建元素
+		HashMap<String,String>  hm1=new HashMap<String,String>();
+		hm1.put("周瑜", "小乔");
+		hm1.put("吕布","貂蝉");
+		array.add(hm1);
+		//创建元素
+		HashMap<String,String> hm2=new HashMap<String,String>();
+		hm2.put("郭靖", "黄蓉");
+		hm2.put("杨过", "小龙女");
+		array.add(hm2);
+		HashMap<String,String> hm3=new HashMap<String,String>();
+		hm3.put("令狐冲","任盈盈");
+		hm3.put("凌平之","岳灵珊");
+		hm3.put("刘焕濠","王瑜");
+		array.add(hm3);
+		//遍历
+		for(HashMap<String,String> hm:array)    //遍历ArrayList
+		{
+			Set<String> set=hm.keySet();
+			for(String key:set)
+			{
+				String value=hm.get(key);
+				System.out.println(key+"----"+value);
+			}
+		}
+		}
+     }
+
+
