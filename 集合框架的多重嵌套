@@ -1,0 +1,101 @@
+import java.util.Hashtable;
+
+
+public class haha {
+	public static void main(String[] args) {
+			
+		/*
+		 * 集合框架的多层嵌套
+		 */
+		/*HashMap<String,HashMap<String,ArrayList<Student>>> czbkMap=new HashMap<String,HashMap<String,ArrayList<Student>>>();
+		//创建北京校区数据
+		HashMap<String,ArrayList<Student>> bjCzbkMap=new HashMap<String,ArrayList<Student>>();
+		ArrayList<Student> array1=new ArrayList<Student>();
+		Student s1=new Student(22,"林青霞");
+		Student s2=new Student(23,"刘焕濠");
+		array1.add(s1);
+		array1.add(s2);
+		bjCzbkMap.put("基础班",array1 );
+		ArrayList<Student> array2=new ArrayList<Student>();
+		Student s3=new Student(22,"王瑜");
+		Student s4=new Student(23,"阿信");
+		array2.add(s3);
+		array2.add(s4);
+		bjCzbkMap.put("就业班", array2);
+		czbkMap.put("北京校区", bjCzbkMap);
+		HashMap<String,ArrayList<Student>> shCzbkMap=new HashMap<String,ArrayList<Student>>();
+		ArrayList<Student> array3=new ArrayList<Student>();
+		Student s5=new Student(25,"Monster");
+		Student s6=new Student(34,"Stone");
+		array3.add(s5);
+		array3.add(s6);
+		shCzbkMap.put("基础班",array3);
+		ArrayList<Student> array4=new ArrayList<Student>();
+		Student s7=new Student(32,"周杰伦");
+		Student s8=new Student(45,"昆凌");
+		array4.add(s7);
+		array4.add(s8);
+		shCzbkMap.put("就业班",array4);
+		czbkMap.put("上海校区", shCzbkMap);
+		
+		//遍历集合
+		Set<String> czbkMapSet=czbkMap.keySet();
+		for(String czbkMapKey:czbkMapSet)
+		{
+			System.out.println(czbkMapKey);
+			HashMap<String,ArrayList<Student>> czbkMapValue=czbkMap.get(czbkMapKey);
+			Set<String> czbkMapValueSet=czbkMapValue.keySet();
+			for(String czbkMapValueKey:czbkMapValueSet)
+			{
+				System.out.println("\t"+czbkMapValueKey);
+				ArrayList<Student> czbkMapValueValue=czbkMapValue.get(czbkMapValueKey);
+				for(Student s:czbkMapValueValue)   //循环遍历ArrayList
+				{
+					System.out.println("\t\t"+s.getName()+"----"+s.getAge());
+				}
+			}
+		}*/
+		/*HashMap和Hashtable的区别                         table的t不需要大写
+		 * Hashtable:线程安全，效率低，不允许null值和键
+		 * HashMap:线程不安全,效率高，允许null值和键
+		 * 2.List,Set,Map等接口是否都继承于Map接口
+		 * List,Set不是继承于Map接口，它们继承自Collection接口
+		 * Map接口本身就是一个顶层接口
+		 */
+		/*HashMap<String,String> hm=new HashMap<String,String>();
+		hm.put("01", null);   //可以添加null
+		hm.put(null, "刘焕濠");
+		System.out.println(hm);*/
+		Hashtable<String,String> ht=new Hashtable<String,String>();
+		//ht.put("001",null);   Hashtable不可以添加null
+		
+	}
+   }
+
+
+	class Student
+	{
+		private int age;
+		private String name;
+		public Student() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		public Student(int age, String name) {
+			super();
+			this.age = age;
+			this.name = name;
+		}
+		public int getAge() {
+			return age;
+		}
+		public void setAge(int age) {
+			this.age = age;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+	}
