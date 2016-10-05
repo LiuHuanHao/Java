@@ -1,0 +1,167 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+//************集合框架和数据结构总结****************
+/*1.集合
+ * Collection(单列集合)
+ * 		List(有序，可重复)
+ * 			ArrayList:底层数据结构是数组，查询快，增删慢，线程不安全，效率高
+ * 			Vector:底层数据结构是数组，查询快，增删慢，线程安全，效率低		
+ * 			LinkedList:底层数据结构是链表，查询慢，增删快，线程不安全，效率高
+ * 		Set(无序，唯一)
+ * 			HashSetL:底层数据结构是哈希表，依赖两个方法hashCode()和equals()
+ * 					 先执行我打算hashCode()后执行equals(),这两个可以自动生成即可
+ * 				LinkedHashSet:底层是链表和哈希表组成，由链表保证元素有序，有哈希表保证唯一
+ * 							  存入与取出有序
+ * 			TreeSet:底层数据结构是红黑树(是一种自平衡的二叉树)
+ * 					根据比较的返回值是否是0来决定元素是否相同，保证元素的唯一
+ * 					如何保证元素的排序
+ * 					自然排序:让元素所属的类实现Comparable接口
+ * 					比较器排序:让集合接收一个Comparator的实现类对象
+ * Map(双列集合):Map集合的数据结构只对键有效，与值无关
+ * 	HashMap
+ * 			LinkedHashMap
+ * 	Hashtable    
+ * 	TreeMap
+ */
+	/*
+	 * 我们如何处理异常
+	 * A:try....catch......finally......
+	 * try
+	 * {
+	 * 			可能出现问题的代码
+	 * }
+	 * catch
+	 * {
+	 * 			针对问题的处理
+	 * }
+	 * finally
+	 * {
+	 * 			释放资源
+	 * }
+	 * 注意:
+	 * A:try里面的代码越少越好
+	 * B:catch里面必须有内容
+	 */
+	/*JDK7出现了一个新的异常处理方案
+	 * try{
+	 * 
+	 * 	}
+	 * catch(异常名1 | 异常名2 |异常名 |.....  变量)
+	 * {
+	 * 
+	 * }
+	 * A:处理方式是一致的，针对同类问题给出同一处理
+	 * B:多个异常必须是平级关系
+	 */
+	/*在try里面发现问题后，jvm会帮我们生成一个异常对象，然后和catch里面的类进行匹配
+	 * public static getMessage():异常的消息字符串
+	 * public static toString():返回异常简单信息描述
+	 * 此对象类的name(全路径)+": "+调用getLocalizedMessage()的结果，返回的是getMessage(()的内容
+	 * printStackTrace()相当之前默认显示的内容，只不过现在可以继续进行后面的代码
+	 */
+
+public class haha {
+	public static void main(String[] args) {
+				
+		//method2();
+		//method3();
+		/*throws这个格式必须跟在括号的后面
+		 * 尽量不要在main方法上抛出
+		 * 编译期异常抛出，将来调用者必须处理
+		 * 运行期异常将来调用者可以不用处理
+		 */
+		try {
+			method5();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Over");
+		}
+	public static void method5() throws ParseException
+	{
+		String s="2014-11-12";
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date d=sdf.parse(s);
+		System.out.println(d);
+	}
+	
+	
+	public static void method4()
+	{
+		String s="2014-11-20";
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
+		//Date d=sdf.parse(s);    //没有写try..catch..编译无法通过
+		
+		try
+		{
+			Date d=sdf.parse(s);  //创建ParseException对象
+			System.out.println(d);
+		}
+		catch(ParseException e)
+		{
+			//System.out.println("解析日期出问题了");
+			//System.out.println(e.getMessage());//Unparseable date: "2014-11-20"
+			//System.out.println(e.toString());//java.text.ParseException: Unparseable date: "2014-11-20"
+			e.printStackTrace();  //多了显示错误的行数
+		}
+		System.out.println("Over");
+	}
+	public static void method3()
+	{
+		int a=10;
+		int b=0;
+		int[] arr={1,2,3};
+		try{
+			System.out.println(arr[3]);
+			System.out.println(a/b);
+		}
+		catch(ArithmeticException|ArrayIndexOutOfBoundsException e)
+		{
+			System.out.println("出问题");
+		}
+		System.out.println("Over");
+	}
+	public static void method2()
+	{
+		int a=10;
+		int b=0;
+		int[] arr={1,2,3};
+		try
+		{
+			//System.out.println(arr[3]);   //当第一个错误找到匹配的catch时便终止
+			System.out.println(a/b);
+		}
+		catch(ArithmeticException e)
+		{
+			System.out.println("除数不能为0");
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			System.out.println("你访问了不该访问的索引");
+		}
+		catch(Exception e)  //当不知带什么错时可以用此父类涵盖所有的错误
+		//此catch不能放在前面，因为会代替后面的效果，使其失效
+		{
+			System.out.println("出问题了");
+		}
+		System.out.println("over");
+	}
+	public static void method1()
+	{
+		int a=10;
+		int b=0;
+		//System.out.println(a/b);  报错，无法运行下一步 
+		try     //添加了错误处理机制后下一步得以运行
+		{
+			System.out.println(a/b);
+		}
+		catch(ArithmeticException ae)
+		{
+			System.out.println("除数不能为0");
+		}
+		System.out.println("over");
+	}
+	}
+
