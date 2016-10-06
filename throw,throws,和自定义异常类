@@ -1,0 +1,132 @@
+import java.util.Scanner;
+
+
+public class haha {
+	public static void main(String[] args) {
+				
+		//method();
+		/*try {
+			method2();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}*/
+		//*****************************
+		/*finally:被finally控制的语句一定会执行 
+		 * 用于释放内存，在IO流和数据库操作中会见到
+		 */
+		//System.out.println(getInt());
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入老师的年龄:");
+		int score=sc.nextInt();
+		Teacher t=new Teacher();
+		try {
+			t.check(score);
+		} catch (MyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Over");
+	}
+	
+	/*
+	 * 要想自己做一个异常类，就必须继承自Exception或RuntimeException
+	 */
+	static class MyException extends Exception
+	{
+		public MyException()
+		{
+			
+		}
+		public MyException(String message)   //这是一个含有字符串参数的构造函数
+		{
+			super(message);//message在父辈中的getMessage()中返回
+		}
+	}
+	
+	static class Teacher
+	{
+		public void check(int score) throws MyException
+		{
+			if(score>100||score<0)
+			{
+				throw new MyException("分数必须在0-100之间");   //错误就抛出异常对象
+			}
+			else
+			{
+				System.out.println("分数没有问题");
+			}
+		}
+	}
+	
+	
+	public static int getInt()
+	{
+		int a=10;
+		try
+		{
+			System.out.println(a/0);
+		}
+		catch(ArithmeticException e)
+		{
+			a=30;
+			return a;   //在这里return后发现还有finally则需要进行finally操作
+		}
+		finally
+		{
+			a=40;
+			return a;    //当finally里面有return就直接return返回
+		}
+		//return a;    //finally没有return这里必须return，否则无法编译通过
+	}
+	
+	
+	
+	
+	/*throws和throw的区别
+	 * throws:
+	 * 用在方法声明后面，跟的是异常类名
+	 * 可以跟多个异常类名，用逗号隔开
+	 * 表示抛出异常，由该方法的调用者来处理
+	 * throws表示出现异常的一种可能性，并不一定会发生这种异常
+	 * throw:
+	 * 用在方法体内，跟的是异常对象名
+	 * 只能抛出一个异常对象名
+	 * 表示抛出异常，由方法体内的语句处理
+	 * throw则是抛出了异常，一定发生了异常
+	 */
+	/*final,finally,finalize的区别
+	 * final:最终的意思，可以修饰类，成员变量，方法
+	 * 修饰类时类不能被继承
+	 * 修饰变量是变量是常量，修饰方法时方法不能被重写
+	 * finally是异常处理的一部分，用于释放资源，一般会被执行
+	 * finalize：Object一个方法，用于垃圾回收
+	 */
+	public static void method()
+	{
+		int a=10;
+		int b=0;
+		if(b==0)
+		{
+			throw new ArithmeticException();
+			//是b==0时抛出错误对象，由于是运行错误所以可以不用throws
+		}
+		else
+		{
+			System.out.println(a/b);
+		}
+	}
+	public static void method2() throws Exception  //抛给调用函数的地方
+	{
+		int a=10;
+		int b=0;
+		if(b==0)
+		{
+			throw new Exception();
+		}
+		else
+		{
+			System.out.println(a/b);
+		}
+	}
+	}
+
