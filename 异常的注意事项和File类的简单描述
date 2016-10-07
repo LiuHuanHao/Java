@@ -1,0 +1,107 @@
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/*
+ * 异常注意事项:
+ * A:子类重写父类方法时，子类方法必须抛出相同的异常或父类异常的子类
+ * B:如果父类抛出了多个异常，子类重写父类，只能抛出相同的异常或者是他的子类，子类不能抛出父类没有的异常
+ * C:如果被重写的方法没有异常抛出，那么子类的方法绝对不可以抛出异常,如果子类内有异常，那么子类只能try，不能用throws
+ */
+/*File:文件和目录路径名的抽象表示形式
+ * 构造方法:
+ * File(String pathName):根据一个路径得到file对象
+ * File(String parent,String child):根据一个目录和一个子文件/目录得到file对象
+ * File(File parent,String child)
+ */
+
+public class haha {
+	public static void main(String[] args) throws IOException {
+		/*		
+		File file=new File("D:\\experiment\\a.txt");
+		File file2=new File("D:\\experiment","a.txt");
+		File file3=new File("D:\\experiment");
+		File file4=new File(file3,"a.txt");*/
+		//***************************************
+		/*创建功能
+		 * public boolean createNewFile():创建文件，如果存在就不创建，并返回false
+		 * public boolean mkdir():创建文件夹，如果存在就返回false
+		 * public boolean mkdirs:创建文件夹，如果父文件夹不存在会帮你创建
+		 */
+		//在D盘创建LHH文件夹
+		/*File file=new File("D:\\LHH");
+		System.out.println("mkdir:"+file.mkdir());
+		//在文件夹创建a.txt文件
+		File file2=new File("D:\\LHH\\a.txt");
+		System.out.println("createNewFile:"+file2.createNewFile());
+		//createNewFile()会抛出异常，而mkdir不会,创建文件的文件夹必须存在
+		//需求:在e盘目录test下创建aaa目录
+		File file3=new File("e:\\test");
+		System.out.println("mkdir:"+file3.mkdir());
+		File file4=new File("e:\\test\\aaa");
+		System.out.println("mkdir:"+file4.mkdir());
+		//************************************
+		//上面的步骤可以用如下方法进行简化
+		File file7=new File("D:\\experiment\\aaa\\bb\\Mayday");
+		System.out.println("mkdir:"+file7.mkdirs());*/
+		//*************************************
+		/*删除功能
+		 * A:如果你创建文件忘了写了路径，那么默认在项目路径下
+		 * B:Java中的删除不走回收站
+		 * C:要删除一个文件夹，请注意文件夹内不能包含文件或者文件夹
+		 */
+		File file=new File("a.txt");
+		System.out.println("createNewFile:"+file.createNewFile());
+		File file2=new File("aaa\\bb\\cc");
+		//默认在项目文件夹下生成
+		System.out.println("mkdir:"+file2.mkdirs());
+		File file3=new File("a.txt");
+    //需要创建一个文件类才使用delete函数
+		System.out.println("delete:"+file3.delete());
+		File file4=new File("aaa\\bb\\cc");
+		File file5=new File("aaa\\bb");
+		File file6=new File("aaa");
+		/*System.out.println(file4.delete());
+		System.out.println(file5.delete());*/
+		System.out.println(file6.delete());
+		//必须把子文件里面的文件才能删除父文件
+	}
+	}
+	class Fu
+	{
+		public void show() throws Exception 
+		{
+			
+		}
+		public void method()   //父类没有抛出异常
+		{
+			
+		}
+	}
+	class Zi extends Fu
+	{
+		/*public void show() throws Exception   //不能抛出比父还高级的异常
+		{
+			
+		}*/
+		public void show() throws ArithmeticException
+		{
+			
+		}
+		@Override
+		public void method()
+		{
+			String s="2014-11-20";
+			SimpleDateFormat sdf=new SimpleDateFormat();
+			Date d=null;  //这里的d必须初始化不然会报错
+			try {
+				d = sdf.parse(s);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}  //父类没有抛出异常，在这里也不能抛出异常，只能try..catch..
+			System.out.println(d);
+		}
+	}
+
