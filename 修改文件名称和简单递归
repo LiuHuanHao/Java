@@ -1,0 +1,125 @@
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+ * 修改文件名称
+ * A:封装目录
+ * B:获取该目录下所有文件的File数组
+ * C:遍历该File数组，得到每一个File数组
+ * D:拼接一个新名称,然后重命名即可
+ */
+
+public class haha {
+	public static void main(String[] args) throws IOException {
+		
+     //含有名称过滤器的list方法实现代码
+		 /*public String[] list(FilenameFilter filter) {
+		        String names[] = list();
+		        if ((names == null) || (filter == null)) {
+		            return names;
+		        }
+		        List<String> v = new ArrayList<>();
+		        for (int i = 0 ; i < names.length ; i++) {
+		            if (filter.accept(this, names[i])) {
+		                v.add(names[i]);
+		            }
+		        }
+		        return v.toArray(new String[v.size()]);
+		    }*/
+		//封装目录
+		/*File scroFolder=new File("E:\\三国演义");
+		//获取该目录下所有文件的File数组
+		File[] fileArray=scroFolder.listFiles();
+		//遍历该File数组，得到每一个File对象
+		for(File file:fileArray)
+		{
+			//System.out.println(file);
+			String name=file.getName();
+			//System.out.println(name);
+			int index=name.indexOf("_");
+			String numberString=name.substring(index+1,index+4);
+			//System.out.println(numberString);
+			//E:\三国演义\三国演义_001_你好啊_十常侍之乱.txt
+			//提取出章节名字的操作
+			int startIndex=name.lastIndexOf("_");
+			int endIndex=name.lastIndexOf(".");
+			String nameString=name.substring(startIndex+1,endIndex);
+			System.out.println(nameString);
+			int endIndex=name.lastIndexOf('_');
+			String nameString=name.substring(endIndex);
+			//System.out.println(nameString);
+			String newName=numberString.concat(nameString);
+			//System.out.println(newName);
+			File newFile=new File(scroFolder,newName);
+			//重命名
+			file.renameTo(newFile);
+		}*/
+		//分别用迭代和递归实现5的阶乘
+		/*int jc=1;
+		for(int x=2;x<=5;x++)
+		{
+			jc*=x;
+		}
+		System.out.println("5的阶乘是:"+jc);
+		System.out.println("5的阶乘是:"+jieCheng(5));*/
+		//***********************************************
+		//不死神兔  1,1,2,3,5,8的三种实现方法
+		//第一种
+		int[] arr=new int[20];
+		arr[0]=1;
+		arr[1]=1;
+		for(int x=2;x<arr.length;x++)
+		{
+			arr[x]=arr[x-1]+arr[x-2];
+		}
+		System.out.println(arr[19]);
+		//******************************
+		//第二种   下一次的a是以前的b，下一次的b是以前的a+b
+		int a=1;
+		int b=1;
+		//a和b已经知道，所以在这里只需要进行18次即可
+		for(int x=0;x<18;x++)
+		{
+			int temp=a;
+			a=b;
+			//此刻a已被覆盖，需要创建临时变量
+			b=temp+b;
+		}
+		System.out.println(b);
+		//*************************
+		//第三种方法是递归实现
+		//第一个月是1，第二个月也是1，从第三个月开始，每个月是前两个月之和
+		System.out.println(fib(4));	
+	}
+	
+	public static int fib(int n)
+	{
+		if(n==1||n==2)
+		{
+			return 1;
+		}
+		else
+		{
+			//第一个月是1，第二个月也是1，从第三个月开始，每个月是前两个月之和
+			return fib(n-1)+fib(n-2);
+		}
+	}
+	
+	
+	
+	public static int jieCheng(int n)
+	{
+		//在这里可以暂且理解为一个栈的结构
+		if(n==1)
+		{
+			return 1;
+		}
+		else
+		{
+			return n*jieCheng(n-1);
+		}
+	}
+	}
