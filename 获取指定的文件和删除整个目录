@@ -1,0 +1,75 @@
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+ * 需求:请大家把D:\\目录下所有的jpg结尾的文件的绝对路径输出在控制台上
+ * 分析:
+ * A:封装目录
+ * B:获取该目录下所有的文件或者文件夹的File数组
+ * C:遍历该File数组，得到每一个File对象
+ * D:判断该File对象是否是文件夹，判断是否是以.jpg结尾的文件
+ */
+
+public class haha {
+	public static void main(String[] args) throws IOException {
+		
+		/*File srcFolder=new File("d:\\实验");
+		 //递归功能实现
+		 getAllJpgFilePaths(srcFolder);*/
+		//********************************
+		/*
+		 * 需求:递归删除带内容的目录
+		 * 分析:
+		 * A:封装目录
+		 * B:获取该目录下的所有文件或者 文件夹的File数组
+		 * C:遍历该File数组，得到每一个File对象
+		 * D:判断是否是文件夹，判断是否是文件
+		 */
+		File srcFolder=new File("D:\\实验2");
+		//递归实现
+		deleteFolder(srcFolder);
+	}
+	
+	public static void deleteFolder(File srcFolder)
+	{
+		File[] fileArray=srcFolder.listFiles();
+		//遍历该File数组
+		for(File file:fileArray)
+		{
+			if(file.isDirectory())
+			{
+				deleteFolder(file);
+			}
+			else
+			{
+				System.out.println(file.getName()+"-----"+file.delete());
+			}
+		}
+		System.out.println(srcFolder.getName()+"---"+srcFolder.delete());  //此步骤是删除目录的操作
+	}
+	
+	
+	
+	public static void getAllJpgFilePaths(File srcFolder)
+	{
+		File[] fileArray=srcFolder.listFiles();
+		for(File file:fileArray)
+		{
+			if(file.isDirectory())
+			{
+				getAllJpgFilePaths(file);
+			}
+			else
+			{
+				if(file.getName().endsWith(".jpg"))
+				{
+					System.out.println(file.getAbsolutePath());
+				}
+			}
+		}
+	}
+	}
+
