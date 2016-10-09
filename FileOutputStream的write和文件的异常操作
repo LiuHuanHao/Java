@@ -1,0 +1,116 @@
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+/*数据类型
+ * 字节流:
+ * 		字节输入流:读取数据  InputStream
+ * 		字节输出流:写出数据 OuputStream
+ * 字符流:
+ * 		字符输入流:读取数据 Reader
+ * 		字符输出流:写出数据 Writer
+ * OuputStream是抽象类，不能被实例化
+ * 每个基类的子类都是以父类作为后缀名  XXXOuputStream
+ * FileOuputStream的构造方法
+ * FileOutputStream(File file)
+ * FileOutputStream(String name)
+ */
+
+public class haha {
+	public static void main(String[] args){
+	/*	
+		//创建字节输出流对象
+		File file=new File("haha.txt");
+		//FileOutputStream fos=new FileOutputStream(file);
+		//第二种构造方法
+		FileOutputStream fos=new FileOutputStream("haha.txt");
+		创建字节流对象
+		 * A:调用系统功能创建文件
+		 * B:创建fos对象
+		 * C:把fos对象指向这个文件
+		 
+		//写数据
+		fos.write("hello,IO".getBytes());
+		fos.close(); *///关闭此文件输出流并释放与此流有关的所有系统资源
+		//fos.write("java".getBytes());   关闭fos后不能继续写入数据
+		//创建字节输出流对象
+		/*OutputStream os=new FileOutputStream("haha.txt");//多态
+		os.write(97);
+		os.write(57);
+		os.write(55);
+		//public void write(byte[] b) 写一个字节数组
+		byte[] bys={97,98,99,100,101};
+		//os.write(bys);
+		//public void write(byte[] b,int off,int len):写一个字节数组的部分
+		os.write(bys,1,3);
+		for(int x=0;x<10;x++)
+		{
+			os.write(("hello"+x).getBytes());
+			os.write("\r".getBytes()); //添加换行
+		}*/
+		//创建一个输出文件流，如果第二个参数为true,字节写入文件末尾
+		/*FileOutputStream fos;
+		fos = new FileOutputStream("haha.txt",true);
+	
+		//第二个参数为true所以加入的数据追加在末尾
+		for(int x=0;x<10;x++)
+		{
+			fos.write(("java"+x).getBytes());
+			fos.write("\r".getBytes()); //添加换行
+		}
+		fos.close();*/
+		//*********************
+		//异常处理
+		//将每一个方法分别进行异常处理
+		/*FileOutputStream fos=null;
+		try {
+			fos=new FileOutputStream("a.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			fos.write(34);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		//一起做异常
+		FileOutputStream fos=null;
+		try
+		{
+		fos=new FileOutputStream("z:\\a.txt");
+		fos.write(87);
+		//fos.close();  close放在这里不一定会被执行，为了确保执行可以放在finally
+		}catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(fos!=null)   //当找不到路径没有创建对象时自动忽略
+			{
+			try {
+				//当找不到指定路径时并不会创建fos，所以也就不能使用close()方法
+				//否则会产生空指针异常
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}//由于fos定义在try里面在这里使用不了，需将其定义在外部
+			//因为其不在try里面需要另外解决close方法的异常
+			}
+		}
+	}
+	}
+
+
