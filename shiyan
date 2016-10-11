@@ -1,0 +1,83 @@
+import java.util.Scanner;
+
+
+public class testMath {
+		public static void main(String[] args) {
+			/*final int NUMBER=100;
+			int count=10;
+			int randomNum=0;
+			int probability[]=new int[6];
+			for(int i=0;i<6;i++)
+			{
+				probability[i]=0;
+			}
+			for(int i=0;i<NUMBER;i++)
+			{
+				randomNum=(int)(Math.random()*6)+1;
+				probability[randomNum-1]++;    //统计随机产生的次数
+				System.out.print(randomNum+"\t");
+				if(i%count==9)   //当数字遍历一行满10时换行
+				{
+					System.out.println();
+				}
+			}
+			for(int i=0;i<6;i++)
+			{
+				System.out.println("\n"+(i+1)+":\t"+probability[i]);
+			}*/
+			//***************************************
+			//编写一个猜数字游戏
+			Scanner sc=new Scanner(System.in);
+			System.out.println("欢迎进入猜数字游戏!!!");
+			System.out.println("是否开始游戏?y/n");
+			while(true)
+			{
+				String resultString=sc.nextLine();
+				if(resultString.equalsIgnoreCase("Y"))
+				{
+					GuessNumber.start();
+					System.out.println("你还玩吗?y/n");
+				}
+				else
+				{
+					break;
+				}
+			}
+			System.out.println("谢谢使用，欢迎下次再来");
+			System.exit(0);
+			
+		}
+}
+		class GuessNumber
+		{
+				private GuessNumber()
+				{
+					//这个类不允许被新建
+				}
+				public static void start()  //定义静态，不需要new就可以调用
+				{
+					//产生一个随机数
+					int number=(int)(Math.random()*100+1);
+					while(true)
+					{
+						Scanner sc=new Scanner(System.in);
+						System.out.println("请输入数据(1-100)");
+						int guessNumber=sc.nextInt();
+						if(guessNumber>number)
+						{
+							System.out.println("你猜的数据大了");
+						}
+						else if(guessNumber<number)
+						{
+							System.out.println("你猜的数据小了");
+						}
+						else
+						{
+							System.out.println("恭喜你，猜中了");
+							break;
+						}
+					}
+				}
+		}
+		
+
