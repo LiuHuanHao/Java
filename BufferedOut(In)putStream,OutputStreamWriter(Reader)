@@ -1,0 +1,132 @@
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
+public class haha {
+	public static void main(String[] args) throws IOException{	
+		
+		//复制视频
+		//用字节数组的形式效率明显提升
+		/*FileInputStream fis=new FileInputStream("D:\\Documents\\Desktop\\java\\day20\\avi\\20.09_IO流(IO流概述及分类).avi");
+		FileOutputStream fos=new FileOutputStream("haha.avi");
+		byte[] bys=new byte[1024];
+		int len=0;
+		while((len=fis.read(bys))!=-1)
+		{
+			fos.write(bys,0,len);
+		}
+		fos.close();
+		fis.close();*/
+		/*缓冲区类:(高效类)
+		 * 写数据:BufferedOutputStream
+		 * 读数据:BufferedInputStream
+		 * 构造方法可以指定缓冲区的大小，但是一般默认缓冲区大小就可以了
+		 */
+		/*FileOutputStream fos=new FileOutputStream("bos.txt");
+		BufferedOutputStream bos=new BufferedOutputStream(fos);
+		bos.write("hello".getBytes());
+		bos.close();*/
+		//********************读取数据********************
+		BufferedInputStream bis=new BufferedInputStream(new FileInputStream("bos.txt"));
+		//读取数据
+		/*int by=0;
+		while((by=bis.read())!=-1)
+		{
+			System.out.print((char)by);
+		}*/
+		/*System.out.print("------");
+		byte[] bys=new byte[1024];   //由于前面已经遍历结束，在这里遍历将无法显示
+		int len=0;
+		while((len=bis.read(bys))!=-1)
+		{
+			System.out.println(new String(bys,0,len));
+		}
+		bis.close();*/
+		/*String s="你好";
+		//byte[] bys=s.getBytes();//默认为UTF-8编码
+		byte[] bys=s.getBytes("GBK"); //[-60, -29, -70, -61]
+		//byte[] bys=s.getBytes("UTF-8");
+		System.out.println(Arrays.toString(bys));
+		//String s2=new String(bys);   //默认用UTF-8解码
+		//String s2=new String(bys,"GBK");  //必须编码和解码一致才能正常显示
+		String s2=new String(bys,"UTF-8");
+		System.out.println(s2);*/
+		//*********************************
+		/* OutputStreamWriter(OutputStream out):根据默认编码把字符流把数据转换为字符流
+		 * OutputStreamWriter(OutputStream out,String charsetName):根据指定编码把字节流数据转换为字符流
+		 * 字符流=字节流+编码
+		 */
+		//OutputStreamWriter osw=new OutputStreamWriter(new FileOutputStream("osw.txt"));
+		//默认用UTF-8进行编码，默认用GBK进行解码，会产生显示错误
+		/*OutputStreamWriter osw=new OutputStreamWriter(new FileOutputStream("osw.txt"),"GBK");
+		osw.write("中国");
+		osw.close();
+		//**********************
+		//InputStreamReader isr=new InputStreamReader(new FileInputStream("osw.txt"));
+		InputStreamReader isr=new InputStreamReader(new FileInputStream("osw.txt"),"GBK");
+		//后面一个参数用于表示用哪种方式进行编码
+		//默认用UTF-8进行解码，当编码为GBK时解码会产生错误
+		int ch=0;
+		while((ch=isr.read())!=-1)
+		{
+			System.out.print((char)ch);
+		}
+		isr.close();*/
+		//************************
+		/*
+		 * OutputStreamWriter的方法
+		 * public void write(int c):写一个字符
+		 * public void write(char[] cbuf):写一个字符数组
+		 * pulic void write(char[] cbuf,int off,int len):写一个字符数组的一部分
+		 * public void write(String str):写一个字符串
+		 * public void write(String str,int off,int len):写一个字符串的一部分
+		 */
+		/*OutputStreamWriter osw=new OutputStreamWriter(new FileOutputStream("osw2.txt"),"GBK");
+		osw.write('a');
+		osw.write(97);
+		char[] chs={'a','b','c','d'};
+		osw.write(chs,1,3);
+		osw.write("刘焕濠");
+		osw.write("我爱林青霞",2,3);  //截取字符串
+		//刷新缓冲区
+		osw.flush();
+		osw.close();*/
+		//*******************
+		/*
+		 * InputStreamReader的方法
+		 * int read():一次读取一个字符
+		 * int read(char[] chs):一次读取一个字符数组
+		 */
+		/*InputStreamReader isr=new InputStreamReader(new FileInputStream("osw2.txt"),"GBK");
+		//一次读取一个字符
+		int ch=0;
+		while((ch=isr.read())!=-1)
+		{
+			System.out.print((char)ch);
+		}
+		//一次读取一个字符数组
+		char[] chs=new char[1024];
+		int len=0;
+		while((len=isr.read(chs))!=-1)
+		{
+			System.out.print(new String(chs,0,len));
+		}
+		isr.close();*/
+		//***************************
+		//复制文本 继承于InputStreamReader
+		/*FileReader fr=new FileReader("osw2.txt");
+		FileWriter fw=new FileWriter("haha.txt");
+		int ch;
+		while((ch=fr.read())!=-1)
+		{
+			fw.write(ch);
+		}
+		fw.close();
+		fr.close();*/
+		//中文编码出现了错误
+	} 
+	}
+
