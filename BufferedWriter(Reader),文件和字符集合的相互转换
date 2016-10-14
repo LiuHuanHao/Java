@@ -1,0 +1,155 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Random;
+
+/* 字符流为了高效读写，也提供对应的字符
+ * BufferedWriter
+ * BUfferedReader
+ */
+
+public class haha {
+	public static void main(String[] args) throws IOException{	
+		
+		//BufferedWriter(Writer out)
+		/*BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("bw.txt"),"UTF-8"));*/
+		/*BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("me.txt")));*/  //默认为UTF-8进行编码
+		/*BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("i.txt"),"GBK"));*/
+		/*BufferedWriter bw=new BufferedWriter(new FileWriter("you.txt")); //默认用UTF-8进行编码
+		bw.write("hello");
+		bw.write("world");
+		bw.write("java");
+		bw.write("中国");
+		bw.close();*/
+		//*********************
+		/*BufferedReader br=new BufferedReader(new FileReader("you.txt"));//默认用UFT-8解码
+		//方式1
+		int ch=0;
+		while((ch=br.read())!=-1)
+		{
+			System.out.print((char)ch);
+		}
+		char[] chs=new char[1024];
+		//方式2
+		int len=0;
+		while((len=br.read(chs))!=-1)
+		{
+			System.out.println(new String(chs,0,len));
+		}
+		//释放资源  
+		br.close();*/
+		//**********************
+		//复制文本
+		/*BufferedReader br=new BufferedReader(new FileReader("you.txt"));
+		BufferedWriter bw=new BufferedWriter(new FileWriter("aa.txt"));
+		char[] chs=new char[1024];
+		int len=0;
+		while((len=br.read(chs))!=-1)
+		{
+			System.out.print(new String(chs,0,len));
+			bw.write(chs,0,len);
+		}
+		bw.close();
+		br.close();*/
+		/*字符缓冲流的特殊方法
+		 * BufferedWriter:
+		 * 		public void newLine():根据系统来决定换行符
+		 * BufferedReader:
+		 * 		public void readLine():一次读取一行数据
+		 */
+		/*BufferedWriter bw=new BufferedWriter(new FileWriter("a.txt"));
+		for(int x=0;x<10;x++)
+		{
+			bw.write("hello"+x);
+			//bw.write("\r\n");  //实现在文件写入换行
+			bw.newLine();
+			bw.flush();
+		}*/
+		BufferedReader br=new BufferedReader(new FileReader("bw.txt"));
+		/*String line=br.readLine();
+		System.out.println(line);
+		line=br.readLine();  //当索引不到文件时会返回null
+		System.out.println(line);*/
+		/*String line=null;
+		while((line=br.readLine())!=null)   //遍历到没有数据时停止遍历
+		{
+			System.out.println(line);
+		}
+		//bw.close();
+		br.close();*/
+		//***********************************
+		//复制文本
+		/*BufferedReader br1=new BufferedReader(new FileReader("aa.txt"));
+		BufferedWriter bw=new BufferedWriter(new FileWriter("bw.txt"));
+		String line=null;
+		while((line=br1.readLine())!=null)
+		{
+			bw.write(line);   //读取的时候在文件的结尾结束，没有纳入换行符，需要手动添加
+			bw.newLine();
+			bw.flush();
+		}
+		bw.close();
+		br1.close();*/
+		//************************
+		//从集合中取出字符元素放到文件中
+		/*ArrayList<String> array=new ArrayList<String>();
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		BufferedWriter bw=new BufferedWriter(new FileWriter("a.txt"));
+		for(String s:array)
+		{
+			bw.write(s);
+			bw.newLine();
+			bw.flush();
+		}
+		bw.close();*/
+		//***********************
+		//把文本中的数据存储到集合中
+		//封装数据源
+		/*BufferedReader br2=new BufferedReader(new FileReader("a.txt"));
+		ArrayList<String> array=new ArrayList<String>();
+		String line=null;
+		while((line=br2.readLine())!=null)
+		{
+			array.add(line);
+		}
+		for(String s:array)
+		{
+			System.out.println(s);
+		}
+		
+		br.close();*/
+		/*BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(
+		new FileOutputStream("i.txt"),"GBK"));*/
+		BufferedWriter bw=new BufferedWriter(new FileWriter("you.txt")); //默认用UTF-8进行编码
+		bw.write("王瑜");
+		bw.newLine();
+		bw.write("刘焕濠");
+		bw.newLine();
+		bw.write("阿信");
+		bw.newLine();
+		bw.write("周杰伦");
+		bw.close();
+		BufferedReader br2=new BufferedReader(new FileReader("you.txt"));
+		ArrayList<String> array=new ArrayList<String>();
+		String line=null;
+		while((line=br2.readLine())!=null)
+		{
+			array.add(line);
+		}
+		br2.close();
+		Random r=new Random();  //创建随机对象
+		int index=r.nextInt(array.size());
+		String name=array.get(index);  //获取索引的值
+		System.out.println("该幸运者是:"+name);
+	} 
+	}
