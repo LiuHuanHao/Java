@@ -1,0 +1,183 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+
+/* 键盘录入5个学生信息，按照总分从高到低存入文本文件
+ * 分析:
+ * 		A:创建学生类
+ * 		B:创建集合对象
+ * 			TreeSet<Student>
+ * 		C:键盘录入学生信息存储到集合中   
+ * 		D:遍历集合，把数据写入到文本文件中
+ */
+
+public class haha {
+	public static void main(String[] args) throws IOException{	
+		
+		//创建集合对象
+		/*TreeSet<Student> ts=new TreeSet<Student>(new Comparator<Student>()   //内置自定义比较器
+				{
+					@Override
+					public int compare(Student s1,Student s2)
+					{
+						int num=s2.getSum()-s1.getSum();
+						int num2=num==0?s1.getChinese()-s2.getChinese():num;
+						int num3=num2==0?s1.getMath()-s2.getMath():num2;
+						int num4=num3==0?s1.getEnglish()-s2.getEnglish():num3;
+						int num5=num4==0?s1.getName().compareTo(s2.getName()):num4;
+						return num5;     
+					}
+				});
+		for(int x=1;x<=5;x++)  //录入五个学生信息
+		{
+			Scanner sc=new Scanner(System.in);     //每次创建新的键盘输入，所以不会把换行符纳入
+			System.out.println("请录入第"+x+"个的学习信息");
+			System.out.println("姓名:");
+			String name=sc.nextLine();
+			System.out.println("语文成绩:");
+			int chinese=sc.nextInt();
+			System.out.println("数学成绩:");
+			int math=sc.nextInt();
+			System.out.println("英语成绩:");
+			int english=sc.nextInt();
+			//创建学生对象
+			Student s=new Student();
+			s.setName(name);
+			s.setChinese(chinese);
+			s.setMath(math);
+			s.setEnglish(english);
+			ts.add(s);   //把学生对象存入集合中     TreeSet保存，保证元素不会重复
+		}
+		//遍历集合，把数据写到文本文件
+		BufferedWriter bw=new BufferedWriter(new FileWriter("students.txt"));
+		bw.write("学生信息如下:");
+		bw.newLine();
+		bw.flush();
+		bw.write("姓名，语文成绩，数学成绩，英语成绩");
+		bw.newLine();
+		bw.flush();
+		for(Student s:ts)   //增强for
+		{
+			StringBuilder sb=new StringBuilder();
+			sb.append(s.getName()).append(",").append(s.getChinese())   //按照格式需加入逗号
+			.append(",").append(s.getMath()).append(",").append(s.getEnglish());
+			bw.write(sb.toString());    //将缓冲区字符串转换为字符串
+			bw.newLine();   //每写入一个学生信息换行
+			bw.flush();
+		}
+		//释放资源
+		bw.close();
+		System.out.println("学习信息存储完毕");*/
+		//*************************************
+		//for循环实现遍历文件夹的所有文件
+		/*long a=System.currentTimeMillis();//记录开始时间
+		LinkedList list=new LinkedList();    //用LinkedList便于进行增删
+		File dir=new File("d:/");
+		File[] fileArray=dir.listFiles();//存放的是一级目录下的文件和文件夹
+		for(int i=0;i<fileArray.length;i++)
+		{
+			if(fileArray[i].isDirectory())
+			{
+				list.add(fileArray[i]);  //如果是文件夹就加到list中
+			}
+			else
+			{
+				System.out.println(fileArray[i].getAbsolutePath());
+			}
+		}
+		File tmp;
+		while(!list.isEmpty())    //遍历list中的文件夹
+		{
+			tmp=(File)list.removeFirst();  //移除并返回并返回此列表的第一个元素
+			File[] file=tmp.listFiles();
+			if(file==null)    
+			{
+				continue;   //如果文件夹为空就跳出，进入下一个文件夹的遍历
+			}
+			for(int i=0;i<file.length;i++)  //遍历二级目录下的文件夹
+			{
+				if(file[i].isDirectory())
+				{
+					list.add(file[i]);   //如果是文件夹就加入到list中
+				}
+				else
+				{
+					System.out.println(file[i].getAbsolutePath());
+				}
+			}
+		}*/
+    //*************************************
+    //把文件中的字母排序后重新写入
+		/* A:把s.txt这个文件做出来
+		 * B:读取该文件的内容，存储到一个字符串中
+		 * C:把字符串转换为字符数组
+		 * D:对字符数组进行排序
+		 * E:把排序后的数组转换为字符串
+		 * F:再次写入ss.txt中
+		 */
+		//读取该文件的内容，存储到一个字符串中
+		BufferedReader br=new BufferedReader(new FileReader("s.txt"));
+		String line=br.readLine();
+		br.close();
+		System.out.println(line);
+		//把字符串转换为字符数组
+		char[] chs=line.toCharArray();
+		//对字符数组进行排序
+		Arrays.sort(chs);   //此类包含用来操作数组的各种方法
+		//把排序后的数组转换为字符串
+		String s=new String(chs);
+		//把字符串再次写入s.txt中
+		BufferedWriter bw=new BufferedWriter(new FileWriter("s.txt"));   //创建写入工具类
+		bw.write(s);
+		bw.close();
+	}
+	}
+	
+	class Student
+	{
+		private String name;
+		private int chinese;
+		private int math;
+		private int english;
+		public Student(String name, int chinese, int math, int english) {
+			super();
+			this.name = name;
+			this.chinese = chinese;
+			this.math = math;
+			this.english = english;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public int getChinese() {
+			return chinese;
+		}
+		public void setChinese(int chinese) {
+			this.chinese = chinese;
+		}
+		public int getMath() {
+			return math;
+		}
+		public void setMath(int math) {
+			this.math = math;
+		}
+		public int getEnglish() {
+			return english;
+		}
+		public void setEnglish(int english) {
+			this.english = english;
+		}
+		public Student() {
+			super();
+		}
+		public int getSum()
+		{
+			return this.chinese+this.math+this.english;
+		}
+	}
