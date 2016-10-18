@@ -1,0 +1,147 @@
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.io.Reader;
+
+public class haha {
+	public static void main(String[] args) throws IOException{	
+		
+		/*FileWriter fw=new FileWriter("a.txt");
+		fw.write("wejuygdu8weygfd");
+		fw.write('\n');
+		fw.write("edugewuiy");
+		fw.close();
+		//自定义类模拟BufferedReader的readLine()功能
+		MyBufferedReader mbr=new MyBufferedReader(new FileReader("a.txt"));
+		String line=null;
+		while((line=mbr.readLine())!=null)
+		{
+			System.out.println(line);
+		}
+		mbr.close();*/
+		//************************
+		//System.out.println('\r'+0); //用此方法可以将码转换为数字显示出来
+		/*
+		 * BufferedReader
+		 * 		LineNumberReader
+		 * 			public int getLineNumber()   获得当前行号
+		 * 			public void setLineNumber(int lineNumber)  //设置行号
+		 */
+		
+		/*LineNumberReader lnr=new LineNumberReader(new FileReader("a.txt"));
+		String line=null;
+		lnr.setLineNumber(10);  //设置行号从10开始
+		while((line=lnr.readLine())!=null)   //可以使用父类的readLine方法
+		{
+			System.out.println(lnr.getLineNumber()+":"+line);  //显示行号
+		}
+		lnr.close();*/
+		//************************
+		/*MyBufferedReader mbr=new MyBufferedReader(new FileReader("my.txt"));
+		System.out.println(mbr.getLineNumber());
+		System.out.println(mbr.getLineNumber());
+		String line=null;
+		mbr.setLineNumber(10);
+		while((line=mbr.readLine())!=null)
+		{
+			//System.out.println("line:"+line+'w');
+			System.out.println(mbr.getLineNumber()+":"+line);
+		}
+		mbr.close();*/
+		//*******************
+		//继承方法的测试
+		MySon ms=new MySon(new FileReader("my.txt"));    //子类可以使用所有父类的方法
+		System.out.println(ms.getLineNumber());
+		System.out.println(ms.getLineNumber());
+		String line=null;
+		while((line=ms.readLine())!=null)
+		{
+			System.out.println(ms.getLineNumber()+":"+line);
+		}
+		ms.close();
+	}
+	}
+	
+	class MySon extends MyBufferedReader
+	{
+		private Reader r;
+		private int lineNumber=0;
+		public MySon(Reader r)
+		{
+			super(r);   //继承父类方法
+		}
+		
+		public int getLineNumber()
+		{
+			return lineNumber;
+		}
+		public void setLineNumber(int lineNumber)
+		{
+			this.lineNumber=lineNumber;
+		}
+		@Override 
+		public String readLine() throws IOException
+		{
+			lineNumber++;   //加多了一个LineNumber代码，之后还是正常调用父类的方法
+			return super.readLine();
+		}
+	}
+	
+
+	class MyBufferedReader{
+		private Reader r;
+		//显示行号的功能可以在函数内实现也可以用继承的方式实现
+		/*private int lineNumber=0;   //增加成员变量来计算行数   
+
+		public int getLineNumber() {
+			//不能在这里进行lineNumber++，因为每次调用后lineNumber就会自增
+			return lineNumber;
+		}
+
+		public void setLineNumber(int lineNumber) {
+			this.lineNumber = lineNumber-1;
+		}*/
+
+		public MyBufferedReader(Reader r)   //Reader的抽象类
+		{
+			this.r=r;
+		}
+		
+		//写一个方法，返回值是一个字符串
+		public String readLine() throws IOException
+		{
+			//lineNumber++;  //每read一行lineNumber++
+			StringBuilder sb=new StringBuilder();
+			int ch=0;
+			while((ch=r.read())!=-1)   //这里有可能条件一开始就进不了，也就无法进行后面的return语句
+				//所以在while外面进行return
+			{
+				if(ch=='\r')
+				{
+					continue;
+				}
+				if(ch=='\n')
+				{
+					return sb.toString();   //当遍历的元素中有'\n'才return，将缓冲区转换为字符串
+					//但是当末尾没有'\n'时后面的元素便无法进行return，会导致元素丢失
+				}
+				else
+				{
+					sb.append((char)ch);  //这里的append的ch必须进行char转换，否则最后写进文件的都是AII码
+				}
+			}
+			//当遍历到元素结尾时没有换行符时检测有没有元素,当sb长度大于零时说明有元素产生
+			if(sb.length()>0)
+			{
+				return sb.toString();
+			}
+			return null;   //如果进不了while语句就执行热舞return null语句，这样才不会因为没有return而出错
+		}
+		
+		//先写一个关闭方法
+		public void close() throws IOException
+		{
+			this.r.close();
+		}
+	}
+
