@@ -1,0 +1,137 @@
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/* 数据输入流:
+ * 		DataInputStream(InputStream in)
+ * 数据输出流
+ * 		DataInputStream(OutputStream out)
+ * 此类是为了专门操作数据类型的
+ */
+public class haha {
+	public static void main(String[] args) throws IOException {
+			/*write();
+			read();*/
+		//**********************
+		/* 内存操作流:用于处理临时存储信息的，程序结束，数据就从内存中消失
+		 * 字节数组:
+		 * 			ByteArrayInputStream
+		 * 			ByteArrayOutputStream
+		 * 字符数组
+		 * 			CharArrayReader
+		 * 			CharArrayWriter
+		 * 字符串
+		 * 			StringReader
+		 * 			StringWriter 
+		 */
+		//写数据
+		/*ByteArrayOutputStream baos=new ByteArrayOutputStream();
+		for(int x=0;x<10;x++)
+		{
+			baos.write(("hello"+x).getBytes());
+		}
+		//不需等同于文件函数，不需要释放资源，close()为空实现
+		//baos.close();
+		byte[] bys=baos.toByteArray();
+		//读数据
+		ByteArrayInputStream bais=new ByteArrayInputStream(bys);
+		int by=0;
+		while((by=bais.read())!=-1)
+		{
+			System.out.print((char)by);
+		}*/
+		//无需释放资源
+		/* 打印流
+		 * 字节流打印流   PrintStream
+		 * 字符打印流        PrintWriter
+		 * 打印流的特点
+		 * A:只有写数据，没有读取数据
+		 * B:可以操作任意类型的数据！！！
+		 * C:该流可以直接操作文本文件
+		 * 直接操作文本文件的流对象
+		 * FileInputStream
+		 * FileOutputStream
+		 * FileReader,FileWriter
+		 * PrintStream,PrintWriter  基本流加高级流
+		 */
+		/* 1.可以操作任意类型的数据   print() println()
+		 * 2.启动自动刷新
+		 * 		传入的第二个参数是表示是否启动自动刷新
+		 * 		PrintWriter pw=new PrintWriter(new FileWriter("pw.txt"),true);
+		 * 		需要调用println才能实现！！
+		 */
+		/*PrintWriter pw=new PrintWriter(new FileWriter("pw.txt"),true);
+		pw.println("hello");
+		pw.println(true);
+		pw.println(100);   //没有刷新文件时进不了的
+		pw.print("hello");
+		pw.print(true);
+		pw.print(100);
+		//释放资源
+		pw.close(); */  //关闭的时候也会刷新
+		//*****************************
+		//打印流改进复制文本文件案例
+		/*BufferedReader br=new BufferedReader(new FileReader("students.txt"));
+		//封装目的地
+		PrintWriter pw=new PrintWriter(new FileWriter("huanhao.txt"),true);  //自动刷新
+		String line=null;
+		while((line=br.readLine())!=null)
+		{
+			pw.println(line);
+		}
+		pw.close();
+		br.close();*/
+		//******************
+		//获取标准输出流对象
+		/*PrintStream ps=System.out;
+		ps.println("helloworld");
+		ps.println();*/
+		//ps.print();  //参数的方法不存在
+		//*************************
+		//实现键盘录入
+		//通过字符缓冲流包装标准输入流实现
+		//BufferedReader br=new BuufferedReader(new InpurStreamReader(System.in))
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("请输入一个字符串:");
+		String line=br.readLine();
+		System.out.println("你输入的字符串是:"+line);
+		System.out.println("请输入一个整数:");
+		int i=Integer.parseInt(br.readLine());
+		System.out.println("你输入的整数是:"+i);
+	}
+
+	static void write() throws IOException {
+		DataOutputStream dos = new DataOutputStream(new FileOutputStream(
+				"dos.txt"));
+		dos.writeByte(10);
+		dos.writeShort(100);
+		dos.writeInt(100);
+		dos.writeFloat(12.34F);
+		dos.writeChar('a');
+		dos.writeBoolean(true);
+		dos.close();
+	}
+	static void read() throws IOException
+	{
+		//打开是乱码，必须按规则解码才能正常显示
+		DataInputStream dis=new DataInputStream(new FileInputStream("dos.txt"));
+		byte b=dis.readByte();
+		short s=dis.readShort();
+		int i=dis.readInt();
+		float f=dis.readFloat();
+		char c=dis.readChar();
+		boolean bb=dis.readBoolean();
+		System.out.println(b);
+		System.out.println(s);
+		System.out.println(i);
+		System.out.println(f);
+		System.out.println(c);
+		System.out.println(bb);
+		dis.close();
+	}
+
+}
