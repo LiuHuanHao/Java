@@ -1,0 +1,101 @@
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.util.Enumeration;
+import java.util.Vector;
+
+public class haha {
+	public static void main(String[] args) throws IOException {
+		//输出语句用字符缓冲流改进
+		/*BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+		bw.write("hello");
+		bw.newLine();
+		bw.write("world");
+		bw.newLine();
+		bw.write("java");
+		bw.newLine();
+		bw.close();*/
+		//*************************
+		/*
+		 * 随机访问流
+		 * RandomAccessFile类不属于流，是Object的子类
+		 * 但它融合了InputStream和OutputStream的功能
+		 * 支持对文件的随机访问读取和写入
+		 * public RandomAccessFile(String name,String mode);第一个是文件路径，第二个是操作文件的模式
+		 * 模式有四种，最常用的叫"rw",既可以写数据，也可以读取数据
+		 * getFilePointer():获取当前指针
+		 * seek():设置当前指针的位置
+		 */
+		/*RandomAccessFile raf1=new RandomAccessFile("raf.txt","rw");
+		raf1.writeInt(100);
+		raf1.writeChar('a');
+		raf1.writeChar('b');
+		raf1.writeUTF("中国");
+		
+		//创建随机访问流对象   用于写和读的名字不能相同，否则会报错
+		RandomAccessFile raf=new RandomAccessFile("raf.txt","rw");
+		int i=raf.readInt();
+		System.out.println(i);
+		//该文件指针通过getFilePointer方法读取，并通过seek方法设置
+		System.out.println("当前文件的指针位置是:"+raf.getFilePointer());
+		char ch=raf.readChar();
+		System.out.println(ch);
+		System.out.println("当前文件的指针位置是:"+raf.getFilePointer());
+		char ch2=raf.readChar();
+		System.out.println(ch2);
+		System.out.println("当前文件的指针位置是:"+raf.getFilePointer());
+		String s=raf.readUTF();
+		System.out.println(s);
+		System.out.println("当前文件的指针位置是:"+raf.getFilePointer());
+		raf.seek(4);
+		ch=raf.readChar();
+		System.out.println(ch);
+		System.out.println("当前文件的指针位置是:"+raf.getFilePointer());
+		raf.close();*/
+		//************************
+		//合并流读取两个文件的内容复制到一个文件中
+		//将文件封装为InputStream的形式，InputStream为抽象类，由FileInputStream实现
+		/*InputStream s1=new FileInputStream("pw.txt");
+		InputStream s2=new FileInputStream("students.txt");
+		//使用SequenceInputStream合并两个文件，可以被读取
+		SequenceInputStream sis=new SequenceInputStream(s1,s2);
+		//创建写入的目的地
+		BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream("copy.txt"));
+		byte[] bys=new byte[1024];
+		int len=0;
+		while((len=sis.read(bys))!=-1)
+		{
+			bos.write(bys,0,len);
+		}
+		bos.close();
+		sis.close();*/
+		//**********************************
+		//合并流读取多个文件的内容复制到一个文件中
+		Vector<InputStream> v=new Vector<InputStream>();
+		InputStream s1=new FileInputStream("students.txt");
+		InputStream s2=new FileInputStream("pw.txt");
+		InputStream s3=new FileInputStream("raf.txt");
+		v.add(s1);
+		v.add(s2);
+		v.add(s3);
+		Enumeration<InputStream> en=v.elements();
+		/*for(Enumeration<InputStream> e=v.elements();e.hasMoreElements();
+				System.out.println(e.nextElement())){}*/
+		//SequenceInputStream(Enumeration e)
+		SequenceInputStream sis=new SequenceInputStream(en);
+		BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream("copy.txt"));
+		byte[] bys=new byte[1024];
+		int len=0;
+		while((len=sis.read(bys))!=-1)
+		{
+			bos.write(bys,0,len);
+		}
+		bos.close();
+		sis.close();
+	}
+
+}
+
