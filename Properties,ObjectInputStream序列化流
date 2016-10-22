@@ -1,0 +1,162 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Reader;
+import java.io.Serializable;
+import java.io.Writer;
+import java.util.Properties;
+
+public class haha {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		
+		/*
+		 * 序列化流:把对象按照流一样的方式存入文本文件，对象---数据流(ObjectOutputStream)
+		 * 反序列化流:把文本文件中的流对象数据还原成对象. 流数据------对象(ObjectInputStream)
+		 */
+		//EOFException  当输入过程中意外到达文件或流的末尾时，抛出此异常。 
+		//write();
+		//read();
+		//*********************
+		/*
+		 * Properties:属性集合，是一个可以和IO流集合的使用的集合类
+		 * 是Hashtable的子类，说明是一个Map集合
+		 */
+		//Properties不是泛型，使用的时候不用加泛型！！！
+		/*Properties prop=new Properties();
+		prop.put("it002","hello");
+		prop.put("it001","world");
+		prop.put("it003","java");*/
+		//System.out.println("prop:"+prop);
+		//遍历集合
+		/*Set<Object> set=prop.keySet();  //创建键集合
+		for(Object key:set)
+		{
+			Object value=prop.get(key);
+			System.out.println(key+"-----"+value);
+		}*/
+		//************************
+		/*
+		 * 特殊功能
+		 * public Object setProperty(String key,String vlaue):添加元素
+		 * public String getProperty(String key):获取元素
+		 * public Set<String> stringPropertyNames():获取所有键的集合
+		 */
+		//创建集合对象
+		/*Properties prop=new Properties();
+		//添加元素
+		prop.setProperty("张三","30");
+		prop.setProperty("李四","40");
+		prop.setProperty("王五","50");*/
+		//原理如下
+		/*class Hashtable<K,V>
+		{
+			public V put (K key,V value)
+			{
+				...
+			}
+		}
+		class Properties extends Hashtable
+		{
+			public V setProperty(String key,String value)
+			{
+				return put(key,value);
+			}
+		}*/
+		/*Set<String> set=prop.stringPropertyNames();
+		for(String key:set)
+		{
+			String value=prop.getProperty(key);
+			System.out.println(key+"-----"+value);
+		}*/
+		//*****************************
+		/* 这里的集合必须是Properties集合:
+		 * public void load(Reader reader):把文件的数据读取到集合中
+		 * public void store(Writer writer,String comments)：把集合中的数据存储到文件中
+		 */
+		
+		//创建集合对象
+		/*Properties prop=new Properties();
+		prop.setProperty("林青霞","27");
+		prop.setProperty("刘焕濠","23");
+		prop.setProperty("王瑜","18");
+		//public void store(Writer writer,String comments):   //第二个参数是备注
+		//把集合的数据存储到文件中
+		Writer w=new FileWriter("name.txt");
+		prop.store(w,"I love WY");   //集合元素存入文件中
+		w.close();*/
+    //*************************************
+		Properties prop=new Properties();
+		//public void load(Reader reader):把文件中的数据读取到集合中
+		Reader r=new FileReader("prop.txt");
+		prop.load(r);    //读取文件中的元素     传入的是文件参数
+		r.close();   //用完记得关闭文件流
+		System.out.println("prop:"+prop);
+	}
+	
+	private static void read() throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		//创建反序列号对象
+		ObjectInputStream ois=new ObjectInputStream(new FileInputStream("oos.txt"));
+		//还原对象
+		Object obj=ois.readObject();
+		ois.close();
+		//输出对象
+		System.out.println(obj);
+	}
+	
+	
+	private static void write() throws FileNotFoundException, IOException
+	{
+		//创建序列化流对象
+		ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("oos.txt"));
+		//创建对象
+		Student p=new Student(27,"林青霞");
+		oos.writeObject(p);   //写入一整个对象
+		oos.close();
+	}
+
+}
+
+
+	class  Student implements Serializable  //序列化必须继承Serializable接口，否则会报错
+	//相当于一种序列化的标记
+	{
+		//必须添加下面的UID码，否则当Student的代码改变时会发生错误
+		private static final long serialVersionUID = -4555651817367992782L;
+		//当成员变量不想进行序列化时，使用transient关键字声明不需要序列化的成员变量
+		private transient int age;
+		private String name;
+		public Student() {
+			super();
+		}
+		public int getAge() {
+			return age;
+		}
+		public void setAge(int age) {
+			this.age = age;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public Student(int age, String name) {
+			super();
+			this.age = age;
+			this.name = name;
+		}
+		@Override
+		public String toString()     //重写toString方法
+		{
+			return "Person [name="+name+",age="+age+"]";
+		}
+	}
+
+
+
