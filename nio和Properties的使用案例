@@ -1,0 +1,122 @@
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class haha {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		
+		
+		//*****************************
+		/* 写一个程序判断是否有"LHH"键的存在，如果有就改变其值为"100"
+		 * 分析:
+		 * A:把文件中的数据加载到集合中
+		 * B:遍历集合，获取得到每一个键
+		 * C:判断键是否为"LHH"，如果有就修改其值
+		 * D:把集合中的元素重新存储到文件中
+		 */
+		/*Properties prop=new Properties();
+		Reader r=new FileReader("prop.txt");
+		prop.load(r);  //传入的参数是file类型的     将文件的数据传输到集合中
+		r.close();   //记得关闭文件
+		//遍历集合
+		Set<String> set=prop.stringPropertyNames();
+		for(String key:set)
+		{
+			//判断是否有LHH的，如果有就修改其值
+			if("LHH".equals(key))       
+			{
+				prop.setProperty(key,"100");
+				break;
+			}
+		}
+		//把集合的数据重新存储到文件中
+		Writer w=new FileWriter("prop.txt");
+		prop.store(w,null);
+		w.close();*/
+		//*******************************
+		//我有一个猜数字的程序，写一个程序实现在测试类中只能使用5次，超过5次提示游戏试玩结束，请付费
+		//把数据加载到集合中
+    //将使用次数利用Properties写入文件中
+    //利用Properties还可以统计其他的次数
+		/*Properties prop=new Properties();
+		Reader r=new FileReader("count.txt");
+		prop.load(r);
+		r.close();
+		String value=prop.getProperty("count");   //由键找值
+		int number=Integer.parseInt(value);   //将传入的值转化为int的形式
+		if(number>=3)
+		{
+			System.out.println("游戏已结束，请付费");
+			System.exit(0);   
+		}
+		else
+		{ 
+			number++;    //每玩一次次数加一
+			//重新设置键的值
+			prop.setProperty("count", String.valueOf(number));   //传入的参数必须是String类型的，用String.valueOf()转换
+			Writer w=new FileWriter("count.txt");
+			prop.store(w,"LHH is really handsom");  //重新写入w文件中
+			w.close();
+			GuessNumber.start();
+		}*/
+		//**************************
+		/*
+		 * JDK7之后nio
+		 * Path:路径
+		 * Paths:有一个静态方法返回一个路径
+		 * Files:提供静态方法供我们使用
+		 * public static long copy(Path source,OutputStream out)
+		 * public static Path write
+		 */
+		//复制文件
+		//Files.copy(Paths.get("prop.txt"),new FileOutputStream("copy.txt"));
+		ArrayList<String> array=new ArrayList<String>();
+		array.add("hello");
+		array.add("world");
+		array.add("java");
+		Files.write(Paths.get("copy.txt"),array,Charset.forName("GBK"));
+	}
+}
+	
+
+class GuessNumber
+{
+	private GuessNumber()
+	{
+		
+	}
+	
+	public static void start()
+	{
+		//产生一个随机数
+		int number=(int)(Math.random()*100+1);
+		//定义一个统计变量
+		int count=0;
+		while(true)
+		{
+			//键盘录入一个数据
+			Scanner sc=new Scanner(System.in);
+			System.out.println("请输入数据(1-100):");
+			int guessNumber=sc.nextInt();
+			count++;
+			//判断
+			if(guessNumber>number)
+			{
+				System.out.println("大了");
+			}
+			else if(guessNumber<number)
+			{
+				System.out.println("小了");
+			}
+			else 
+			{
+				System.out.println("用了"+count+"后猜中了");
+				break;   //猜中后退出
+			}
+		}
+	}
+}
+
