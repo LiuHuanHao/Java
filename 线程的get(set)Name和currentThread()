@@ -1,0 +1,90 @@
+
+
+public class haha {
+	public static void main(String[] args){
+		
+		/*
+		 * 有两种方法实现多线程
+		 * 方式1:继承Thread类
+		 * 步骤:
+		 * A:自定义MyThread继承Thread类
+		 * B:MyThread里面run(),为什么是run方法呢
+		 * C:创建对象
+		 * D:启动线程
+		 */
+		//创建线程对象
+		//MyThread my=new MyThread();
+		//run()相当于普通的方法调用，所以你看到的是单线程的效果
+		/*my.run();
+		my.run();*/
+		/*
+		 * run()和start()的区别
+		 * run()仅仅是封装被线程执行的代码，直接调用就是普通方法
+		 * start()首先启动了线程，然后再由jvm去调用该线程的run方法
+		 */
+		/*MyThread my=new MyThread();
+		//start()是Thread的一个方法，MyThread继承于Thread
+		//IllegalThreadStateException指示线程没有处于请求操作所要求的适当状态时抛出的异常
+		//这个相当于是my线程被调用了两次，而不是两个线程启动，重复调用出错
+		my.start();
+		//my.start();*/
+		//******************
+		//创建两个线程对象
+		/*MyThread my1=new MyThread();
+		MyThread my2=new MyThread();
+		my1.start();
+		my2.start();*/
+		/*
+		 * 如何获取线程对象的名称
+		 * public final String getName():获取线程名称
+		 * 设置线程对象的名称
+		 * public final void setName(String):设置线程名称
+		 */
+		MyThread my1=new MyThread();
+		MyThread my2=new MyThread();
+		my1.setName("王瑜");    //设置线程名称
+		my2.setName("刘焕濠");
+		my1.start();
+		my2.start();
+		//***************
+		//用带参构造方法设置线程名称
+		/*MyThread my1=new MyThread("林青霞");   
+		MyThread my2=new MyThread("刘意");
+		my1.start();
+		my2.start();*/
+		//获取main方法线程对象的方法
+		//public static Thread currentThread():返回当前执行的线程对象
+		//Thread的静态方法currentThread()
+		System.out.println(Thread.currentThread().getName());
+	}
+}
+ 
+	/*
+	 * 不是类中所有的代码都需要被线程执行，Java提供了run()用来包含那些被线程执行的代码
+	 */
+	class MyThread extends Thread
+	{
+		public MyThread()
+		{
+			
+		}
+		
+		//默认无参，需要自己创造有参构造函数
+		public MyThread(String name)
+		{
+			super(name);   //使用父类的方法
+		}
+		@Override 
+		public void run()
+		{
+			//一般来说，被线程执行的代码比较耗时，所以用循环
+			for(int x=0;x<200;x++)
+			{
+				System.out.println(this.getName()+"-----"+x);
+				//getName表示获取线程对象的名称，这里用的对象是this  MyThread对象
+			}
+		}
+	}
+
+
+	
