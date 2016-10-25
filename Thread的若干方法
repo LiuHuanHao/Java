@@ -1,0 +1,107 @@
+import java.util.Date;
+
+public class haha {
+	public static void main(String[] args){
+		
+		/*
+		 * public final int getPriority():返回线程的优先级
+		 * public final void setPriority(int newPriority)
+		 * 更改线程的优先级
+		 * 注意:
+		 * 线程默认优先级是5
+		 * 线程优先级的范围是1-10
+		 * 线程优先级高仅仅表示线程获取CPU时间片的几率高，次数多时才能看出效果
+		 */
+		ThreadPriority tp1=new ThreadPriority();
+		ThreadPriority tp2=new ThreadPriority();
+		ThreadPriority tp3=new ThreadPriority();
+		
+
+		tp1.setName("刘焕濠");
+		tp2.setName("王瑜");
+		tp3.setName("阿信");
+		
+		//public final void setDaemon(boolean on)
+		//将该线程标记为守护线程或用户线程
+		//当正在运行的线程都是守护线程，Java虚拟机就退出，
+		//该方法必须在启动线程使用
+		
+		/*tp1.setDaemon(true);
+		tp2.setDaemon(true);  //标记为守护线程,当主线程结束时守护线程也跟着GG
+		tp3.setDaemon(true);
+		//默认优先级
+		System.out.println(tp1.getPriority());
+		System.out.println(tp2.getPriority());
+		System.out.println(tp3.getPriority());
+		
+		tp1.setPriority(1);
+		tp2.setPriority(10);  //设置tp2为优先执行，但是具有随机性
+		//public final join():等待该线程终止
+		tp2.start();
+		try {
+			tp2.join();    //等待tp2结束后才进行后面的进程
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		tp1.start();
+		tp3.start();
+		
+		Thread.currentThread().setName("石头");  //获取当前main线程并改变名称
+		for(int x=0;x<5;x++)
+		{
+			System.out.println(Thread.currentThread().getName()+":"+x);
+		}*/
+		//*************************
+		/*
+		 * public final void stop():让线程终止
+		 * public void interrupt():中断线程，把线程的     状态   终止并抛出异常
+		 */
+		ThreadPriority tp=new ThreadPriority();
+		tp.start();
+		//超过三秒，不醒过来就干死你
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		//tp.stop();  //stop后便不再进行
+		tp.interrupt();  //后面的代码依然可以运行
+	}
+
+}
+
+
+	class ThreadPriority extends Thread
+	{
+		@Override
+		public void run()
+		{
+			/*for(int x=0;x<100;x++)
+			{
+				//睡眠
+				//休息一秒钟
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println(getName()+":"+x);
+				//public static void yield():暂停当前执行的线程对象
+				//让多个相同线程进行得更和谐，但是不是一定的
+				Thread.yield();   //暂停当前执行的线程对象
+			}*/
+			//**************************
+			System.out.println("开始执行:"+new Date());
+			//休息十秒钟
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				System.out.println("线程终止了");
+			}
+			System.out.println("刘焕濠是帅哥");
+			System.out.println("结束执行:"+new Date());
+		}
+	}
+	
+
+	
