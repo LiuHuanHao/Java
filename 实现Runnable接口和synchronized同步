@@ -1,0 +1,209 @@
+
+
+public class haha {
+	
+	public static void main(String[] args) {
+	
+		/*
+		 * 方式2:实现Runnable接口口
+		 * 步骤:
+		 * A:自定义MyRunnable实现Runnable借口
+		 * B:重写run()方法
+		 * C:创建MyRunnable类的对象
+		 * D:创建Thread类的对象并把C步骤的对象作为构造参数传递
+		 */
+		//创建Runnable类的对象
+		//MyRunnable my=new MyRunnable();
+		//创建Thread类的对象，并把C步骤的对象作为构造参数传递
+		/*Thread t1=new Thread(my);
+		Thread t2=new Thread(my);
+		t1.setName("刘焕豪");
+		t2.setName("阿信");*/
+		/*Thread t1=new Thread(my,"刘焕豪");
+		Thread t2=new Thread(my,"阿信");
+		t1.start();
+		t2.start();
+		*/
+		/*
+		 * 有了方式1为什么还要来方式2
+		 * A:可以避免由于Java单继承带来的局限性    继承只能继承一个
+		 * 当子有继承时父类必须也有继承，但是有时候父类不一定想要继承runnable
+		 * B:当多个对象共用数据是不用创建多个数据，数据有效分离
+		 */
+		//******************
+		//电影院，一百张电影票，3个售票窗口
+		/*SellTicket st1=new SellTicket();
+		SellTicket st2=new SellTicket();
+		SellTicket st3=new SellTicket();
+		
+		st1.setName("窗口1");
+		st2.setName("窗口2");
+		st3.setName("窗口3");
+		
+		st1.start();
+		st2.start();
+		st3.start();*/
+		//*********************
+		//创建资源对象
+		SellTicket st=new SellTicket();  
+		//Runnable对象只会创建一次，可以实现多个数据的共享
+		Thread t1=new Thread(st,"窗口1");   //Runnable的创建方法
+		Thread t2=new Thread(st,"窗口2");
+		Thread t3=new Thread(st,"窗口3");
+		//Thread t4=new Thread(st,"窗口4");
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		//t4.start();
+		/*
+		 * 同步代码块
+		 * synchronized(对象)  同一个锁必须为同一个对象
+		 * {
+		 * 		需要同步的代码
+		 * }
+		 * 同步的好处:
+		 * 同步的出现解决了多线程的安全问题
+		 * 同步的弊端
+		 * 线程相当多时，因为每个线程都会去判断同步上的锁，会降低程序的运行效率
+		 */
+	}
+
+}
+
+
+	/*class  SellTicket extends Thread
+	{
+		
+		//private int tickets=100;  这里也是一个对象使用一个，无法实现数据共享
+		private static int tickets=100;
+		@Override
+		public void run()
+		{
+			//定义100张票
+			//int tickets=100;  //放在这里每一个对象拥有一个100，无法实现共享 
+			while(true)
+			{
+				if(tickets>0)
+				{
+					System.out.println(getName()+"正在出售第"+(tickets--)+"张票");
+				}
+			}
+		}
+	}*/
+
+
+	class SellTicket implements Runnable 
+	{
+		private static int tickets=100; //在静态方法上成员变量也必须为静态
+		//创建锁对象
+		private Object obj=new Object();
+		private int x=0;
+		@Override
+		public void run()
+		{
+			while(true)
+			{
+				if(x%2==0)
+				{
+				//synchronized(new Object())
+				//每次进行创建的锁都是不同的，所以达不到同步的效果
+				//synchronized(this)  //this适用于非静态的传入，跟随对象的加载而加载
+					synchronized(SellTicket.class)  //这个用于静态的
+					//在Runnable中锁只创建一次，为同一个锁
+					{
+							if(tickets>0)
+							{
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								System.out.println(Thread.currentThread().getName()+
+										"正在出售"+(tickets--)+"张票");
+							}
+					}
+				}
+				else
+				{
+					/*synchronized(obj)  
+					//在Runnable中锁只创建一次，为同一个锁
+					{
+							if(tickets>0)
+							{
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								System.out.println(Thread.currentThread().getName()+
+										"正在出售"+(tickets--)+"张票");
+							}
+					}*/
+					sell();
+				}
+				x++;   //一次过后必须加一次才能实现 if else 的变换
+			}
+		}
+		/*private void SellTicket() {
+			synchronized(obj)  
+			//在Runnable中锁只创建一次，为同一个锁
+			{
+					if(tickets>0)
+					{
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						System.out.println(Thread.currentThread().getName()+
+								"正在出售"+(tickets--)+"张票");
+					}
+			}
+			
+		}*/
+		//在这里并不知道用的是哪个锁   非静态为this   静态为XXX.class
+		/*private  synchronized  void sell()
+		{
+			if(tickets>0)
+			{
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println(Thread.currentThread().getName()
+						+"正在出售"+(tickets--)+"张票");
+			}
+		}*/
+		//静态方法
+		private static synchronized  void sell()    //用synchronized将函数标记为同步函数
+		{
+			if(tickets>0)
+			{
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println(Thread.currentThread().getName()
+						+"正在出售"+(tickets--)+"张票");
+			}
+		}
+	}
+	
+	class MyRunnable implements Runnable //实现接口没有getName()方法，只有run()
+	{
+		@Override 
+		public void run()
+		{
+			for(int x=0;x<100;x++)
+			{
+				System.out.println(Thread.currentThread().getName()+":"+x);
+			}
+		}
+	}
+	
+	
