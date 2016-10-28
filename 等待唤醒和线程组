@@ -1,0 +1,150 @@
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class haha {
+
+	public static void main(String[] args) {
+			
+		//method2();
+		//创建资源
+		Student s=new Student();
+		//设置和获取的类
+		SetThread st=new SetThread(s);   //将同一个对象传入操作类中
+		GetThread gt=new GetThread(s);
+		//线程类
+		Thread t1=new Thread(st);   //将操作对象作为线程使用
+		Thread t2=new Thread(gt);
+		//启动线程
+		t1.start();
+		t2.start();
+	}
+	public static void method2()
+	{
+		//ThreadGroup(String name)
+		ThreadGroup tg=new ThreadGroup("这是一个新的组");   //创建线程组
+		MyRunnable my=new MyRunnable();
+		//Thread(ThreadGroup group,Runnable target,String name)
+		Thread t1=new Thread(tg,my,"刘焕濠");
+		//将线程装入指定的线程组中
+		Thread t2=new Thread(tg,my,"王瑜");
+		System.out.println(t1.getThreadGroup().getName());
+		System.out.println(t2.getThreadGroup().getName());
+		tg.setDaemon(true);  //可以对线程组进行整体性的操作
+	}
+	
+	
+	
+	public static void method1()
+	{
+		MyRunnable my=new MyRunnable();
+		Thread t1=new Thread(my,"林青霞");
+		Thread t2=new Thread(my,"刘焕濠");
+		//线程类里面的方法  public final String getName()
+		ThreadGroup tg1=t1.getThreadGroup();  //获取线程所在的线程组
+		ThreadGroup tg2=t2.getThreadGroup();
+		//线程组里面的方法
+		String name1=tg1.getName();
+		String name2=tg2.getName();
+		System.out.println(name1);
+		System.out.println(name2);
+		//结果可知线程默认情况下属于main线程组
+		System.out.println(Thread.currentThread().getThreadGroup().getName());
+		/*t1.start();
+		t2.start();*/
+	}
+}
+	
+class Student {
+	private String name;
+	private int age; //设为私有只能在类里面调用
+	private boolean flag=false;
+	//直接将方法写入类中
+	public synchronized void set(String name,int age)  //加锁函数，锁为this对象
+	//数据通过方法参数传入
+	{
+		//如果有数据就等待
+		if(this.flag)
+		{
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				//I love WY
+				e.printStackTrace();
+			}
+		}
+		//设置数据
+		this.name=name;
+		this.age=age;
+		//修改标记
+		this.flag=true;
+		this.notify();
+	}
+	public synchronized void get()   //加锁函数
+	{
+		//如果没有数据，就等待
+		if(!this.flag)   //这个用于标记是读还是写
+		{
+			try {
+				this.wait(); //非静态方法的锁是this,当wait的时候开放了锁
+			} catch (InterruptedException e) {
+				//I love WY
+				e.printStackTrace();
+			}
+		}
+		//获取数据
+		System.out.println(this.name+"---"+this.age);
+		//修改标记
+		this.flag=false;
+		this.notify();
+	}
+}
+
+class SetThread implements Runnable {
+	private Student s;
+	private int x = 0;
+
+	public SetThread(Student s) {   //传入外部的数据，实现共享
+		this.s = s;
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+				if (x % 2 == 0) {
+					s.set("刘焕濠", 17);
+				} else {
+					s.set("王瑜", 23);
+				}
+				x++;
+			}
+		}
+}
+
+
+class GetThread implements Runnable {
+	private Student s;
+
+	public GetThread(Student s) {
+		this.s = s;
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			s.get();
+			}
+		}
+   }
+
+
+	class MyRunnable implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			for(int x=0;x<40;x++)
+			{
+				System.out.println(Thread.currentThread().getName()+":"+x);
+			}
+		}
+	}
