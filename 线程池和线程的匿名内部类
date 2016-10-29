@@ -1,0 +1,158 @@
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+/*
+ * 线程池的好处:
+ * A:创建一个线程池对象，控制要创建几个线程对象
+ * public static ExecutorService newFixedThreadPool(int nThreads)
+ * B:这种线程池的线程可以执行
+ * 可以执行Runnable对象或者Callable对象代表的线程
+ * C:调用如下方法
+ * Future<?> submit(Runnable task)
+ * <T> Future<T> submit(Callable<T> task)
+ */
+
+public class haha {
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
+			
+		//创建一个线程对象，控制要创建几个线程对象
+		/*ExecutorService pool=Executors.newFixedThreadPool(2);
+		//可以执行Runnbale对象或者Callable对象代表的数据
+		pool.submit(new MyRunnable());  //将Runnable加入线程
+		pool.submit(new MyRunnable());  //没有关闭线程池运行完是不会立即关闭的
+		//结束线程池
+		pool.shutdown();*/
+		//*******************
+		//另一种创建多线程的方法Callable
+		//Callable是有返回值的线程，用Future接受，用get获取结果
+		//创建线程池对象
+		/*ExecutorService pool=Executors.newFixedThreadPool(2);
+		//可以执行Runnable对象或者Callable对象代表的线程	
+		pool.submit(new MyCallable());
+		pool.submit(new MyRunnable());
+		//结束
+		pool.shutdown();*/
+		//*********************
+		/*ExecutorService pool=Executors.newFixedThreadPool(2);
+		//可以执行Runnable对象或者Callable对象代表的线程
+		//类需要传入参数时必须写一个可以带参构造函数
+		Future<Integer> f1=pool.submit(new MyCallable2(100));  //返回Future类型的对象
+		Future<Integer> f2=pool.submit(new MyCallable2(200));
+		//多线程实现多个多个数据相加的进程
+		//V get()
+		Integer i1=f1.get();   //获取结果
+		Integer i2=f2.get();
+		System.out.println(i1);  
+		System.out.println(i2);
+		pool.shutdown();*/
+		//*********************
+		/*
+		 * 匿名内部类的格式:
+		 * new 类名或者接口名()
+		 * {
+		 * };  //因为new是一个语句，记得有加逗号
+		 * 本质:是该类或者接口的子类对象
+		 */
+		//继承Thread类来实现多线程
+		/*new Thread()
+		{
+			//匿名类重写Thread的run()方法
+			public void run()
+			{
+				for(int x=0;x<100;x++)
+				{
+					System.out.println(Thread.currentThread().getName()+":"+x);
+				}
+			}
+		}.start(); */  //调用匿名类的start方法使用该线程
+		//实现Runnable接口来实现多线程
+		/*new Thread(
+				new Runnable()  //传入Runnable子类
+				{
+					@Override
+					public void run()   //重写runnable方法
+					{
+						for(int x=0;x<100;x++)
+						{
+						System.out.println(Thread.currentThread().getName()+":"+x);
+						}
+					}
+				}
+				){}.start();*/
+				new Thread(
+						new Runnable()   //传入runnable
+						{
+							@Override
+							public void run()
+							{
+								for(int x=0;x<100;x++)
+								{
+								System.out.println("hello"+":"+x);
+								}
+							}
+						}
+						){
+					public void run()  //重写Thread的run()方法
+					{
+						for(int x=0;x<100;x++)
+						{
+							System.out.println("world"+":"+x);
+						}
+					}
+					
+				}.start();
+				//当传入runnable和重写Thread的run方法时执行的是Thread的run()方法！！！这是不规范的写法
+	}
+ }
+
+
+	class MyRunnable implements Runnable  //实现接口
+	{
+		@Override 
+		public void run()
+		{
+			for(int x=0;x<100;x++)
+			{
+				System.out.println(Thread.currentThread().getName()
+						+":"+x);
+			}
+		}
+	}
+
+	
+	class MyCallable implements Callable
+	{
+		@Override
+		public Object call()
+		{
+			for(int x=0;x<100;x++)
+			{
+				System.out.println(Thread.currentThread().getName()
+						+":"+x);
+			}
+			return null;  //在这里返回null
+		}
+	}
+
+	class MyCallable2 implements Callable<Integer>   //带泛型的Callable
+	{
+		private int number;
+		public MyCallable2(int number)
+		{
+			this.number=number;
+		}
+		@Override
+		public Integer call()
+		{
+			int sum=0;
+			for(int x=1;x<=number;x++)
+			{
+				sum+=x;
+			}
+			return sum;
+		}
+	}
+
