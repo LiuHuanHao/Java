@@ -1,0 +1,99 @@
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
+
+/*
+ * 定时器:可以让我们在指定的时间做某件事情，还可以重复做某件事
+ * 依赖Timer和TimerTask这两个类
+ * Timer:定时
+ * public Timer()
+ * public void schedule(TimerTask task,long delay)
+ * public void schedule(TimerTask task,long delay,long period)
+ * 
+ * TimerTask:任务
+ * 
+ * sleep():必须指时间，不释放锁
+ * wait():可以不指定时间，也可以指定时间，释放锁
+ */
+	public class haha {
+		public static void main(String[] args) throws InterruptedException, ExecutionException, ParseException {
+			
+			//创建定时器对象
+			/*Timer t=new Timer();
+			//三秒后执行爆炸任务
+			t.schedule(new MyTask(t),3000); */  //当你没有设置结束时它是不会自己结束的
+			//可在类里面传入Timer类，然后使用类的方法将其结束
+			//*********************
+			//创建定时器对象
+			/*Timer t=new Timer();
+			//3秒后执行爆炸任务,如果不成功，隔两秒再继续爆炸
+			t.schedule(new MyTask2(), 3000,2000);*/
+			//***************************
+			Timer t=new Timer();
+			String s="2016-10-29 14:56:50";  //传入Date参数设置在指定的时间爆炸
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+			Date d=sdf.parse(s);
+			t.schedule(new DeleteFolder(), d);
+		}
+	}
+	
+	class MyTask extends TimerTask
+	{
+		private Timer t;  //传入一个时钟类用于结束时钟
+		public MyTask(){};  //无参构造函数
+		public MyTask(Timer t)
+		{
+			this.t=t;
+		}
+		@Override
+		public void run()
+		{
+			System.out.println("嘣，爆炸了");
+			t.cancel();  //当程序运行完时在这里将传入的时钟干掉   
+		}
+	}
+	
+	class MyTask2 extends TimerTask
+	{
+		@Override
+		public void run()
+		{
+			System.out.println("嘣，爆炸了");
+		}
+	}
+
+	class DeleteFolder extends TimerTask
+	{
+		@Override
+		public void run()
+		{
+			File srcFolder=new File("D:\\temp");
+			deleteFolder(srcFolder);  //将删除文件的操作的方法单独写成一个方法
+		}
+		//递归删除目录
+		public void deleteFolder(File srcFolder)
+		{
+			File[] fileArray=srcFolder.listFiles();  
+			//System.out.println(fileArray);  //当有文件头出现时fileArray就不会显示为null
+			if(fileArray!=null)
+			{
+				for(File file:fileArray)
+				{
+					if(file.isDirectory())
+					{
+						deleteFolder(file);  //递归
+					}
+					else
+					{
+						System.out.println(file.getName()+":"+file.delete());  //删除成功delete方法会返回true
+					}
+				}
+			}
+			System.out.println(srcFolder.getName()+":"+srcFolder.delete()); //删除文件后需要将文件头也给删除
+		}
+	}
+
