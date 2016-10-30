@@ -1,0 +1,109 @@
+import java.io.File;
+
+public class haha {
+	public static void main(String[] args) {
+		
+		//有了工厂类后就可以造动物
+		/*Dog d=AnimalFactory.createDog();
+		d.eat();
+		Cat c=AnimalFactory.createCat();
+		c.eat();*/
+		//*******************
+		/*Animal a=AnimalFactory.createAnimal("dog");  //多态
+		a.eat();
+		a=AnimalFactory.createAnimal("cat");
+		a.eat();
+		a=AnimalFactory.createAnimal("pig");
+		if(a!=null)
+		{
+			a.eat();
+		}
+		else
+		{
+			System.out.println("对不起，暂时不提供这种动物");
+		}*/
+		//***********************
+		Factory f=new DogFactory();
+		Animal a=f.createAnimal();
+		a.eat();
+		System.out.println("--------");
+		//我要一只猫
+		f=new CatFactory();
+		a=f.createAnimal();
+		a.eat();
+	}
+}
+	
+	abstract class Animal
+	{
+		public abstract void eat();
+	}
+	
+	class Dog extends Animal
+	{
+		@Override 
+		public void eat()
+		{
+			System.out.println("狗吃肉");
+		}
+	}
+	
+	class Cat extends Animal
+	{
+		@Override 
+		public void eat()
+		{
+			System.out.println("猫吃鱼");
+		}
+	}
+	//工厂模式
+	class AnimalFactory
+	{
+		private AnimalFactory()   //使用静态方法时将构造方法设置为私有
+		{}
+		/*public static Dog createDog()
+		{
+			return new Dog();
+		}
+		public static Cat createCat()
+		{
+			return new Cat();
+		}*/
+		public static Animal createAnimal(String type)
+		{
+			if("dog".equals(type))
+			{
+				return new Dog();
+			}
+			else if("cat".equals(type))
+			{
+				return new Cat();
+			}
+			else
+			{
+				return null;
+			}
+		}
+	}
+	
+	interface Factory
+	{
+		public abstract Animal createAnimal();
+	}
+	
+	class DogFactory implements Factory
+	{
+		@Override
+		public Animal createAnimal()
+		{
+			return new Dog();
+		}
+	}
+	class CatFactory implements Factory
+	{
+		@Override
+		public Animal createAnimal()
+		{
+			return new Cat();
+		}
+	}
