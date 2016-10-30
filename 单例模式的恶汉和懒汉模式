@@ -1,0 +1,51 @@
+import java.io.File;
+
+public class haha {
+	public static void main(String[] args) {
+			
+			Student s1=Student.getStudent();
+			Student s2=Student.getStudent();
+			System.out.println(s1==s2);
+			System.out.println(s1);
+			System.out.println(s2);
+		}
+	}
+	
+
+	class Student 
+	{
+		//单例模式之恶汉式
+		//构造私有，不给创建
+		private Student()
+		{
+		}
+		//静态方法只能访问静态成员变量，加静态
+		//为了不让外界直接访问这个值，加private
+	    //为了不让外界修改这个成员变量
+		private static Student s=new Student();
+		//提供公共的访问方式
+		//为了保证外界能够直接使用该方法，加静态
+		public static Student getStudent()
+		{
+			return s; 
+		}
+	}
+	
+	class Teacher
+	{
+		private Teacher()
+		{
+			
+		}
+		private static Teacher t=null;
+		public synchronized static Teacher getTeacher()
+		{
+			if(t==null)
+			//当在这里出现延迟时会导致创建多个对象，出现线程安全问题，所以必须加同步
+			{
+				t=new Teacher();
+			}
+			return t;
+		}
+	}
+	
