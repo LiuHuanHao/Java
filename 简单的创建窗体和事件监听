@@ -1,0 +1,120 @@
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Point;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+public class haha {
+	public static void main(String[] args) {
+			
+			//创建窗体对象
+			/*Frame f=new Frame();
+			//设置窗体标题
+			f.setTitle("HelloWorld");
+			f.setSize(400,300);
+			//设置窗体位置
+			f.setLocation(400,200);
+			//调用一个方法，设置让窗体可见
+			//f.show();  过时方法，被setVisible替换
+			//setVisible(boolean)
+			f.setVisible(true);*/
+			//*************************
+			//创建对象
+			/*Frame f=new Frame("方法调用的前后关系");
+			f.setVisible(true);*/
+			/*try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				//I love WY
+				e.printStackTrace();
+			}*/
+			//f.setSize(400,300);
+			/*Dimension d=new Dimension(400,300);
+			f.setSize(d);  //此方法可以传入一个Dimension类的参数
+			//f.setLocation(400,200);
+			Point p=new Point(400,300); 
+			f.setLocation(p); */ //此方法可以传入一个点的类
+			//一个方法设置长宽和位置
+			//f.setBounds(400,200,400,300);
+			//创建窗体对象
+			Frame f=new Frame("窗体关闭实例");
+			//设置窗体属性
+			f.setBounds(400,200,400,300);
+			//窗体创建事件监听
+			f.addWindowListener(new WindowListener()   //匿名内部类
+			{
+
+				@Override
+				public void windowOpened(WindowEvent e) {
+					// TODO Auto-generated method stub
+				}
+
+				@Override
+				public void windowClosing(WindowEvent e) {
+					//监听到窗体关闭的是退出程序
+					System.exit(0);
+				}
+
+				@Override
+				public void windowClosed(WindowEvent e) {
+					
+				}
+
+				@Override
+				public void windowIconified(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowDeiconified(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowActivated(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowDeactivated(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
+			//设置窗体可见
+			f.setVisible(true);
+			/*
+			 * 接口方法比较多时实现类时必须把其他的类全部都实现
+			 * 改进:接口方法比较多--适配器实现接口，空实现--实现类
+			 */
+		}
+	}
+	
+	/*
+	 * 事件监听示例
+	 * 事件源:人(具体的对象)
+	 * Person p1=new Person("张三");
+	 * Person p2=new Person("李四");
+	 * 事件:受伤
+	 * interface 受伤接口
+	 * {
+	 * 		一拳();
+	 * 		一脚();
+	 * 		一板砖();
+	 * }
+	 * 时间处理:
+	 * 受伤处理类  implements 受伤接口
+	 * {
+	 * 		一拳(){鼻子流血，到卫生间洗洗}
+	 * 		一脚(){晕倒了，送到通风处}
+	 * 		一板砖(){头破血流，送到天堂}
+	 * }
+	 * 时间监听
+	 * p1.注册监听(受伤接口) 没被监听的将无需理会
+	 */
+	
+
