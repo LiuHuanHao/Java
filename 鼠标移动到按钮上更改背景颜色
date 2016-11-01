@@ -1,0 +1,106 @@
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class haha {
+	public static void main(String[] args) {
+			
+			//通过鼠标移动到按钮上更改背景色案例
+			final Frame f=new Frame("ChangeBackGroundColor");
+			//设置窗体属性和布局
+			f.setBounds(400,200,400,300);
+			f.setLayout(new FlowLayout());
+			//创建四个按钮
+			Button redButton=new Button("Red");
+			Button greenButton=new Button("green");
+			Button blueButton=new Button("blue");
+			f.add(redButton);
+			f.add(greenButton);
+			f.add(blueButton);
+			//对按钮添加动作事件
+			/*redButton.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					f.setBackground(Color.RED);
+				}
+			});*/
+			//对按钮添加鼠标点击事件
+			/*redButton.addMouseListener(new MouseAdapter()
+			{
+				@Override 
+				public void mouseClicked(MouseEvent e)
+				{
+					f.setBackground(Color.RED);
+				}
+			});*/
+			//对按钮添加鼠标进入事件
+			redButton.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mouseEntered(MouseEvent e)
+				{
+					f.setBackground(Color.RED);
+				}
+			});
+			greenButton.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mouseEntered(MouseEvent e)
+				{
+					f.setBackground(Color.GREEN);
+				}
+			});
+			blueButton.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mouseEntered(MouseEvent e) //移到组件时
+				{
+					f.setBackground(Color.BLUE);
+				}
+			});
+			//当鼠标离开组件时显示白色
+			redButton.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mouseExited(MouseEvent e)
+				{
+					f.setBackground(Color.WHITE);
+				}
+			});
+			greenButton.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mouseExited(MouseEvent e)
+				{
+					f.setBackground(Color.WHITE);
+				}
+			});
+			blueButton.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mouseExited(MouseEvent e)
+				{
+					f.setBackground(Color.WHITE);
+				}
+			});
+			//设置窗体关闭
+			f.addWindowListener(new WindowAdapter()
+			{
+				@Override
+				public void windowClosing(WindowEvent e)
+				{
+					System.exit(0);
+				}
+			});
+			//设置窗体显示
+			f.setVisible(true);
+		}
+	}
+
