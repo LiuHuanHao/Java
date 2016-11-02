@@ -1,0 +1,126 @@
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+
+public class haha {
+	public static void main(String[] args) {
+			
+			//创建窗体对象并设置属性
+			final Frame f=new Frame("一级菜单");
+			f.setBounds(400,200,400,300);
+			f.setLayout(new FlowLayout());
+			//************************
+			//创建Lable标签对象
+			/*Label label=new Label("Please write your QQ number,must be number");
+			TextField tf=new TextField(40);
+			//添加到窗体
+			f.add(label);
+			f.add(tf);
+			//给文本框添加键盘事件
+			tf.addKeyListener(new KeyAdapter()    //键盘事件
+			{
+				@Override
+				public void keyPressed(KeyEvent e)
+				{
+					//如果取得的字符不是数字字符就取消事件
+					char ch=e.getKeyChar();
+					if(!(ch>='0'&&ch<='9'))   //字符
+					{
+						e.consume(); //清除此事件
+					}
+				}
+			});*/
+			//*********************
+			final String name=f.getTitle();  //获取原先的标题字符，用于恢复标题
+			//一级菜单
+			//创建菜单栏
+			MenuBar mb=new MenuBar();
+			//创建菜单
+			Menu m=new Menu("Data");
+			Menu m2=new Menu("Rename");		
+			//创建菜单项
+			MenuItem mi=new MenuItem("Exit");
+			final MenuItem mi2=new MenuItem("good good study");
+			final MenuItem mi3=new MenuItem("day day up");
+			MenuItem mi4=new MenuItem("rename to headLine");
+			MenuItem mi5=new MenuItem("open the textBoook");
+			//菜单添加菜单项
+			m2.add(mi2);
+			m2.add(mi3);
+			m2.add(mi4);
+			m.add(mi);
+			m.add(mi5);
+			m.add(m2);
+			//菜单栏添加菜单
+			mb.add(m);
+			//将菜单栏加入窗体中
+			f.setMenuBar(mb); //在这里不是用add，而是用set
+			//设置窗体关闭
+			f.addWindowListener(new WindowAdapter()
+			{
+				@Override
+				public void windowClosing(WindowEvent e)
+				{
+					System.exit(0);
+				}
+			}
+			);
+			mi2.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					f.setTitle(mi2.getLabel());  //获取菜单项的文字
+				}
+			}
+			);
+			mi4.addActionListener(new ActionListener()
+			{
+				@Override 
+				public void actionPerformed(ActionEvent e)
+				{
+					f.setTitle(name);
+				}
+			});
+			mi3.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					f.setTitle(mi3.getLabel());
+				}
+			}
+			);
+			mi5.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					Runtime r=Runtime.getRuntime();
+					try {
+						r.exec("notepad");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+			mi.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					System.exit(0);
+				}
+			});
+			//设置窗体可见
+			f.setVisible(true);
+		}
+	}
+
