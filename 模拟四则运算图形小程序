@@ -1,0 +1,162 @@
+
+package javaapplication2;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+//建立一个可进行四则运算的图形化小程序
+public class 四则运算 extends javax.swing.JFrame {
+    //去除了一些默认的代码
+    public 四则运算() {
+        initComponents();
+        init();
+    }
+    public void init()
+    {
+        this.setTitle("模拟四则运算");
+        UiUtil.setFrameImage(this);
+        UiUtil.setFrameCenter(this);
+    }
+
+    private void firstNumActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+    }                                        
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {  //当触发点击计算按钮时发生的事件                           
+       //获取第一个操作数,对象在后面创建
+        String firstNumberStr=this.firstNum.getText().trim();
+        //获取运算符
+        String selectOperator=this.selectOperator.getSelectedItem().toString();
+        //获取第二个操作数
+        String secondNumberStr=this.secondNum.getText().trim();
+        String regex="\\d+"; //整数
+        //校验第一个数
+        if(!firstNumberStr.matches(regex))
+        {
+            JOptionPane.showMessageDialog(this,"第一个操作数必须是数字");
+            this.firstNum.setText("");   //将错误的输入清零
+            this.firstNum.requestFocus();  //重新获取光标
+            return ; //回去吧
+        }
+        if(!secondNumberStr.matches(regex))
+        {
+            //第一个参数是父窗口
+            JOptionPane.showMessageDialog(this,"第二个参数必须是数字");
+            this.secondNum.setText("");
+            this.secondNum.requestFocus();
+            return ;  //返回
+        }
+        //把字符串转换成整数
+        int firstNumber=Integer.parseInt(firstNumberStr);
+        int secondNumber=Integer.parseInt(secondNumberStr);
+        //定义变量接受结果
+        int resultNum=0;
+        switch(selectOperator)
+        {
+            case "+":
+                resultNum=firstNumber+secondNumber;
+                break;
+            case "-":
+                resultNum=firstNumber-secondNumber;
+                break;
+            case "*":
+                resultNum=firstNumber*secondNumber;
+                break;
+            case "/":
+                resultNum=firstNumber/secondNumber;
+                break;
+        }
+        //把结果赋值给结果框
+        this.result.setText(String.valueOf(resultNum));  //需要将int转换为整形
+        //此小程序存在若干小问题，比如没有过滤不为数字的输入
+        //没有去除除数为零的情况，界面不够优雅
+    }                                        
+
+    public static void main(String args[]) {
+    
+           UIManager.setLookAndFeel(MyLookAndFeel.JTATTOO_MINT);  //设置背景颜色
+           
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new 四则运算().setVisible(true);
+                }
+            });
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(四则运算.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(四则运算.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(四则运算.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(四则运算.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+                 
+    private javax.swing.JTextField firstNum;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField result;
+    private javax.swing.JTextField secondNum;
+    private javax.swing.JComboBox selectOperator;
+    // End of variables declaration                   
+}
+
+
+//另外创建的图形工具类
+
+package javaapplication2;
+
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+
+
+//自己创建一个工具类
+public class UiUtil {
+    private UiUtil(){}
+    //修改窗体图标
+    public static void setFrameImage(JFrame jf)
+    {
+        //获取工具类对象
+        //public static Toolkit getDefaultToolkit():获取默认工具包
+        Toolkit tk=Toolkit.getDefaultToolkit();
+        //根据路径获取图片
+        Image i=tk.getImage("D:\\手机图片\\rock.jpg");
+         jf.setIconImage(i);
+    }
+    //设置窗体居中
+    /*
+    思路:
+    A:获取屏幕的宽和高
+    B:获取窗体的宽和高
+    C:（屏幕的宽度-窗体的宽度）/2作为窗体的新坐标
+    */
+    public static void setFrameCenter(JFrame jf)
+    {
+        //获取工具类对象
+        Toolkit tk=Toolkit.getDefaultToolkit();
+        //获取屏幕的宽和高
+        //返回的是Dimension类型的对象
+        Dimension d=tk.getScreenSize();
+        double screenWidth=d.getWidth();
+        double screenHeight=d.getHeight();
+        //获取窗体的宽和高
+        int frameWidth=jf.getWidth();
+        int frameHeight=jf.getHeight();
+        //获取新的宽和高(因为传入的参数只能是int,需要将double转换为int)
+        int width=(int)(screenWidth-frameWidth)/2;   //记得除以2
+        int height=(int)(screenHeight-frameHeight)/2;
+        //设置窗体坐标
+        jf.setLocation(width,height);
+    }
+}
+
+
+
+
