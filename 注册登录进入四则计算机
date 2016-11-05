@@ -1,0 +1,137 @@
+        //切换窗口
+         regist rg=new regist();
+        rg.setVisible(true);
+        this.dispose();    //毁掉不需要用到的窗口
+        //登录功能
+        /*
+        A:获取用户名和密码
+        B:正则表达式校验用户名和密码
+        C:创建对象调用功能，返回一个boolean值
+        D:根据boolean值给出提示
+        */
+        String name=this.userName.getText().trim();
+        String password=this.userPassword.getText().trim();
+        //用正则表达式进行数据校验
+        String userNameRegex="[a-zA-Z]{5}";
+        String userPasswordRegex="\\w{6,12}";
+        //校验
+        if(!name.matches(userNameRegex))
+        {
+            //弹出对话框
+            JOptionPane.showMessageDialog(this,"用户名不满足条件(5个英文字母组成)");
+            this.userName.setText("");
+            this.userName.requestFocus();
+            return ;  //返回
+        }
+        if(!password.matches(userPasswordRegex))
+        {
+            //\w表示a-zA-Z0-9_
+            JOptionPane.showMessageDialog(this,"密码不满足条件(6-12任意单词字符)");
+            this.userPassword.setText("");
+            this.userPassword.requestFocus();
+            return ;
+        }
+        //创建对象调用功能，返回一个boolean值
+        UserDo ud=new UserDoImpl();
+        boolean flag=ud.login(name, password);  //调用写好的函数
+        if(flag)
+        {
+            JOptionPane.showMessageDialog(this,"恭喜你登录成功");
+            count c=new count(name);
+            c.setVisible(true);
+            this.dispose();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this,"用户名或密码错误");
+            this.userName.setText("");
+            this.userPassword.setText("");
+            this.userName.requestFocus();
+        }
+    } 
+    
+        //注册
+        User user=new User();
+        user.setName(name);
+        user.setPassword(password);
+        //调用用户操作功能进行注册
+        UserDo ud=new UserDoImpl();
+        ud.regist(user);   //调用写好的 工具类
+        //给出提示
+        JOptionPane.showMessageDialog(this,"用户注册成功，回到登录页面");
+        
+      //写入和读取用户信息工具类的代码
+    public class UserDoImpl implements UserDo{
+    //创建文件，将用户信息写入到文件中
+    private static File file=new File("user.txt");
+    static    //类加载的时候便开始创建文件
+    {
+        try {
+            file.createNewFile();
+        } catch (IOException ex) {
+            Logger.getLogger(UserDoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    @Override
+    public boolean login(String userName,String password)
+    {
+        boolean flag=false;
+        BufferedReader br=null;   //定义在上面，finally才可以使用
+        try {
+            br=new BufferedReader(new FileReader(file));
+            String line=null;
+            while((line=br.readLine())!=null)  //读取文件的用户信息，看是否匹配
+            {
+                String[] datas=line.split("=");
+                if(datas[0].equals(userName)&&datas[1].equals(password))
+                {
+                    flag=true;
+                    break;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(UserDoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(UserDoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                br.close();
+            } catch (IOException ex) {
+                Logger.getLogger(UserDoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return flag;
+    }
+    @Override
+    public void regist(User user)
+    {
+        BufferedWriter bw = null;
+        //按照一定的规则写入数据
+        try {
+            bw=new BufferedWriter(new FileWriter(file));
+            bw.write(user.getName()+"="+user.getPassword());
+            bw.newLine();   //换行
+            bw.flush();   //刷新
+        } catch (IOException ex) {
+            Logger.getLogger(UserDoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally    //finally用来释放资源
+        {
+            try {
+                bw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(UserDoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+}
+
+    
+    
+    
+    
+    
+    
+    
