@@ -1,0 +1,45 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+
+public class receiveJianpan {
+	public static void main(String[] args) throws IOException {
+		//创建服务器socket对象
+		ServerSocket ss=new ServerSocket(22222);
+		//监听客户端连接
+		Socket s=ss.accept();
+		//包装通道流
+		BufferedReader br=new BufferedReader(new InputStreamReader(s.getInputStream()));
+		//封装文本文件
+		BufferedWriter bw=new BufferedWriter(new FileWriter("copy.txt"));
+		String line=null;
+		while((line=br.readLine())!=null)
+		{
+			//文本文件是以null结束的，但是通道内并不能这样结束，于是就相互等待
+			/*if(line.equals("over"))
+			{
+				break;//存在局限性，遇到over便停止读取数据
+			}*/
+			//System.out.println(line);
+			bw.write(line);  //写入文件中
+			bw.newLine();
+			bw.flush();
+		}
+		//给出反馈
+		BufferedWriter bwServer=new BufferedWriter(new OutputStreamWriter
+				(s.getOutputStream()));
+		bwServer.write("文件上传成功");
+		bwServer.newLine();
+		bwServer.flush();
+		bw.close(); //必须关闭文本文件
+		s.close();
+	}
+}
+
+
