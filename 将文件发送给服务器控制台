@@ -1,0 +1,39 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+
+public class fielToConsole {
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		Socket s=new Socket("127.0.0.1",22222);
+		//封装文本文件
+		BufferedReader br=new BufferedReader(new FileReader("name.txt"));
+		//封装通道流
+		BufferedWriter bw=new BufferedWriter(new OutputStreamWriter
+				(s.getOutputStream()));
+		String line=null;
+		while((line=br.readLine())!=null)
+		{
+			bw.write(line);
+			bw.newLine();
+			bw.flush();
+		}
+		/*bw.write("over");
+		bw.newLine();
+		bw.flush();*/
+		//Socket提供了一个终止，会通知服务器你别等了
+		s.shutdownOutput();
+		//接受反馈
+		BufferedReader brClient=new BufferedReader(new InputStreamReader
+				(s.getInputStream()));
+		String client=brClient.readLine();
+		System.out.println(client);
+		br.close();
+		s.close();
+	}
+}
