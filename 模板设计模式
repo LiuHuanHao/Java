@@ -1,0 +1,46 @@
+
+ public class PatternDesign {
+		
+	 public static void main(String[] args) {
+		getTime gt=new JBDemo();
+		System.out.println(gt.getTime()+"毫秒");
+	}
+}
+//模板设计模式
+ abstract class getTime {
+		public long getTime()
+		{
+			long start=System.currentTimeMillis();
+			code();  //中间的代码是灵活可变的
+			long end=System.currentTimeMillis();
+			return end-start;
+		}
+		public abstract void code();//抽象函数给子类实现
+}
+ 
+ class ForDemo extends getTime  //继承的原理
+ {
+
+	@Override
+	public void code() {
+		
+		for(int x=0;x<10000;x++)
+		{
+			System.out.println(x);
+		}
+	}
+	 
+ }
+ class JBDemo extends getTime
+ {
+	 @Override
+	 public void code()
+	 {
+		 for(int x=0;x<10;x++)
+		 {
+			 System.out.println(x);
+		 }
+	 }
+ }
+
+ 
