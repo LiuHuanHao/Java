@@ -1,0 +1,44 @@
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
+
+public class abtainFS {
+		/*
+		 * 获取class文件对象的方式
+		 * A:Object类的getClass()方法
+		 * B:数据类型的静态属性
+		 * C:Class类中的静态方法
+		 * public static Class forName(String className)
+		 */
+	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		
+		/*Person2 p=new Person2();
+		Class c=p.getClass();
+		Class c2=Person2.class;*///比较简便
+		Class c3=Class.forName("Person2");//开发中使用
+		/*System.out.println(c==c2);
+		System.out.println(c2==c3);*/
+		//获取构造方法
+		//public Constructor[] getConstructors():所有 公共的构造方法
+		//public Constructor[] getDeclaredConstructors():所有构造方法
+		//Constructor[] cons=c3.getConstructors();
+		/*Constructor[] cons=c3.getDeclaredConstructors();
+		for(Constructor con:cons)
+		{
+			System.out.println(con);
+		}*/
+		//获取单个构造方法(公共的)
+		//public Constructor getConstructor(Class ..参数)
+		Constructor con=c3.getDeclaredConstructor(int.class,String.class);//返回构造方法对象
+		System.out.println(con);
+		//使用Constructor对象创建类的新实例
+		//Class abtainFS can not access a member of class Person2 with modifiers "private"
+		//私有构造方法不能直接赋值
+		con.setAccessible(true);//为true表示取消限制
+		Object obj=con.newInstance(10,"nihao");
+		System.out.println(obj);
+		Person2 p=(Person2)obj;
+		p.show();
+	}
+}
+
