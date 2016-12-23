@@ -1,0 +1,19 @@
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+
+public class OverFXByReflect {
+	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		//创建集合对象
+		ArrayList<Integer> array=new ArrayList<Integer>();
+		//array.add("hello");泛型为整形，不能输入字符串
+		//泛型实际上是写给编译器看的，内部的class文件并没有声明必须为何种类型
+		Class c=array.getClass();//集合ArrayList的class对象
+		Method m=c.getMethod("add",Object.class);//集合添加的是Object对象
+		m.invoke(array,"hello");//调用add方法，传入Hello
+		m.invoke(array,"world");
+		m.invoke(array,"java");
+		System.out.println(array);
+	}
+}
