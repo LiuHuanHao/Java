@@ -1,0 +1,69 @@
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+
+public class proxy {
+	
+	public static void main(String[] args) {
+		StudentDo sd=new StudentDoImpl();
+		//做一个代理对象
+		MyInvocationHandler handler=new MyInvocationHandler(sd);
+		StudentDo proxy=(StudentDo) Proxy.newProxyInstance(sd.getClass().getClassLoader(),
+		sd.getClass().getInterfaces(),handler);
+		proxy.add();
+		proxy.delete();
+		proxy.update();
+	}
+	
+}
+
+class MyInvocationHandler implements InvocationHandler
+{
+	private Object target;//目标对象
+	public MyInvocationHandler(Object target) {//通过带参构造函数赋值
+		this.target=target;
+	}
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args)
+			throws Throwable {
+		System.out.println("权限校验");
+		Object result=method.invoke(target,args);
+		System.out.println("日志记录");
+		return result;
+	}
+	
+}
+
+interface StudentDo
+{
+	public  abstract void add();
+	
+	public abstract void delete();
+	
+	public abstract void update();
+	
+}
+
+class StudentDoImpl implements StudentDo
+{
+
+	@Override
+	public void add() {
+		// TODO Auto-generated method stub
+		System.out.println("添加功能");
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		System.out.println("删除功能");
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		System.out.println("更新功能");
+	}
+	
+}
