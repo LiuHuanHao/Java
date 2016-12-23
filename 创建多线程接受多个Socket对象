@@ -1,0 +1,61 @@
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+
+	public class ThreadServer {
+		
+		public static void main(String[] args) throws IOException {
+			//创建服务器对象
+			ServerSocket ss=new ServerSocket(11111);
+			while(true)
+			{
+				Socket s=ss.accept();
+				new Thread(new UserThread(s)).start();
+			}
+		}
+		
+		
+	}
+
+	class UserThread implements Runnable  //实现runnable接口
+	{
+		private Socket s;
+		public UserThread(Socket s)
+		{
+			this.s=s;
+		}
+		@Override
+		public void run()
+		{
+			try{
+			BufferedInputStream bis=new BufferedInputStream(s.getInputStream());
+			//封装图片文件
+			BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream
+					("copy.jpg"));  //每次都写在同一个文件中，有bug
+			byte[] bys=new byte[1024];
+			int len=0;
+			while((len=bis.read(bys))!=-1)
+			{
+				bos.write(bys,0,len);
+				bos.flush();
+			}
+			
+			//给一个反馈
+			OutputStream os=s.getOutputStream();
+			os.write("图片上传成功".getBytes());
+			bos.close();
+			s.close();
+			}catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+		
+	
+	
