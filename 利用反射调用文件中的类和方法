@@ -1,0 +1,32 @@
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Properties;
+
+
+public class getMethodByFile {
+	public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		//加载键值对数据
+		Properties prop=new Properties();
+		FileReader fr=new FileReader("a.txt");
+		prop.load(fr);
+		fr.close();
+		//获取数据
+		String className=prop.getProperty("className");//由键取值 
+    String methodName=prop.getProperty("methodName");
+		//反射
+		Class c=Class.forName(className);
+		Constructor con=c.getConstructor();
+		Object obj=con.newInstance();//通过反射构造新对象
+		//调用方法
+		Method m=c.getMethod(methodName); //这里假设方法都是不带参的
+		m.invoke(obj);
+	}
+}
+
+/*
+	className=Person2
+	methodName=love
+*/
