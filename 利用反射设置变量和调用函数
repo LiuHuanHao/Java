@@ -1,0 +1,53 @@
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+
+public class setField {
+		public static void main(String[] args) throws ClassNotFoundException, NoSuchFieldException, SecurityException, NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+			//获取字节码文件
+			Class c=Class.forName("Person2");
+			//获取所有的成员变量
+			//Field[] fields=c.getFields();
+			/*Field[] fields=c.getDeclaredFields();//:包括私有的
+			for(Field field:fields)
+			{
+				System.out.println(field);
+			}*/
+			//获取单个成员变量
+			/*Field addressField=c.getField("address");
+			//通过无参构造方法创建对象
+			Constructor con=c.getConstructor();
+			Object obj=con.newInstance();//创建新对象
+			//public void set(Object obj,Object value)
+			//将变量设置为新值
+			addressField.set(obj, "6666");
+			System.out.println(obj);
+			//获取非公共的变量
+			Field nameField=c.getDeclaredField("name");
+			//设为可获取时才能赋值
+			nameField.setAccessible(true);
+			nameField.set(obj,"fuck");//当变量为私有时无法直接赋值
+			System.out.println(obj);*/
+			//****************************
+			//获取所有的方法
+			//Method[] methods=c.getMethods();//包括父亲的公共方法
+			/*Method[] methods=c.getDeclaredMethods();//自己所有的方法
+			for(Method method:methods)
+			{
+				System.out.println(method);
+			}*/
+			Constructor con=c.getConstructor();
+			Object obj=con.newInstance();
+			//获取单个方法
+			//public Method getMethod(String name,Class..参数)
+			/*Method m1=c.getDeclaredMethod("showMe",String.class,String.class,int.class);
+			//public Object invock(Object obj,Object..args)
+			m1.setAccessible(true);//私有必须设置access
+			m1.invoke(obj,"GDOU","LHH",24);//调用函数*/
+			Method m1=c.getMethod("toString"); 
+			Object obj1=m1.invoke(obj);//invoke返回的是Object类型
+			System.out.println(obj1);
+	 }
+}
+
