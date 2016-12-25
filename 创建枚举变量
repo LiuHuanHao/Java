@@ -1,0 +1,113 @@
+
+public class buildEnum {
+	
+	public static void main(String[] args) {
+		//枚举的变量是固定的，不能被人创建或修改
+		Direction d=Direction.BEHIND;//调用静态变量
+		//System.out.println(d+":"+d.getName());
+		Direction2 d2=Direction2.LEFT;
+		System.out.println("----------------");
+		System.out.println(d2);
+		d2.show();
+		Direction3 d3=Direction3.RIGHT; //枚举提供了tostring方法 
+	//	System.out.println(d3.getName());
+		switch(d3) //枚举的switch
+		{
+		case FRONT:
+			System.out.println("你选择了前");
+			break;
+		case BEHIND:
+			System.out.println("你选择了后");
+			break;
+		case LEFT:
+			System.out.println("你选择了左");
+			break;
+		case RIGHT:
+			System.out.println("你选择了右");
+		}
+		
+	}
+
+}
+
+abstract class Direction2
+{
+	//匿名内部类创建对象
+	public static final Direction2 FRONT=new Direction2("前") //构造参数赋值给name
+	{
+		//实现抽象方法
+		@Override
+		public void show()
+		{
+			System.out.println("haha");//抽象类成员变量必须为final
+		}
+	};
+	public static final Direction2 BEHIND=new Direction2("后")
+	{
+		@Override
+		public void show()
+		{
+			System.out.println("me");
+		}
+	};
+	public static final Direction2 LEFT=new Direction2("左")
+	{
+		@Override
+		public void show()
+		{
+			System.out.println("fuck you");
+		}
+	};
+	public static final Direction2 RIGHT=new Direction2("右")
+	{
+		@Override
+		public void show()
+		{
+			System.out.println("鸡巴");
+		}
+	};
+	private String name;
+	private Direction2(String name)
+	{
+		this.name=name; 
+	}
+	//加入抽象方法
+	public abstract void show();
+	@Override
+	public String toString() {
+		return this.name;
+	}
+	
+}
+enum Direction3
+{
+	FRONT("前"),BEHIND("后"),LEFT("左"),RIGHT("右");
+	private String name;
+	private Direction3(String name)
+	{
+		this.name=name;
+	}
+	public String getName()
+	{
+		return name;
+	}
+}
+class Direction 
+{
+	//创建几个静态实例
+	public static final Direction FRONT=new Direction("前");
+	public static final Direction BEHIND=new Direction("后");
+	public static final Direction LEFT=new Direction("左");
+	public static final Direction RIGHT=new Direction("右");
+	//加入成员变量
+	private String name;
+	//构造私有，别人不能创建
+	private Direction(String name)
+	{
+		this.name=name;
+	}
+	public String getName()
+	{
+		return name;
+	}
+}
