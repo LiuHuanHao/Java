@@ -1,0 +1,67 @@
+
+public class DecorateDesign {
+	public static void main(String[] args) {
+		phone ip=new Iphone();
+		//ip.call();
+		phone leTv=new leTv();
+		//leTv.call();
+		MusicPhoneDecorate mpd=new MusicPhoneDecorate(leTv);
+		mpd.call();
+		System.out.println("-------------");
+		RingPhoneDecorate rpd=new RingPhoneDecorate(mpd);
+		rpd.call();
+		RingPhoneDecorate rpd2=new RingPhoneDecorate(new MusicPhoneDecorate(ip));//叠加装饰
+		rpd2.call();
+	}
+
+}
+//装饰模式
+interface phone
+{
+	public abstract void call();
+}
+
+class Iphone implements phone
+{
+	public void call()
+	{
+		System.out.println("Iphone手机打电话");
+	}
+}
+class leTv implements phone
+{
+	public void call()
+	{
+		System.out.println("乐视手机打电话");
+	}
+}
+
+ class RingPhoneDecorate implements phone
+{
+	private phone p;
+	//构造方法传入phone
+	public RingPhoneDecorate(phone p)
+	{
+		this.p=p;
+	}
+	@Override
+	public void call() {
+		System.out.println("手机彩铃");
+		this.p.call();
+	}
+}
+ class MusicPhoneDecorate implements phone
+ {
+	 private phone p;
+	 public MusicPhoneDecorate(phone p)
+	 {
+		 this.p=p;
+	 }
+	@Override
+	public void call() {
+		this.p.call();
+		System.out.println("手机音乐");
+	}
+	 
+ }
+
