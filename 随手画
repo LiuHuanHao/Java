@@ -1,0 +1,82 @@
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.Vector;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class J_Draw extends JFrame{
+		public J_Draw()
+		{
+			super("随手画历程");
+			System.out.println("sxoishxh");
+			Container c=getContentPane();
+			c.add(new J_Panel(),BorderLayout.CENTER);
+		}
+		public static void main(String[] args) {
+			J_Draw app=new J_Draw();
+			app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			app.setSize(270,150);
+			app.setVisible(true);
+		}
+}
+
+
+class J_Panel extends JPanel
+{
+	private Vector<Vector<Point>> m_vectorSet
+	=new Vector<Vector<Point>>();
+	
+	public J_Panel()
+	{
+		addMouseListener(new MouseAdapter()
+		{
+			public void mousePressed(MouseEvent e)
+			{
+				Point p=new Point(e.getX(),e.getY());
+				Vector<Point> v=new Vector<Point>();
+				v.add(p);
+				m_vectorSet.add(v);
+			}
+		});
+		addMouseMotionListener(new MouseMotionAdapter()
+		{
+			public void mouseDragged(MouseEvent e)
+			{
+				Point p=new Point(e.getX(),e.getY());
+				int n=m_vectorSet.size()-1;
+				Vector<Point> v=m_vectorSet.get(n); 
+				v.add(p);
+				repaint();
+			}
+		});
+	}
+	protected void paintComponent(Graphics g)
+	{
+		g.clearRect(0, 0, getWidth(), getHeight());
+		Vector<Point> v;
+		Point s,t;
+		int i,j,m;
+		int n=m_vectorSet.size();
+		for(i=0;i<n;i++)
+		{
+			v=m_vectorSet.get(i);
+			m=v.size()-1;	
+			for(j=0;j<m;j++)
+			{
+				s=(Point)v.get(j);
+				t=(Point)v.get(j+1);
+				g.drawLine(s.x,s.y,t.x,t.y);
+				
+			}
+		}
+	}
+}
+
