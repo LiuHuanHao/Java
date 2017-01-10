@@ -1,0 +1,101 @@
+
+
+public class J_MDI extends JFrame {
+	
+		private JDesktopPane m_desktop=new JDesktopPane();
+		private int m_count=0;
+		public J_MDI()
+		{
+			super("MDI example");
+			JMenuBar theMenuBar=new JMenuBar();
+			JMenu theMenuFile=new JMenu("File");
+			JMenuItem theMenuItem=new JMenuItem("New");
+			setJMenuBar(theMenuBar);
+			theMenuBar.add(theMenuFile);
+			theMenuFile.add(theMenuItem);
+			theMenuFile.setMnemonic('F');
+			theMenuItem.setMnemonic('N');
+			Container theContainer=getContentPane();
+			theContainer.add(m_desktop);
+			theMenuItem.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					String s="Document "+m_count;
+					m_count++;
+					JInternalFrame theInternalFrame
+					=new JInternalFrame(s,true,true,true,true);
+					J_Panel thePanel=new J_Panel();
+					Container c=theInternalFrame.getContentPane();
+					c.setLayout(new BorderLayout());
+					c.add(thePanel,BorderLayout.CENTER);
+					theInternalFrame.pack();
+					m_desktop.add(theInternalFrame);
+					theInternalFrame.setVisible(true);
+				}
+			});
+		}
+		public static void main(String[] args) {
+			JFrame app=new J_MDI();
+			app.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			app.setSize(400, 250);
+			app.setVisible(true);
+		}
+}
+
+
+class J_Panel extends JPanel
+{
+	private Vector<Vector<Point>> m_vectorSet
+	=new Vector<Vector<Point>>();
+	
+	public J_Panel()
+	{
+		add(new Button("你好"));
+		addMouseListener(new MouseAdapter()
+		{
+			public void mousePressed(MouseEvent e)
+			{
+				Point p=new Point(e.getX(),e.getY());
+				Vector<Point> v=new Vector<Point>();
+				v.add(p);
+				m_vectorSet.add(v);
+			}
+		});
+		addMouseMotionListener(new MouseMotionAdapter()
+		{
+			public void mouseDragged(MouseEvent e)
+			{
+				Point p=new Point(e.getX(),e.getY());
+				int n=m_vectorSet.size()-1;
+				Vector<Point> v=m_vectorSet.get(n); 
+				v.add(p);
+				repaint();
+			}
+		});
+	}
+	protected void paintComponent(Graphics g)
+	{
+		g.clearRect(0, 0, getWidth(), getHeight());
+		Vector<Point> v;
+		Point s,t;
+		int i,j,m;
+		int n=m_vectorSet.size();
+		for(i=0;i<n;i++) 
+		{
+			v=m_vectorSet.get(i);
+			m=v.size()-1;
+			System.out.println(m);
+			for(j=0;j<m;j++)
+			{
+				s=(Point)v.get(j);
+				t=(Point)v.get(j+1);
+				g.drawLine(s.x,s.y,t.x,t.y);
+			}
+		}
+	}
+}
+
+
+
+
